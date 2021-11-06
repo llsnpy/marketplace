@@ -1,0 +1,2 @@
+1. Correct auto id in code
+2. Password coding
