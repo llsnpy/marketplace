@@ -23,17 +23,17 @@ public class GameDaoImpl implements GameDao {
     private static final String SQL_CREATE_GAME =
             "INSERT INTO game(name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?);";
 
-    private static final String SQL_UPDATE =
-            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ?;";
+    private static final String SQL_UPDATE_GAME =
+            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ? ;";
 
-    private static final String SQL_DELETE =
+    private static final String SQL_DELETE_GAME =
             "DELETE FROM game WHERE id = ?;";
 
     private static final String SQL_FIND_BY_NAME =
             "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE name = ?;";
 
     private static final String SQL_FIND_BY_DEVELOPER =
-            "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game RIGHT JOIN developer ON game.developer_id = developer.id = developer_id WHERE developer.name = ?";
+            "SELECT game.id, game.name, genre, date, price, pre_sale, sale_price, developer.name FROM game RIGHT JOIN developer ON game.developer_id = developer.id = developer_id WHERE developer.name = ?";
 
     private static final String SQL_FIND_BY_PRE_SALE_STATUS =
             "SELECT id, name, genre, date, pre_sale FROM game WHERE pre_sale = ?;";
@@ -51,6 +51,7 @@ public class GameDaoImpl implements GameDao {
     public Game findByName(final String name) throws DaoException {
         Game game = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
+            preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 game = this.mapToGame(resultSet);
@@ -66,6 +67,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByDeveloper(final String developerName) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER)) {
+            preparedStatement.setString(7, developerName);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
@@ -82,6 +84,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRE_SALE_STATUS)) {
+            preparedStatement.setBoolean(4, preSaleStatus);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
@@ -98,6 +101,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByPrice(final double price) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
+            preparedStatement.setDouble(4, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
@@ -130,6 +134,7 @@ public class GameDaoImpl implements GameDao {
     public Game findById(final Long id) throws DaoException {
         Game game = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 game = this.mapToGame(resultSet);
@@ -143,7 +148,7 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_GAME)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -165,7 +170,7 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public void update(final Game game) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
             this.mapFromGame(preparedStatement, game);
             preparedStatement.setLong(1, game.getId());
             preparedStatement.executeUpdate();

@@ -25,11 +25,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
     private static final String SQL_CREATE_DEVELOPER =
             "INSERT INTO developer(name, money, rating) VALUES(?, ?, ?);";
 
-    //todo where id = ? ???
-    private static final String SQL_UPDATE =
-            "UPDATE developer SET name = ?, money = ?, rating = ?;";
+    private static final String SQL_UPDATE_DEVELOPER =
+            "UPDATE developer SET name = ?, money = ?, rating = ? WHERE id = ?;";
 
-    private static final String SQL_DELETE =
+    private static final String SQL_DELETE_DEVELOPER =
             "DELETE FROM developer WHERE id = ?;";
 
     private static final String SQL_FIND_BY_NAME =
@@ -45,6 +44,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public Developer findByName(final String name) throws DaoException {
         Developer developer = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
+            preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 developer = this.mapToDeveloper(resultSet);
@@ -90,7 +90,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DEVELOPER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -112,7 +112,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     @Override
     public void update(final Developer developer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
             preparedStatement.setLong(1, developer.getId());
             preparedStatement.executeUpdate();

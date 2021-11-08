@@ -1,5 +1,6 @@
 package by.mironenko.marketplace.exceptions;
 
+@SuppressWarnings("serial")
 public class DaoException extends Exception {
 
     public DaoException() {

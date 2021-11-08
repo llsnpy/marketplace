@@ -5,6 +5,7 @@ import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.entity.Buyer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.dc.pr.PRError;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,10 +30,10 @@ public class BuyerDaoImpl implements BuyerDao {
     private static final String SQL_CREATE_BUYER =
             "INSERT INTO buyer(name, surname, money, age) VALUES(?, ?, ?, ?);";
 
-    private static final String SQL_UPDATE =
+    private static final String SQL_UPDATE_BUYER =
             "UPDATE buyer SET name = ?, surname = ?, money = ?, age = ?;";
 
-    private static final String SQL_DELETE =
+    private static final String SQL_DELETE_BUYER =
             "DELETE FROM buyer WHERE id = ?;";
 
     private static final String SQL_FIND_BY_SURNAME =
@@ -54,6 +55,7 @@ public class BuyerDaoImpl implements BuyerDao {
     public Buyer findBySurname(final String surname) throws DaoException {
         Buyer buyer = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
+            preparedStatement.setString(2, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 buyer = this.mapToBuyer(resultSet);
@@ -110,7 +112,7 @@ public class BuyerDaoImpl implements BuyerDao {
 
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -132,7 +134,7 @@ public class BuyerDaoImpl implements BuyerDao {
 
     @Override
     public void update(final Buyer buyer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
             this.mapFromBuyer(preparedStatement, buyer);
             preparedStatement.setLong(1, buyer.getId());
             preparedStatement.executeUpdate();
