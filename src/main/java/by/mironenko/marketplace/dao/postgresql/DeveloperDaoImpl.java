@@ -23,7 +23,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
             "SELECT id, name, money, rating FROM developer WHERE id = ?;";
 
     private static final String SQL_CREATE_DEVELOPER =
-            "INSERT INTO developer(name, money, rating) VALUES(?, ?, ?);";
+            "INSERT INTO developer(id, name, money, rating) VALUES(?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_DEVELOPER =
             "UPDATE developer SET name = ?, money = ?, rating = ? WHERE id = ?;";
@@ -114,7 +114,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public void update(final Developer developer) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
-            preparedStatement.setLong(1, developer.getId());
+            preparedStatement.setLong(4, developer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("Exception during updating developer");

@@ -43,7 +43,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public List<ShopList> findByDate(final Date date) throws DaoException {
         List<ShopList> bills = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DATE)) {
-            preparedStatement.setDate(4, (java.sql.Date) date);
+            preparedStatement.setDate(1, (java.sql.Date) date);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ShopList shopList = this.mapToShopList(resultSet);
@@ -60,7 +60,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public List<ShopList> findByPrice(final Double price) throws DaoException {
         List<ShopList> bills = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
-            preparedStatement.setDouble(5, price);
+            preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ShopList shopList = this.mapToShopList(resultSet);
@@ -138,7 +138,6 @@ public class ShopListDaoImpl implements ShopListDao {
                 .build();
     }
 
-    //todo nujno li zdes' vkluchat' ID????? + date sql or util???
     private void mapFromShopList(final PreparedStatement preparedStatement, final ShopList shopList) throws SQLException {
         preparedStatement.setLong(1, shopList.getId());
         preparedStatement.setLong(2, shopList.getBuyerId());

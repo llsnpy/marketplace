@@ -1,2 +1,4 @@
 1. Correct auto id in code
-2. Password coding
+2. Password coding /todo
+3. Transaction factory /todo
+4. Dao factory /todo

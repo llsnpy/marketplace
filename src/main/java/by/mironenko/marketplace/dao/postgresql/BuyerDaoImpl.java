@@ -55,7 +55,7 @@ public class BuyerDaoImpl implements BuyerDao {
     public Buyer findBySurname(final String surname) throws DaoException {
         Buyer buyer = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
-            preparedStatement.setString(2, surname);
+            preparedStatement.setString(1, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 buyer = this.mapToBuyer(resultSet);

@@ -24,7 +24,7 @@ public class GameDaoImpl implements GameDao {
             "INSERT INTO game(name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_GAME =
-            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ? ;";
+            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ?;";
 
     private static final String SQL_DELETE_GAME =
             "DELETE FROM game WHERE id = ?;";
@@ -67,7 +67,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByDeveloper(final String developerName) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER)) {
-            preparedStatement.setString(7, developerName);
+            preparedStatement.setString(1, developerName);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
@@ -84,7 +84,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRE_SALE_STATUS)) {
-            preparedStatement.setBoolean(4, preSaleStatus);
+            preparedStatement.setBoolean(1, preSaleStatus);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
@@ -101,7 +101,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByPrice(final double price) throws DaoException {
         List<Game> games = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
-            preparedStatement.setDouble(4, price);
+            preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
