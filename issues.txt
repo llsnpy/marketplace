@@ -2,3 +2,5 @@
 2. Password coding /todo
 3. Transaction factory /todo
 4. Dao factory /todo
+5. Actions /todo
+6. Fabrics /todo

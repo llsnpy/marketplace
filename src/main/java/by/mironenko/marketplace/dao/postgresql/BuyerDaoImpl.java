@@ -1,11 +1,10 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerDao;
-import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.entity.Buyer;
+import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.dc.pr.PRError;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +38,7 @@ public class BuyerDaoImpl implements BuyerDao {
     private static final String SQL_FIND_BY_SURNAME =
             "SELECT id, name, surname, money, age FROM buyer WHERE surname = ?;";
 
-    private final Connection connection;
+    private final Connection connection; //connectionPool
 
     public BuyerDaoImpl(Connection connection) {
         this.connection = connection;
@@ -58,10 +57,9 @@ public class BuyerDaoImpl implements BuyerDao {
             preparedStatement.setString(1, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                buyer = this.mapToBuyer(resultSet);
+                buyer = this.convertToBuyer(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding buyer by surname");
             throw new DaoException("Exception during finding buyer by surname: ", e);
         }
         return buyer;
@@ -78,11 +76,10 @@ public class BuyerDaoImpl implements BuyerDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Buyer buyer = this.mapToBuyer(resultSet);
+                Buyer buyer = this.convertToBuyer(resultSet);
                 buyers.add(buyer);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding buyers");
             throw new DaoException("Exception during finding buyers: ", e);
         }
         return buyers;
@@ -101,10 +98,9 @@ public class BuyerDaoImpl implements BuyerDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                buyer = this.mapToBuyer(resultSet);
+                buyer = this.convertToBuyer(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding buyer by id");
             throw new DaoException("Exception during finding buyer by id: ", e);
         }
         return buyer;
@@ -116,7 +112,6 @@ public class BuyerDaoImpl implements BuyerDao {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during deleting buyer");
             throw new DaoException("Exception during deleting buyer: ", e);
         }
     }
@@ -124,10 +119,9 @@ public class BuyerDaoImpl implements BuyerDao {
     @Override
     public void create(final Buyer buyer) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
-            this.mapFromBuyer(preparedStatement, buyer);
+            convertFromBuyer(preparedStatement, buyer);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during creating buyer");
             throw new DaoException("Exception during creating buyer: ", e);
         }
     }
@@ -135,16 +129,15 @@ public class BuyerDaoImpl implements BuyerDao {
     @Override
     public void update(final Buyer buyer) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
-            this.mapFromBuyer(preparedStatement, buyer);
+            this.convertFromBuyer(preparedStatement, buyer);
             preparedStatement.setLong(1, buyer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during updating buyer");
             throw new DaoException("Exception during updating buyer: ", e);
         }
     }
 
-    private Buyer mapToBuyer(final ResultSet resultSet) throws SQLException {
+    private Buyer convertToBuyer(final ResultSet resultSet) throws SQLException {
         return Buyer.builder()
                 .id(resultSet.getLong("buyer.id"))
                 .name(resultSet.getString("buyer.name"))
@@ -154,7 +147,7 @@ public class BuyerDaoImpl implements BuyerDao {
                 .build();
     }
 
-    private void mapFromBuyer(final PreparedStatement preparedStatement, final Buyer buyer) throws SQLException {
+    private void convertFromBuyer(final PreparedStatement preparedStatement, final Buyer buyer) throws SQLException {
         preparedStatement.setString(1, buyer.getName());
         preparedStatement.setString(2, buyer.getSurname());
         preparedStatement.setDouble(3, buyer.getMoney());
