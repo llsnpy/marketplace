@@ -4,6 +4,7 @@ import by.mironenko.marketplace.dao.BaseDao;
 import by.mironenko.marketplace.dao.KeysForDao;
 import by.mironenko.marketplace.dao.Transaction;
 import by.mironenko.marketplace.dao.postgresql.*;
+import by.mironenko.marketplace.exceptions.TransactionException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

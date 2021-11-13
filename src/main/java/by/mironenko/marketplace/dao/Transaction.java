@@ -1,6 +1,6 @@
 package by.mironenko.marketplace.dao;
 
-import by.mironenko.marketplace.dao.transaction.TransactionException;
+import by.mironenko.marketplace.exceptions.TransactionException;
 
 public interface Transaction {
 
