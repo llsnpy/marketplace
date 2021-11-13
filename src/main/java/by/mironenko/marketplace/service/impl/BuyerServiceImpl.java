@@ -4,7 +4,6 @@ import by.mironenko.marketplace.dao.BuyerDao;
 import by.mironenko.marketplace.dao.KeysForDao;
 import by.mironenko.marketplace.dao.Transaction;
 import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.exceptions.TransactionException;
@@ -84,18 +83,5 @@ public class BuyerServiceImpl implements BuyerService {
         } catch (TransactionException | DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-    }
-
-    //todo несколько дао в покупке и пресэйле
-    @Override
-    public boolean buyGame(final Game game) throws ServiceException {
-        log.info("<-SERVICE-> Buyer buys the game...");
-        return false;
-    }
-
-    @Override
-    public boolean givePreSale(final boolean preSale) throws ServiceException {
-        log.info("<-SERVICE-> Buyer makes a pre order...");
-        return false;
     }
 }
