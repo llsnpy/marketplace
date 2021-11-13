@@ -5,7 +5,7 @@ import by.mironenko.marketplace.exceptions.DaoException;
 
 import java.util.List;
 
-public interface GameDao extends BaseDao<Game, Long> {
+public interface GameDao extends BaseDao<Game> {
 
     Game findByName(String name) throws DaoException;
     List<Game> findByDeveloper(String developerName) throws DaoException;

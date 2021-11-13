@@ -5,7 +5,7 @@ import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 
-public interface BuyerService extends Service {
+public interface BuyerService extends Service<Buyer> {
 
     Buyer findBySurname(String surname) throws ServiceException, DaoException;
     boolean buyGame(Game game) throws ServiceException;

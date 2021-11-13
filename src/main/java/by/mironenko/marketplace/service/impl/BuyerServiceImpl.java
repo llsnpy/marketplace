@@ -4,7 +4,6 @@ import by.mironenko.marketplace.dao.BuyerDao;
 import by.mironenko.marketplace.dao.KeysForDao;
 import by.mironenko.marketplace.dao.Transaction;
 import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.entity.Entity;
 import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
@@ -22,11 +21,11 @@ public class BuyerServiceImpl implements BuyerService {
     private final Transaction transaction;
 
     @Override
-    public void create(Entity entity) throws ServiceException {
+    public void create(final Buyer buyer) throws ServiceException {
         log.info("<-SERVICE-> Creating new buyer...");
         try {
             final BuyerDao buyerDao = transaction.createDao(KeysForDao.BUYER_DAO);
-            buyerDao.create((Buyer) entity);
+            buyerDao.create(buyer);
         } catch (TransactionException | DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -55,11 +54,11 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public void update(final Entity entity) throws ServiceException {
+    public void update(final Buyer buyer) throws ServiceException {
         log.info("<-SERVICE-> Updating buyer...");
         try {
             final BuyerDao buyerDao = transaction.createDao(KeysForDao.BUYER_DAO);
-            buyerDao.update((Buyer) entity);
+            buyerDao.update(buyer);
         } catch (TransactionException | DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
