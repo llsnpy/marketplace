@@ -1,7 +1,7 @@
 package by.mironenko.marketplace.dao.transaction;
 
 import by.mironenko.marketplace.dao.Transaction;
-import by.mironenko.marketplace.dao.pool.ConnectionPool;
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.exceptions.TransactionException;
 import org.apache.log4j.Logger;
 

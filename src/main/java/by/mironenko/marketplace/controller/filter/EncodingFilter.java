@@ -25,8 +25,6 @@ public class EncodingFilter implements Filter {
         httpResponse.setDateHeader("Expires", 0);
 
         filterChain.doFilter(request, response);
-
-        //something else
     }
 
     @Override

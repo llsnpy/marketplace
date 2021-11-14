@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_4_0.xsd"
+         version="3.0">
+
+    <display-name>Marketplace</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customtags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>by.mironenko.marketplace.controller.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>by.mironenko.marketplace.controller.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>  <!--продумать паттерн чтобы не зациклиться-->
+    </filter-mapping>
+
+  <!--  <filter>
+        <filter-name>ActionFromUriFilter</filter-name>
+        <filter-class>by.mironenko.marketplace.controller.filter.ActionFromUriFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ActionFromUriFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern> &lt;!&ndash;*.html&ndash;&gt;
+    </filter-mapping>-->
+
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.mironenko.marketplace.controller.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+
+</web-app>

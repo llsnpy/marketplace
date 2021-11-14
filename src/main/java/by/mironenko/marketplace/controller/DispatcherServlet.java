@@ -2,7 +2,7 @@ package by.mironenko.marketplace.controller;
 
 import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.controller.command.Invoker;
-import by.mironenko.marketplace.dao.pool.ConnectionPool;
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import org.apache.log4j.*;
 
 import javax.servlet.ServletException;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*@WebServlet("/")*/
 public class DispatcherServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(DispatcherServlet.class);
 
@@ -20,11 +21,15 @@ public class DispatcherServlet extends HttpServlet {
 
     public static final String DB_DRIVER_CLASS = "org.postgresql.Driver";
     public static final String DB_URL = "jdbc:postgresql://localhost:5432/marketplace";
-    public static final String DB_USER = "marketHolder";
+    public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "LlsnpyMiro123";
     public static final int DB_POOL_START_SIZE = 10;
     public static final int DB_POOL_MAX_SIZE = 100;
     public static final int DB_POOL_CHECK_CONNECTION_TIMEOUT = 0;
+
+    public DispatcherServlet() {
+        super();
+    }
 
     public void init() {
         try {
@@ -47,14 +52,14 @@ public class DispatcherServlet extends HttpServlet {
         result.getCookies().forEach(response::addCookie);
         switch (result.getType()) {
             case FORWARD:
-                request.getRequestDispatcher(result.getPath()).forward(request, response);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
             case REDIRECT:
                 response.sendRedirect(result.getPath());
                 break;
             default:
                 log.error("Cant find invoker type");
-                request.getRequestDispatcher("errorpage").forward(request, response);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

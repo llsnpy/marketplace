@@ -1,5 +1,9 @@
 package by.mironenko.marketplace.controller.filter;
 
+import by.mironenko.marketplace.controller.command.Command;
+import by.mironenko.marketplace.controller.command.impl.common.LanguagesCommandImpl;
+import by.mironenko.marketplace.entity.Buyer;
+import by.mironenko.marketplace.entity.User;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -20,33 +24,29 @@ public class SecurityFilter implements Filter {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            Action action = (Action) httpRequest.getAttribute("action");
-            //todo че за ролес? че за гет ролес
-            Set<Role> allowRoles = action.getAllowRoles();
+            Command command = (Command) httpRequest.getAttribute("command");
             String userName = "unauthorized user";
             HttpSession session = httpRequest.getSession(false);
-            //todo тут какой-то замес с пользователями, с ним нужно разобраться
             User user = null;
             if (session != null) {
                 user = (User) session.getAttribute("authorizedUser");
-                action.setAuthorizedUser(user);
                 String errorMessage = (String) session.getAttribute("SecurityFilterMessage");
                 if (errorMessage != null) {
                     httpRequest.setAttribute("message", errorMessage);
                     session.removeAttribute("SecurityFilterMessage");
                 }
             }
-            boolean canExecute = allowRoles == null;
+            boolean canExecute = false;
             if (user != null) {
                 userName = "\"" + user.getLogin() + "\" user";
-                canExecute = canExecute || allowRoles.contains(user.getRole);
+                canExecute = true;
             }
             if (canExecute) {
                 filterChain.doFilter(request, response);
             } else {
                 log.info("Trying of %s access to forbidden resource \"%s\"");
-                if (session != null && action.getClass() != MainAction.class) {
-                    session.setAttribute("SecurityFilterMessage", "Access is denied"); //todo make internalization
+                if (session != null && command.getClass() != LanguagesCommandImpl.class) {
+                    session.setAttribute("SecurityFilterMessage", "Access is denied");
                 }
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html");
             }

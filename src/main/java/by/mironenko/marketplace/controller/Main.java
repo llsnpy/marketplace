@@ -16,14 +16,14 @@ public class Main {
     private static final Reader reader = new Reader();
 
     public static void main(String[] args) throws SQLException {
-        /*Connection connection = DriverManager.getConnection(
+    /*    Connection connection = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/postgres", "postgres", "LlsnpyMiro123");
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(
                 "SELECT id, login, password FROM users");
-        System.out.println(resultSet.toString());*/
+        System.out.println(resultSet.toString());
 
-        /*while (true) {*/
+        while (true) {
             MessageManager language;
             printer.print(MessageManager.DEFAULT.getString(Constants.CHOOSE_LANG));
             String answer = reader.scanString();
@@ -51,22 +51,7 @@ public class Main {
             properties.put("useLegacyDatetimeCode", "false");
             properties.put("serverTimezone", "UNC");
             properties.put("serverSslCert", "classpath:server.crt");
-            try (Connection connection = DriverManager.getConnection(url, properties);
-                 Statement statement = connection.createStatement()) {
-                String sql = "SELECT name, money, age FROM buyer";
-                ResultSet resultSet = statement.executeQuery(sql);
-                List<Buyer> buyers = new ArrayList<>();
-                while (resultSet.next()) {
-                    String name = resultSet.getString(1);
-                    String surmane = resultSet.getString(2);
-                    double money = resultSet.getDouble(3);
-                    int age = resultSet.getInt(4);
-                    buyers.add(new Buyer(name, surmane, money, age));
-                }
-                System.out.println(buyers);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        /*}*/
+
+        }*/
     }
 }
