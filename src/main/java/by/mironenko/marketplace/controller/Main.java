@@ -1,20 +1,8 @@
 package by.mironenko.marketplace.controller;
 
-import by.mironenko.marketplace.constants.Constants;
-import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.view.MessageManager;
-import by.mironenko.marketplace.view.Printer;
-import by.mironenko.marketplace.view.Reader;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 public class Main {
-    private static final Printer printer = new Printer();
-    private static final Reader reader = new Reader();
-
     public static void main(String[] args) throws SQLException {
     /*    Connection connection = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/postgres", "postgres", "LlsnpyMiro123");

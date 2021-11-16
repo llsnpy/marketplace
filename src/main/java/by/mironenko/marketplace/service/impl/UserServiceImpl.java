@@ -1,5 +1,6 @@
 package by.mironenko.marketplace.service.impl;
 
+import by.mironenko.marketplace.dao.DaoFactory;
 import by.mironenko.marketplace.dao.KeysForDao;
 import by.mironenko.marketplace.dao.Transaction;
 import by.mironenko.marketplace.dao.UserDao;
@@ -17,15 +18,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger log = Logger.getLogger(UserServiceImpl.class);
 
-    private final Transaction transaction;
+    private final DaoFactory factory = DaoFactory.getInstance();
 
     @Override
     public void create(final User user) throws ServiceException {
         log.info("<-SERVICE-> Creating new user...");
         try {
-            final UserDao userDao = transaction.createDao(KeysForDao.USER_DAO);
+            final UserDao userDao = factory.getUserDao();
             userDao.create(user);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -34,9 +35,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() throws ServiceException {
         log.info("<-SERVICE-> Finding all users...");
         try {
-            final UserDao userDao = transaction.createDao(KeysForDao.USER_DAO);
+            final UserDao userDao = factory.getUserDao();
             return userDao.findAll();
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -45,9 +46,9 @@ public class UserServiceImpl implements UserService {
     public User findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding user by ID...");
         try {
-            final UserDao userDao = transaction.createDao(KeysForDao.USER_DAO);
+            final UserDao userDao = factory.getUserDao();
             return userDao.findById(id);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -56,9 +57,9 @@ public class UserServiceImpl implements UserService {
     public void update(final User user) throws ServiceException {
        log.info("<-SERVICE-> Updating the user...");
        try {
-           final UserDao userDao = transaction.createDao(KeysForDao.USER_DAO);
+           final UserDao userDao = factory.getUserDao();
            userDao.update(user);
-       } catch (TransactionException | DaoException e) {
+       } catch (DaoException e) {
            throw new ServiceException(e.getMessage(), e);
        }
     }
@@ -67,9 +68,9 @@ public class UserServiceImpl implements UserService {
     public void delete(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Deleting the user...");
         try {
-            final UserDao userDao = transaction.createDao(KeysForDao.USER_DAO);
+            final UserDao userDao = factory.getUserDao();
             userDao.delete(id);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }

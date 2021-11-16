@@ -6,7 +6,6 @@ import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.entity.ShopList;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
-import by.mironenko.marketplace.exceptions.TransactionException;
 import by.mironenko.marketplace.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
@@ -18,15 +17,15 @@ import java.util.List;
 public class PurchaseServiceImpl implements PurchaseService {
     private static final Logger log = Logger.getLogger(PurchaseServiceImpl.class);
 
-    private final Transaction transaction;
+    private final DaoFactory factory = DaoFactory.getInstance();
 
     @Override
     public void create(final ShopList shopList) throws ServiceException {
         log.info("<-SERVICE-> Creating new bill...");
         try {
-            final ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
+            final ShopListDao shopListDao = factory.getShopListDao();
             shopListDao.create(shopList);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -35,9 +34,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<ShopList> findAll() throws ServiceException {
         log.info("<-SERVICE-> Finding all bills...");
         try {
-            final ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
+            final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findAll();
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -46,9 +45,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public ShopList findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding bill by ID...");
         try {
-            final ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
+            final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findById(id);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -69,9 +68,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<ShopList> findBillsByDate(final Date date) throws ServiceException {
         log.info("<-SERVICE-> Finding bills by date...");
         try {
-            final ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
+            final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findByDate(date);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -80,9 +79,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<ShopList> findBillsByPrice(final Double price) throws ServiceException {
         log.info("<-SERVICE-> Finding bills by price...");
         try {
-            final ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
+            final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findByPrice(price);
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -91,10 +90,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void buyGame(final Long buyerId, final Long gameId) throws ServiceException {
         log.info("<-SERVICE-> The buyer buy the game...");
         try {
-            BuyerDao buyerDao = transaction.createDao(KeysForDao.BUYER_DAO);
-            GameDao gameDao = transaction.createDao(KeysForDao.GAME_DAO);
-            ShopListDao shopListDao = transaction.createDao(KeysForDao.SHOP_LIST_DAO);
-            DeveloperDao developerDao = transaction.createDao(KeysForDao.DEVELOPER_DAO);
+            BuyerDao buyerDao = factory.getBuyerDao();
+            GameDao gameDao = factory.getGameDao();
+            ShopListDao shopListDao = factory.getShopListDao();
+            DeveloperDao developerDao = factory.getDeveloperDao();
             ShopList shopList = new ShopList();
             Buyer buyer = buyerDao.findById(buyerId);
             Game game = gameDao.findById(gameId);
@@ -116,7 +115,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             } else {
                 throw new ServiceException("Buyer with ID " + buyer.getId() + " haven't money for buying game " + game.getId());
             }
-        } catch (TransactionException | DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }

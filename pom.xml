@@ -94,6 +94,13 @@
             <artifactId>tomcat-servlet-api</artifactId>
             <version>10.1.0-M6</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>

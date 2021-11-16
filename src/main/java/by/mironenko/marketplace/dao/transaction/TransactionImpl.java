@@ -18,7 +18,7 @@ public class TransactionImpl implements Transaction {
 
     private final Connection connection;
 
-    public <T extends BaseDao<?>> T createDao(final KeysForDao keysForDao) throws TransactionException {
+    /*public <T extends BaseDao<?>> T createDao(final KeysForDao keysForDao) throws TransactionException {
         try {
              switch (keysForDao) {
                 case BUYER_DAO:
@@ -40,7 +40,7 @@ public class TransactionImpl implements Transaction {
         } catch (Exception e) {
             throw new TransactionException(e.getMessage(), e);
         }
-    }
+    }*/
 
     @Override
     public void commit() throws TransactionException {

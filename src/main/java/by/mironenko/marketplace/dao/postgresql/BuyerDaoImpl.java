@@ -1,6 +1,7 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerDao;
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.Buyer;
 import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +17,8 @@ import java.util.List;
 /**
  * @author Pavel Mironenko
  * @see BuyerDao
+ * Describes how to access the database and work with the
+ * buyer table.
  */
 public class BuyerDaoImpl implements BuyerDao {
     private static final Logger log = LogManager.getLogger(BuyerDaoImpl.class);
@@ -38,22 +41,20 @@ public class BuyerDaoImpl implements BuyerDao {
     private static final String SQL_FIND_BY_SURNAME =
             "SELECT id, name, surname, money, age FROM buyer WHERE surname = ?;";
 
-    private final Connection connection; //connectionPool
-
-    public BuyerDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
+    public BuyerDaoImpl() { }
 
     /**
      * @param surname input value from webApp
      * @return finding buyer
-     * @throws DaoException castom exception for dao
+     * @throws DaoException if have some problems with DB
      * Method for finding buyers by surname
      */
     @Override
     public Buyer findBySurname(final String surname) throws DaoException {
+        log.debug("<-DAO-> Finding buyer by surname...");
         Buyer buyer = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
             preparedStatement.setString(1, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -67,13 +68,15 @@ public class BuyerDaoImpl implements BuyerDao {
 
     /**
      * @return list of all buyers
-     * @throws DaoException custom exception for dao
-     * Finding all buyers
+     * @throws DaoException if have some problems with DB
+     * Method for finding all buyers
      */
     @Override
     public List<Buyer> findAll() throws DaoException {
+        log.debug("<-DAO-> Finding all buyers...");
         List<Buyer> buyers = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Buyer buyer = this.convertToBuyer(resultSet);
@@ -88,13 +91,15 @@ public class BuyerDaoImpl implements BuyerDao {
     /**
      * @param id input value from webApp
      * @return finding buyer
-     * @throws DaoException custom exception for dao
-     * Finding buyers by given id
+     * @throws DaoException if have some problems with DB
+     * Method for finding buyers by given ID
      */
     @Override
     public Buyer findById(final Long id) throws DaoException {
+        log.debug("<-DAO-> Finding buyer by ID...");
         Buyer buyer = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -106,9 +111,16 @@ public class BuyerDaoImpl implements BuyerDao {
         return buyer;
     }
 
+    /**
+     * @param id inputValue from webApp
+     * @throws DaoException if have some problems with DB
+     * Method for deleting buyer by ID
+     */
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
+        log.debug("<-DAO-> Deleting buyer by surname...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -116,9 +128,16 @@ public class BuyerDaoImpl implements BuyerDao {
         }
     }
 
+    /**
+     * @param buyer when we want to create ne buyer
+     * @throws DaoException if have some problems with DB
+     * Method for creating new buyer (after registration like buyer)
+     */
     @Override
     public void create(final Buyer buyer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
+        log.debug("<-DAO-> Creating buyer...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
             convertFromBuyer(preparedStatement, buyer);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -126,9 +145,16 @@ public class BuyerDaoImpl implements BuyerDao {
         }
     }
 
+    /**
+     * @param buyer selected buyer in webApp
+     * @throws DaoException if have some problems with DB
+     * Method for updating buyer
+     */
     @Override
     public void update(final Buyer buyer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
+        log.debug("<-DAO-> Updating buyer...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
             this.convertFromBuyer(preparedStatement, buyer);
             preparedStatement.setLong(1, buyer.getId());
             preparedStatement.executeUpdate();

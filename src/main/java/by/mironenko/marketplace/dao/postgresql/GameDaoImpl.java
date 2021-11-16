@@ -1,5 +1,6 @@
 package by.mironenko.marketplace.dao.postgresql;
 
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.dao.GameDao;
 import by.mironenko.marketplace.entity.Game;
@@ -41,23 +42,20 @@ public class GameDaoImpl implements GameDao {
     private static final String SQL_FIND_BY_PRICE =
             "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE price = ?;";
 
-    Connection connection;
-
-    public GameDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
+    public GameDaoImpl() { }
 
     @Override
     public Game findByName(final String name) throws DaoException {
+        log.debug("<-DAO-> Finding game by Name...");
         Game game = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 game = this.mapToGame(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding game by name");
             throw new DaoException("Exception during finding game by name: ", e);
         }
         return game;
@@ -65,8 +63,10 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public List<Game> findByDeveloper(final String developerName) throws DaoException {
+        log.debug("<-DAO-> Finding game by Developer...");
         List<Game> games = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER)) {
             preparedStatement.setString(1, developerName);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -74,7 +74,6 @@ public class GameDaoImpl implements GameDao {
                 games.add(game);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding games by developer");
             throw new DaoException("Exception during finding games by developer: ", e);
         }
         return games;
@@ -82,8 +81,10 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) throws DaoException {
+        log.debug("<-DAO-> Finding game by pre sale status...");
         List<Game> games = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRE_SALE_STATUS)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRE_SALE_STATUS)) {
             preparedStatement.setBoolean(1, preSaleStatus);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -91,7 +92,6 @@ public class GameDaoImpl implements GameDao {
                 games.add(game);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding games by preSale status");
             throw new DaoException("Exception during finding games by preSale status: ", e);
         }
         return games;
@@ -99,8 +99,10 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public List<Game> findByPrice(final double price) throws DaoException {
+        log.debug("<-DAO-> Finding game by Price...");
         List<Game> games = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -108,7 +110,6 @@ public class GameDaoImpl implements GameDao {
                 games.add(game);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding games by price");
             throw new DaoException("Exception during finding games by price: ", e);
         }
         return games;
@@ -116,15 +117,16 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public List<Game> findAll() throws DaoException {
+        log.debug("<-DAO-> Finding all games...");
         List<Game> games = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Game game = this.mapToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding games");
             throw new DaoException("Exception during finding games: ", e);
         }
         return games;
@@ -132,15 +134,16 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public Game findById(final Long id) throws DaoException {
+        log.debug("<-DAO-> Finding game by ID...");
         Game game = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 game = this.mapToGame(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding game by id");
             throw new DaoException("Exception during finding game by id: ", e);
         }
         return game;
@@ -148,34 +151,37 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_GAME)) {
+        log.debug("<-DAO-> Deleting game by ID...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_GAME)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during deleting by id");
             throw new DaoException("Exception during deleting by id: ", e);
         }
     }
 
     @Override
     public void create(final Game game) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_GAME)) {
+        log.debug("<-DAO-> Creating game...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_GAME)) {
             this.mapFromGame(preparedStatement, game);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during creating game");
             throw new DaoException("Exception during creating game: ", e);
         }
     }
 
     @Override
     public void update(final Game game) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
+        log.debug("<-DAO-> Updating game...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
             this.mapFromGame(preparedStatement, game);
             preparedStatement.setLong(1, game.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during updating game");
             throw new DaoException("Exception during updating game: ", e);
         }
     }

@@ -1,5 +1,6 @@
 package by.mironenko.marketplace.dao.postgresql;
 
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.dao.DeveloperDao;
 import by.mironenko.marketplace.entity.Developer;
@@ -34,23 +35,20 @@ public class DeveloperDaoImpl implements DeveloperDao {
     private static final String SQL_FIND_BY_NAME =
             "SELECT id, name, money, rating FROM developer WHERE name = ?;";
 
-    private final Connection connection;
-
-    public DeveloperDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
+    public DeveloperDaoImpl() { }
 
     @Override
     public Developer findByName(final String name) throws DaoException {
+        log.debug("<-DAO-> Finding developer by Name...");
         Developer developer = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 developer = this.mapToDeveloper(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding developer by name");
             throw new DaoException("Exception during finding developer by name: ", e);
         }
         return developer;
@@ -58,15 +56,16 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     @Override
     public List<Developer> findAll() throws DaoException {
+        log.debug("<-DAO-> Finding all developers...");
         List<Developer> developers = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Developer developer = this.mapToDeveloper(resultSet);
                 developers.add(developer);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding developers");
             throw new DaoException("Exception during finding developers: ", e);
         }
         return developers;
@@ -74,15 +73,16 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     @Override
     public Developer findById(final Long id) throws DaoException {
+        log.debug("<-DAO-> Finding developer by ID...");
         Developer developer = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 developer = this.mapToDeveloper(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Exception during finding developer by id");
             throw new DaoException("Exception during finding developer by id: ", e);
         }
         return developer;
@@ -90,34 +90,37 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     @Override
     public void delete(final Long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DEVELOPER)) {
+        log.debug("<-DAO-> Deleting developer by ID...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DEVELOPER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during deleting developer");
             throw new DaoException("Exception during deleting developer: ", e);
         }
     }
 
     @Override
     public void create(final Developer developer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_DEVELOPER)) {
+        log.debug("<-DAO-> Creating developer...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during creating developer");
             throw new DaoException("Exception during creating developer: ", e);
         }
     }
 
     @Override
     public void update(final Developer developer) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
+        log.debug("<-DAO-> Updating developer...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
             preparedStatement.setLong(4, developer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Exception during updating developer");
             throw new DaoException("Exception during updating developer: ", e);
         }
     }
