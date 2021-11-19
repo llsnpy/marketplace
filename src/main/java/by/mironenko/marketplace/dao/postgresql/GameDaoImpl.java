@@ -42,6 +42,9 @@ public class GameDaoImpl implements GameDao {
     private static final String SQL_FIND_BY_PRICE =
             "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE price = ?;";
 
+    private static final String SQL_FIND_DEV_ID =
+            "SELECT developer_id FROM game WHERE id = ?;";
+
     public GameDaoImpl() { }
 
     @Override
@@ -113,6 +116,23 @@ public class GameDaoImpl implements GameDao {
             throw new DaoException("Exception during finding games by price: ", e);
         }
         return games;
+    }
+
+    @Override
+    public Long getDeveloperId(final Long id) throws DaoException {
+        log.debug("<-DAO-> Finding developer ID by game ID...");
+        long devId = 0L;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DEV_ID)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                devId = resultSet.getLong("developer_id");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during finding developer ID: ", e);
+        }
+        return devId;
     }
 
     @Override

@@ -11,4 +11,5 @@ public interface GameDao extends BaseDao<Game> {
     List<Game> findByDeveloper(String developerName) throws DaoException;
     List<Game> findGameByPreSaleStatus(boolean preSaleStatus) throws DaoException;
     List<Game> findByPrice(double price) throws DaoException;
+    Long getDeveloperId(Long id) throws DaoException;
 }

@@ -10,6 +10,7 @@ public class ServiceFactory {
     public final DeveloperService developerService = new DeveloperServiceImpl();
     public final BuyerTakeSale buyerTakeSale = new BuyerTakeSaleImpl();
     public final PurchaseService purchaseService = new PurchaseServiceImpl();
+    public final UserService userService = new UserServiceImpl();
 
    private ServiceFactory() { }
 
@@ -35,5 +36,9 @@ public class ServiceFactory {
 
    public PurchaseService getPurchaseService() {
        return purchaseService;
+   }
+
+   public UserService getUserService() {
+       return userService;
    }
 }

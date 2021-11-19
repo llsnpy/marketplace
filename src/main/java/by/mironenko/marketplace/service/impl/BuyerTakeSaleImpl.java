@@ -20,6 +20,9 @@ public class BuyerTakeSaleImpl implements BuyerTakeSale {
     @Override
     public void create(final BuyersWithSale buyersWithSale) throws ServiceException {
         log.info("<-SERVICE-> Creating info about buyer with sale...");
+        if (buyersWithSale == null) {
+            throw new ServiceException("Incorrect input parameters for creating buyers with sale.");
+        }
         try {
             final BuyerWithSaleDao dao = factory.getBuyerWithSaleDao();
             dao.create(buyersWithSale);
@@ -42,6 +45,9 @@ public class BuyerTakeSaleImpl implements BuyerTakeSale {
     @Override
     public BuyersWithSale findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding by ID node about buyer with sale...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for finding buyer with sale by ID.");
+        }
         try {
             final BuyerWithSaleDao dao = factory.getBuyerWithSaleDao();
             return dao.findById(id);

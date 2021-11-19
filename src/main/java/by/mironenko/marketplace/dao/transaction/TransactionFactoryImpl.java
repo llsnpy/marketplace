@@ -21,7 +21,7 @@ public class TransactionFactoryImpl {
         }
     }
 
-    public Transaction createTransaction() throws TransactionException {
+    public Transaction createTransaction() {
         return new TransactionImpl(connection);
     }
 

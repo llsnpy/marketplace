@@ -75,13 +75,13 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     }
 
     @Override
-    public void update(final BuyersWithSale buyersWithSale) throws DaoException {
+    public void update(final BuyersWithSale buyersWithSale) {
         log.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
     }

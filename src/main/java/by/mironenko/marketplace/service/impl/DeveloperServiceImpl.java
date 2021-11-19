@@ -21,6 +21,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public void create(final Developer developer) throws ServiceException {
         log.info("<-SERVICE-> Creating new developer...");
+        if (developer == null || developer.getMoney() < 0) {
+            throw new ServiceException("Incorrect input parameters for creating developer.");
+        }
         try {
             final DeveloperDao developerDao = factory.getDeveloperDao();
             developerDao.create(developer);
@@ -43,6 +46,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public Developer findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding developer by ID...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for finding developer by ID.");
+        }
         try {
             final DeveloperDao developerDao = factory.getDeveloperDao();
             return developerDao.findById(id);
@@ -54,6 +60,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public void update(final Developer developer) throws ServiceException {
         log.info("<-SERVICE-> Updating developer...");
+        if (developer == null) {
+            throw new ServiceException("Incorrect parameters for updating developer.");
+        }
         try {
             final DeveloperDao developerDao = factory.getDeveloperDao();
             developerDao.update(developer);
@@ -65,6 +74,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public void delete(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Deleting developer by ID...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for deleting developer.");
+        }
         try {
             final DeveloperDao developerDao = factory.getDeveloperDao();
             developerDao.delete(id);
@@ -76,6 +88,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public Developer findByName(final String developerName) throws ServiceException {
         log.info("<-SERVICE-> Finding developer by name...");
+        if (developerName == null) {
+            throw new ServiceException("Incorrect name for finding developer by name.");
+        }
         try {
             final DeveloperDao developerDao = factory.getDeveloperDao();
             return developerDao.findByName(developerName);
@@ -86,6 +101,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public void createNewGame(final Game game) throws ServiceException {
-
+        //todo create this method
     }
 }

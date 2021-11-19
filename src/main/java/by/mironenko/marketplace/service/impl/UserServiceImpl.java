@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(final User user) throws ServiceException {
         log.info("<-SERVICE-> Creating new user...");
+        if (user == null) {
+            throw new ServiceException("Incorrect input parameters for creating user.");
+        }
         try {
             final UserDao userDao = factory.getUserDao();
             userDao.create(user);
@@ -45,6 +48,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding user by ID...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for finding user by ID.");
+        }
         try {
             final UserDao userDao = factory.getUserDao();
             return userDao.findById(id);
@@ -56,6 +62,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(final User user) throws ServiceException {
        log.info("<-SERVICE-> Updating the user...");
+        if (user == null) {
+            throw new ServiceException("Cant define user for updating.");
+        }
        try {
            final UserDao userDao = factory.getUserDao();
            userDao.update(user);
@@ -67,6 +76,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Deleting the user...");
+        if (id < 1) {
+            throw new ServiceException("Cant define ID for deleting user.");
+        }
         try {
             final UserDao userDao = factory.getUserDao();
             userDao.delete(id);

@@ -20,10 +20,13 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public void create(final Buyer buyer) throws ServiceException {
         log.info("<-SERVICE-> Creating new buyer...");
+        if (buyer == null || buyer.getAge() < 14 || buyer.getMoney() < 0) {
+            throw new ServiceException("Incorrect input parameters for creating buyer.");
+        }
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
             buyerDao.create(buyer);
-        } catch ( DaoException e) {/* TransactionException |*/
+        } catch ( DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -42,6 +45,9 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public Buyer findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding buyer by ID...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for finding buyer by ID.");
+        }
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
             return buyerDao.findById(id);
@@ -53,6 +59,9 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public void update(final Buyer buyer) throws ServiceException {
         log.info("<-SERVICE-> Updating buyer...");
+        if (buyer == null) {
+            throw new ServiceException("Incorrect ID for updating buyer by ID.");
+        }
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
             buyerDao.update(buyer);
@@ -64,6 +73,9 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public void delete(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Deleting buyer by ID...");
+        if (id < 1) {
+            throw new ServiceException("Incorrect ID for deleting buyer by ID.");
+        }
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
             buyerDao.delete(id);
@@ -75,10 +87,13 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public Buyer findBySurname(final String surname) throws ServiceException {
         log.info("<-SERVICE-> Finding buyer by surname...");
+        if (surname == null) {
+            throw new ServiceException("Incorrect surname for finding buyer by surname.");
+        }
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
             return buyerDao.findBySurname(surname);
-        } catch ( DaoException e) { /*TransactionException |*/
+        } catch ( DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }

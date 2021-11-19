@@ -18,14 +18,14 @@
         </taglib>
     </jsp-config>
 
-    <servlet>
+   <!-- <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>by.mironenko.marketplace.controller.DispatcherServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>*.jsp</url-pattern>
-    </servlet-mapping>
+        <url-pattern>index.jsp</url-pattern> &lt;!&ndash;*.jsp&ndash;&gt;
+    </servlet-mapping>-->
 
     <filter>
         <filter-name>EncodingFilter</filter-name>
@@ -33,17 +33,17 @@
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>  <!--продумать паттерн чтобы не зациклиться-->
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-  <!--  <filter>
-        <filter-name>ActionFromUriFilter</filter-name>
-        <filter-class>by.mironenko.marketplace.controller.filter.ActionFromUriFilter</filter-class>
+    <filter>
+        <filter-name>CommandFilter</filter-name>
+        <filter-class>by.mironenko.marketplace.controller.filter.CommandFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>ActionFromUriFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern> &lt;!&ndash;*.html&ndash;&gt;
-    </filter-mapping>-->
+        <filter-name>CommandFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 
     <filter>
         <filter-name>SecurityFilter</filter-name>

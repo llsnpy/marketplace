@@ -2,6 +2,7 @@ package by.mironenko.marketplace.service.impl;
 
 import by.mironenko.marketplace.dao.*;
 import by.mironenko.marketplace.entity.Buyer;
+import by.mironenko.marketplace.entity.Developer;
 import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.entity.ShopList;
 import by.mironenko.marketplace.exceptions.DaoException;
@@ -22,6 +23,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void create(final ShopList shopList) throws ServiceException {
         log.info("<-SERVICE-> Creating new bill...");
+        if (shopList == null) {
+            throw new ServiceException("Cant define shop list for creating.");
+        }
         try {
             final ShopListDao shopListDao = factory.getShopListDao();
             shopListDao.create(shopList);
@@ -44,6 +48,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public ShopList findById(final Long id) throws ServiceException {
         log.info("<-SERVICE-> Finding bill by ID...");
+        if (id <= 0) {
+            throw new ServiceException("Incorrect ID for finding bill by ID.");
+        }
         try {
             final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findById(id);
@@ -53,13 +60,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public void update(final ShopList shopList) throws ServiceException {
+    public void update(final ShopList shopList) {
         log.info("<-SERVICE-> Finding bill by ID...");
         throw new UnsupportedOperationException("Cant update the bill.");
     }
 
     @Override
-    public void delete(final Long id) throws ServiceException {
+    public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting bill by ID...");
         throw new UnsupportedOperationException("Can't delete the bill.");
     }
@@ -67,6 +74,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<ShopList> findBillsByDate(final Date date) throws ServiceException {
         log.info("<-SERVICE-> Finding bills by date...");
+        if (date == null) {
+            throw new ServiceException("Incorrect date for finding bill by date.");
+        }
         try {
             final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findByDate(date);
@@ -78,6 +88,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<ShopList> findBillsByPrice(final Double price) throws ServiceException {
         log.info("<-SERVICE-> Finding bills by price...");
+        if (price <= 0.0) {
+            throw new ServiceException("Incorrect price for finding bill by price.");
+        }
         try {
             final ShopListDao shopListDao = factory.getShopListDao();
             return shopListDao.findByPrice(price);
@@ -94,6 +107,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             GameDao gameDao = factory.getGameDao();
             ShopListDao shopListDao = factory.getShopListDao();
             DeveloperDao developerDao = factory.getDeveloperDao();
+            BuyerWithSaleDao buyerWithSaleDao = factory.getBuyerWithSaleDao();
             ShopList shopList = new ShopList();
             Buyer buyer = buyerDao.findById(buyerId);
             Game game = gameDao.findById(gameId);
@@ -102,16 +116,12 @@ public class PurchaseServiceImpl implements PurchaseService {
                 shopList.setGameId(game.getId());
                 java.util.Date date = new java.util.Date();
                 shopList.setDate(date);
+                //todo проверка на предзаказ и возраст
                 shopList.setPrice(game.getPrice());
                 shopListDao.create(shopList);
-                //todo здесь же проверку на ту цену, которая должна быть
-                //todo списание и зачисление денег на счет (update методы)
-                //todo увеличение рейтинга
-                //todo проверка на возраст (создать утилку?)
-                //todo цену брать из списка предзаказов
-
-
-
+                Developer developer = developerDao.findById(gameDao.getDeveloperId(gameId));
+                developer.setRating(developer.getRating() + 1);
+                developerDao.update(developer);
             } else {
                 throw new ServiceException("Buyer with ID " + buyer.getId() + " haven't money for buying game " + game.getId());
             }
