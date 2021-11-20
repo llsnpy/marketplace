@@ -1,6 +1,9 @@
 package by.mironenko.marketplace.controller.command;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Pavel Mironenko
@@ -10,5 +13,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface Command {
 
-    Invoker execute(HttpServletRequest request);
+   void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
 }

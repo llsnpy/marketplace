@@ -1,7 +1,9 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerDao;
+import by.mironenko.marketplace.dao.Transaction;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
+import by.mironenko.marketplace.dao.transaction.TransactionFactoryImpl;
 import by.mironenko.marketplace.entity.Buyer;
 import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -50,9 +52,10 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for finding buyers by surname
      */
     @Override
-    public Buyer findBySurname(final String surname) throws DaoException {
+    public Buyer findBySurname(final String surname) {
         log.debug("<-DAO-> Finding buyer by surname...");
         Buyer buyer = null;
+        //todo add transaction
         try (Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
             preparedStatement.setString(1, surname);
@@ -72,7 +75,7 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for finding all buyers
      */
     @Override
-    public List<Buyer> findAll() throws DaoException {
+    public List<Buyer> findAll() {
         log.debug("<-DAO-> Finding all buyers...");
         List<Buyer> buyers = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -95,7 +98,7 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for finding buyers by given ID
      */
     @Override
-    public Buyer findById(final Long id) throws DaoException {
+    public Buyer findById(final Long id) {
         log.debug("<-DAO-> Finding buyer by ID...");
         Buyer buyer = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -117,7 +120,7 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for deleting buyer by ID
      */
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.debug("<-DAO-> Deleting buyer by surname...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
@@ -134,7 +137,7 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for creating new buyer (after registration like buyer)
      */
     @Override
-    public void create(final Buyer buyer) throws DaoException {
+    public void create(final Buyer buyer) {
         log.debug("<-DAO-> Creating buyer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
@@ -151,7 +154,7 @@ public class BuyerDaoImpl implements BuyerDao {
      * Method for updating buyer
      */
     @Override
-    public void update(final Buyer buyer) throws DaoException {
+    public void update(final Buyer buyer) {
         log.debug("<-DAO-> Updating buyer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {

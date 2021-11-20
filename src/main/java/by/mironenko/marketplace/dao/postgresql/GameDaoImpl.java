@@ -48,7 +48,7 @@ public class GameDaoImpl implements GameDao {
     public GameDaoImpl() { }
 
     @Override
-    public Game findByName(final String name) throws DaoException {
+    public Game findByName(final String name) {
         log.debug("<-DAO-> Finding game by Name...");
         Game game = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -65,7 +65,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public List<Game> findByDeveloper(final String developerName) throws DaoException {
+    public List<Game> findByDeveloper(final String developerName) {
         log.debug("<-DAO-> Finding game by Developer...");
         List<Game> games = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -83,7 +83,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) throws DaoException {
+    public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) {
         log.debug("<-DAO-> Finding game by pre sale status...");
         List<Game> games = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -101,7 +101,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public List<Game> findByPrice(final double price) throws DaoException {
+    public List<Game> findByPrice(final double price) {
         log.debug("<-DAO-> Finding game by Price...");
         List<Game> games = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -119,7 +119,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public Long getDeveloperId(final Long id) throws DaoException {
+    public Long getDeveloperId(final Long id) {
         log.debug("<-DAO-> Finding developer ID by game ID...");
         long devId = 0L;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -136,7 +136,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public List<Game> findAll() throws DaoException {
+    public List<Game> findAll() {
         log.debug("<-DAO-> Finding all games...");
         List<Game> games = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -153,7 +153,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public Game findById(final Long id) throws DaoException {
+    public Game findById(final Long id) {
         log.debug("<-DAO-> Finding game by ID...");
         Game game = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -170,7 +170,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.debug("<-DAO-> Deleting game by ID...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_GAME)) {
@@ -182,7 +182,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public void create(final Game game) throws DaoException {
+    public void create(final Game game) {
         log.debug("<-DAO-> Creating game...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_GAME)) {
@@ -194,7 +194,7 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public void update(final Game game) throws DaoException {
+    public void update(final Game game) {
         log.debug("<-DAO-> Updating game...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {

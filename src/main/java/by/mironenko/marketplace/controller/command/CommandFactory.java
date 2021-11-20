@@ -1,30 +1,43 @@
 package by.mironenko.marketplace.controller.command;
 
-import by.mironenko.marketplace.controller.command.impl.common.HomePageCommandImpl;
-import by.mironenko.marketplace.controller.command.impl.common.LanguagesCommandImpl;
+import by.mironenko.marketplace.controller.command.impl.AssignValuesBuyerCommandImpl;
+import by.mironenko.marketplace.controller.command.impl.LanguagesCommandImpl;
+import by.mironenko.marketplace.controller.command.impl.LoginCommandImpl;
+import by.mironenko.marketplace.controller.command.impl.RegisterUserCommandImpl;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandFactory {
-    private static final Map<String, Command> commands = initCommands();
+    private static final Logger log = Logger.getLogger(CommandFactory.class);
+    public static final CommandFactory instance = new CommandFactory();
+    private static final Map<CommandName, Command> commands = new HashMap<>();
 
-    private CommandFactory() { }
-
-    private static Map<String, Command> initCommands() {
-        Map<String, Command> commandsList = new HashMap<>();
-
-        commandsList.put("choose_language", new LanguagesCommandImpl());
-        /*commandsList.put("register_like_buyer", new RegisterLikeBuyerCommandImpl());
-        commandsList.put("register_like_developer", new RegisterLikeDeveloperCommandImpl());
-        commandsList.put("login", new LogInCommandImpl());
-        commandsList.put("logout", new LogOutCommandImpl());*/
-
-
-        return commandsList;
+    public CommandFactory() {
+        commands.put(CommandName.CHOOSE_LANGUAGE, new LanguagesCommandImpl());
+        commands.put(CommandName.ENTER_INFO_ABOUT_BUYER, new AssignValuesBuyerCommandImpl());
+        commands.put(CommandName.REGISTER, new RegisterUserCommandImpl());
+        commands.put(CommandName.LOGIN, new LoginCommandImpl());
     }
 
-    public static Command resolveCommand(final String commandName) {
-        return commands.getOrDefault(commandName, new HomePageCommandImpl());
+    public Command getCommand(final String name) {
+        log.debug("Execute command starting. Name-> " + name);
+
+        CommandName commandName;
+        Command command;
+        try {
+            commandName = CommandName.valueOf(name.toUpperCase());
+            log.debug("Command name-> " + commandName);
+            command = commands.get(commandName);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            log.error(e.getMessage(), e);
+            command = commands.get(CommandName.WRONG_REQUEST);
+        }
+        return command;
+    }
+
+    public static CommandFactory getInstance() {
+        return instance;
     }
 }

@@ -38,7 +38,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public DeveloperDaoImpl() { }
 
     @Override
-    public Developer findByName(final String name) throws DaoException {
+    public Developer findByName(final String name) {
         log.debug("<-DAO-> Finding developer by Name...");
         Developer developer = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -55,7 +55,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public List<Developer> findAll() throws DaoException {
+    public List<Developer> findAll() {
         log.debug("<-DAO-> Finding all developers...");
         List<Developer> developers = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -72,7 +72,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public Developer findById(final Long id) throws DaoException {
+    public Developer findById(final Long id) {
         log.debug("<-DAO-> Finding developer by ID...");
         Developer developer = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -89,7 +89,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.debug("<-DAO-> Deleting developer by ID...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DEVELOPER)) {
@@ -101,7 +101,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public void create(final Developer developer) throws DaoException {
+    public void create(final Developer developer) {
         log.debug("<-DAO-> Creating developer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_DEVELOPER)) {
@@ -113,7 +113,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public void update(final Developer developer) throws DaoException {
+    public void update(final Developer developer) {
         log.debug("<-DAO-> Updating developer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {

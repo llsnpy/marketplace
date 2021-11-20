@@ -1,6 +1,6 @@
 package by.mironenko.marketplace.exceptions;
 
-public class ServiceException extends Throwable {
+public class ServiceException extends RuntimeException {
 
     public ServiceException() { }
 

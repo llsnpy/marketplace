@@ -36,7 +36,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public ShopListDaoImpl() { }
 
     @Override
-    public List<ShopList> findByDate(final Date date) throws DaoException {
+    public List<ShopList> findByDate(final Date date) {
         log.debug("<-DAO-> Finding shop list by Date...");
         List<ShopList> bills = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -54,7 +54,7 @@ public class ShopListDaoImpl implements ShopListDao {
     }
 
     @Override
-    public List<ShopList> findByPrice(final Double price) throws DaoException {
+    public List<ShopList> findByPrice(final Double price) {
         log.debug("<-DAO-> Finding shop list by Price...");
         List<ShopList> bills = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -72,7 +72,7 @@ public class ShopListDaoImpl implements ShopListDao {
     }
 
     @Override
-    public List<ShopList> findAll() throws DaoException {
+    public List<ShopList> findAll() {
         log.debug("<-DAO-> Finding all shop lists...");
         List<ShopList> bills = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -89,7 +89,7 @@ public class ShopListDaoImpl implements ShopListDao {
     }
 
     @Override
-    public ShopList findById(final Long id) throws DaoException {
+    public ShopList findById(final Long id) {
         log.debug("<-DAO-> Finding shop list by ID...");
         ShopList shopList = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -106,13 +106,13 @@ public class ShopListDaoImpl implements ShopListDao {
     }
 
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void create(final ShopList shopList) throws DaoException {
+    public void create(final ShopList shopList) {
         log.debug("<-DAO-> Creating shop list...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_SHOP_LIST)) {
@@ -124,7 +124,7 @@ public class ShopListDaoImpl implements ShopListDao {
     }
 
     @Override
-    public void update(ShopList shopList) throws DaoException {
+    public void update(ShopList shopList) {
         log.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
     }

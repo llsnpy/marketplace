@@ -18,7 +18,7 @@ public class BuyerServiceImpl implements BuyerService {
     private final DaoFactory factory = DaoFactory.getInstance();
 
     @Override
-    public void create(final Buyer buyer) throws ServiceException {
+    public void create(final Buyer buyer) {
         log.info("<-SERVICE-> Creating new buyer...");
         if (buyer == null || buyer.getAge() < 14 || buyer.getMoney() < 0) {
             throw new ServiceException("Incorrect input parameters for creating buyer.");
@@ -32,7 +32,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public List<Buyer> findAll() throws ServiceException {
+    public List<Buyer> findAll() {
         log.info("<-SERVICE-> Finding all buyers...");
         try {
             final BuyerDao buyerDao = factory.getBuyerDao();
@@ -43,7 +43,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public Buyer findById(final Long id) throws ServiceException {
+    public Buyer findById(final Long id) {
         log.info("<-SERVICE-> Finding buyer by ID...");
         if (id < 1) {
             throw new ServiceException("Incorrect ID for finding buyer by ID.");
@@ -57,7 +57,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public void update(final Buyer buyer) throws ServiceException {
+    public void update(final Buyer buyer) {
         log.info("<-SERVICE-> Updating buyer...");
         if (buyer == null) {
             throw new ServiceException("Incorrect ID for updating buyer by ID.");
@@ -71,7 +71,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public void delete(final Long id) throws ServiceException {
+    public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting buyer by ID...");
         if (id < 1) {
             throw new ServiceException("Incorrect ID for deleting buyer by ID.");
@@ -85,7 +85,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public Buyer findBySurname(final String surname) throws ServiceException {
+    public Buyer findBySurname(final String surname) {
         log.info("<-SERVICE-> Finding buyer by surname...");
         if (surname == null) {
             throw new ServiceException("Incorrect surname for finding buyer by surname.");

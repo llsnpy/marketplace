@@ -1,8 +1,7 @@
 package by.mironenko.marketplace.controller.filter;
 
 import by.mironenko.marketplace.controller.command.Command;
-import by.mironenko.marketplace.controller.command.impl.common.LanguagesCommandImpl;
-import by.mironenko.marketplace.entity.Buyer;
+import by.mironenko.marketplace.controller.command.impl.LanguagesCommandImpl;
 import by.mironenko.marketplace.entity.User;
 import org.apache.log4j.Logger;
 

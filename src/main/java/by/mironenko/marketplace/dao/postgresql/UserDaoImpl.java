@@ -37,6 +37,9 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_UPDATE_USER =
             "UPDATE users SET login = ?, password = ?;";
 
+    private static final String SQL_FIND_USER_BY_LOGIN =
+            "SELECT login, password FROM users WHERE login = ?;";
+
     public UserDaoImpl() { }
 
     /**
@@ -45,7 +48,7 @@ public class UserDaoImpl implements UserDao {
      * Method for finding all users
      */
     @Override
-    public List<User> findAll() throws DaoException {
+    public List<User> findAll() {
         log.debug("<-DAO-> Finding all users...");
         List<User> users = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -68,7 +71,7 @@ public class UserDaoImpl implements UserDao {
      * Method for finding user by ID
      */
     @Override
-    public User findById(final Long id) throws DaoException {
+    public User findById(final Long id) {
         log.debug("<-DAO-> Finding user by ID...");
         User user = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -85,7 +88,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(final Long id) throws DaoException {
+    public void delete(final Long id) {
         log.debug("<-DAO-> Deleting user by ID...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
@@ -97,7 +100,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void create(final User user) throws DaoException {
+    public void create(final User user) {
         log.debug("<-DAO-> Creating user...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_USER)) {
@@ -109,7 +112,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(final User user) throws DaoException {
+    public void update(final User user) {
         log.debug("<-DAO-> Updating user...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
@@ -121,12 +124,33 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    private User convertToUser(final ResultSet resultSet) throws SQLException {
-        return User.builder()
-                .id(resultSet.getLong("buyer.id"))
-                .login(resultSet.getString("users.login"))
-                .password(resultSet.getString("users.password"))
-                .build();
+    @Override
+    public User findUserByLogin(final String login) {
+        log.debug("<-DAO-> Finding user by login...");
+        User user = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                user = convertToUser(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during finding user by login: ", e);
+        }
+        return user;
+    }
+
+    private User convertToUser(final ResultSet resultSet) {
+        try {
+            return User.builder()
+                    .id(resultSet.getLong("buyer.id"))
+                    .login(resultSet.getString("users.login"))
+                    .password(resultSet.getString("users.password"))
+                    .build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void convertFromUser(final PreparedStatement preparedStatement, final User user) throws SQLException {

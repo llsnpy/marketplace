@@ -1,6 +1,6 @@
 package by.mironenko.marketplace.exceptions;
 
-public class TransactionException extends Throwable {
+public class TransactionException extends RuntimeException {
 
     public TransactionException() { }
     public TransactionException(final String message) {

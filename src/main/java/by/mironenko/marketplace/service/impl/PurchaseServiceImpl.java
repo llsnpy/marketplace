@@ -21,7 +21,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final DaoFactory factory = DaoFactory.getInstance();
 
     @Override
-    public void create(final ShopList shopList) throws ServiceException {
+    public void create(final ShopList shopList) {
         log.info("<-SERVICE-> Creating new bill...");
         if (shopList == null) {
             throw new ServiceException("Cant define shop list for creating.");
@@ -35,7 +35,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<ShopList> findAll() throws ServiceException {
+    public List<ShopList> findAll() {
         log.info("<-SERVICE-> Finding all bills...");
         try {
             final ShopListDao shopListDao = factory.getShopListDao();
@@ -46,7 +46,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ShopList findById(final Long id) throws ServiceException {
+    public ShopList findById(final Long id) {
         log.info("<-SERVICE-> Finding bill by ID...");
         if (id <= 0) {
             throw new ServiceException("Incorrect ID for finding bill by ID.");
@@ -72,7 +72,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<ShopList> findBillsByDate(final Date date) throws ServiceException {
+    public List<ShopList> findBillsByDate(final Date date) {
         log.info("<-SERVICE-> Finding bills by date...");
         if (date == null) {
             throw new ServiceException("Incorrect date for finding bill by date.");
@@ -86,7 +86,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<ShopList> findBillsByPrice(final Double price) throws ServiceException {
+    public List<ShopList> findBillsByPrice(final Double price) {
         log.info("<-SERVICE-> Finding bills by price...");
         if (price <= 0.0) {
             throw new ServiceException("Incorrect price for finding bill by price.");
@@ -100,7 +100,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public void buyGame(final Long buyerId, final Long gameId) throws ServiceException {
+    public void buyGame(final Long buyerId, final Long gameId) {
         log.info("<-SERVICE-> The buyer buy the game...");
         try {
             BuyerDao buyerDao = factory.getBuyerDao();
@@ -108,6 +108,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             ShopListDao shopListDao = factory.getShopListDao();
             DeveloperDao developerDao = factory.getDeveloperDao();
             BuyerWithSaleDao buyerWithSaleDao = factory.getBuyerWithSaleDao();
+
             ShopList shopList = new ShopList();
             Buyer buyer = buyerDao.findById(buyerId);
             Game game = gameDao.findById(gameId);

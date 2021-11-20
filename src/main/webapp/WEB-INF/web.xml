@@ -18,14 +18,14 @@
         </taglib>
     </jsp-config>
 
-   <!-- <servlet>
+    <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>by.mironenko.marketplace.controller.DispatcherServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>index.jsp</url-pattern> &lt;!&ndash;*.jsp&ndash;&gt;
-    </servlet-mapping>-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>EncodingFilter</filter-name>

@@ -29,7 +29,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     public BuyerWithSaleDaoImpl() { }
 
     @Override
-    public List<BuyersWithSale> findAll() throws DaoException {
+    public List<BuyersWithSale> findAll() {
         log.debug("<-DAO-> Finding all buyers with pre sale...");
         List<BuyersWithSale> preSaleList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -46,7 +46,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     }
 
     @Override
-    public BuyersWithSale findById(final Long id) throws DaoException {
+    public BuyersWithSale findById(final Long id) {
         log.debug("<-DAO-> Finding buyers with pre sale by ID...");
         BuyersWithSale buyersWithSale = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -63,7 +63,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     }
 
     @Override
-    public void create(final BuyersWithSale buyersWithSale) throws DaoException {
+    public void create(final BuyersWithSale buyersWithSale) {
         log.debug("<-DAO-> Creating buyer with sale...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER_WITH_SALE)) {

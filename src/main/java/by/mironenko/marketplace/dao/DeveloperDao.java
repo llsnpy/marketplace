@@ -1,9 +1,8 @@
 package by.mironenko.marketplace.dao;
 
 import by.mironenko.marketplace.entity.Developer;
-import by.mironenko.marketplace.exceptions.DaoException;
 
 public interface DeveloperDao extends BaseDao<Developer> {
 
-    Developer findByName(String name) throws DaoException;
+    Developer findByName(String name);
 }

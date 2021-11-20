@@ -18,7 +18,7 @@ public class BuyerTakeSaleImpl implements BuyerTakeSale {
     private final DaoFactory factory = DaoFactory.getInstance();
 
     @Override
-    public void create(final BuyersWithSale buyersWithSale) throws ServiceException {
+    public void create(final BuyersWithSale buyersWithSale) {
         log.info("<-SERVICE-> Creating info about buyer with sale...");
         if (buyersWithSale == null) {
             throw new ServiceException("Incorrect input parameters for creating buyers with sale.");
@@ -32,7 +32,7 @@ public class BuyerTakeSaleImpl implements BuyerTakeSale {
     }
 
     @Override
-    public List<BuyersWithSale> findAll() throws ServiceException {
+    public List<BuyersWithSale> findAll() {
         log.info("<-SERVICE-> Finding all buyers with sale...");
         try {
             final BuyerWithSaleDao dao = factory.getBuyerWithSaleDao();
@@ -43,7 +43,7 @@ public class BuyerTakeSaleImpl implements BuyerTakeSale {
     }
 
     @Override
-    public BuyersWithSale findById(final Long id) throws ServiceException {
+    public BuyersWithSale findById(final Long id) {
         log.info("<-SERVICE-> Finding by ID node about buyer with sale...");
         if (id < 1) {
             throw new ServiceException("Incorrect ID for finding buyer with sale by ID.");

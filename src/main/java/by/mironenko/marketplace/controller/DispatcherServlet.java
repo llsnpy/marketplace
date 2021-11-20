@@ -1,17 +1,19 @@
 package by.mironenko.marketplace.controller;
 
 import by.mironenko.marketplace.controller.command.Command;
-import by.mironenko.marketplace.controller.command.Invoker;
+import by.mironenko.marketplace.controller.command.CommandFactory;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import org.apache.log4j.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
-/*@WebServlet("/")*/
+@WebServlet("/command/*")
 public class DispatcherServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(DispatcherServlet.class);
 
@@ -31,39 +33,42 @@ public class DispatcherServlet extends HttpServlet {
         super();
     }
 
+    @Override
     public void init() {
         try {
-            log.info("Try to start servlet");
-            Logger root = Logger.getRootLogger();
+            log.info("Try to start servlet.");
+            Locale.setDefault(Locale.ENGLISH);
             Layout layout = new PatternLayout(LOG_MESSAGE_FORMAT);
-            root.addAppender(new FileAppender(layout, LOG_FILE_NAME, true));
-            root.addAppender(new ConsoleAppender(layout));
-            root.setLevel(LOG_LEVEL);
+            log.addAppender(new FileAppender(layout, LOG_FILE_NAME, true));
+            log.addAppender(new ConsoleAppender(layout));
+            log.setLevel(LOG_LEVEL);
             ConnectionPool.getInstance().init(DB_DRIVER_CLASS, DB_URL, DB_USER, DB_PASSWORD, DB_POOL_START_SIZE, DB_POOL_MAX_SIZE, DB_POOL_CHECK_CONNECTION_TIMEOUT);
         } catch (IOException e) {
-            log.error("Impossible to initialize application", e);
-            destroy();
+            log.error("Impossible to initialize application ", e);
         }
     }
 
+    @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-        Command command = (Command) request.getAttribute("command");
-        Invoker result = command.execute(request);
-        result.getCookies().forEach(response::addCookie);
-        switch (result.getType()) {
-            case FORWARD:
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-                break;
-            case REDIRECT:
-                response.sendRedirect(result.getPath());
-                break;
-            default:
-                log.error("Cant find invoker type");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
+    @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-        doGet(request, response);
+        processRequest(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+    }
+
+    private void processRequest(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+
+        final String commandName = request.getParameter("command");
+
+        final Command command = CommandFactory.getInstance().getCommand(commandName);
+        command.execute(request, response);
     }
 }
