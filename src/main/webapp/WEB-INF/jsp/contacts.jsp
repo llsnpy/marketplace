@@ -1,9 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>marketplace</title>
+    <title>Contacts</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/commonStyle.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -14,7 +17,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
 </head>
 <body>
 <nav class="navbar navbar-default" style="background: #F5F5F5">
@@ -27,56 +29,34 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Main</a></li>
                 <li class="active"><a href="/marketplace_war_exploded/controller/about_us">About us</a></li>
-                <li class="active"><a href="/marketplace_war_exploded/controller/contacts">Contacts</a></li>
-                <li class="active"><a href="/marketplace_war_exploded/controller/support">Support</a></li>
+                <li class="active"><a href="/contacts">Contacts</a></li>
+                <li class="active"><a href="/support">Support</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
-    <h1 align="center">Welcome to the marketplace!</h1>
+    <br><br>
     <div class="row">
-        <div class="col-lg-4" style="color: #ff9999"></div>
-
+        <div class="col-lg-4" style="color: #000000"></div>
         <div class="col-lg-4" style="color: #000000" align="center">
-            <h3>Please, enter or register</h3>
-            </br>
-            <form role="form" class="form-horizontal">
-                <div class="form-group">
-
-                    <div class="col-lg-2"></div>
-
-                    <div class="col-lg-8">
-                        <input type="login" class="form-control" id="login" placeholder="Enter login">
-                    </div>
-
-                    <div class="col-lg-2"></div>
-
-                    <br><br>
-
-                    <div class="col-lg-2"></div>
-
-                    <div class="col-lg-8">
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
-                    </div>
-
-                    <div class="col-lg-2"></div>
-
+            <div class="container-fluid">
+                <div class="col-12 social padding">
+                    <br>
+                    <a href="https://www.linkedin.com/in/llsnpy/" style="font-size: 30px">LinkedIn</a> <br>
+                    <a href="https://github.com/llsnpy" style="font-size: 30px">GitHub</a> <br>
+                    <a href="https://www.facebook.com/mironenkops/" style="font-size: 30px">Facebook</a> <br>
+                    <a href="https://vk.com/so_excellent" style="font-size: 30px">VK</a> <br>
                 </div>
-                <input type="button" class="btn btn-success" value="Log in">
-                <%--<button class="btn btn-success" value="Log in">
-                    <i class="glyphicon glyphicon-ok"></i>
-                    Log in
-                </button>--%>
-                <input type="button" class="btn btn-info" value="Registration">
-                <%--<button class="btn btn-info">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                    Registration
-                </button>--%>
-            </form>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <p>Email: pavelsmironenko@gmail.com</p>
+                <p>Email: pashka271196@gmail.com</p>
+                <p>Phone: +375 (29) 170 75 85 (A1)</p>
+            </div>
         </div>
-
-        <div class="col-lg-4" style="color: #00CC99"></div>
+        <div class="col-lg-4" style="color: #000000"></div>
     </div>
 </div>
 <footer class="fixed-bottom">

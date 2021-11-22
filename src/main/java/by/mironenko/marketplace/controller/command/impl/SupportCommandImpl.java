@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AboutUsCommandImpl implements Command {
-    private static final Logger log = LogManager.getLogger(AboutUsCommandImpl.class);
+public class SupportCommandImpl implements Command {
+    private static final Logger log = LogManager.getLogger(SupportCommandImpl.class);
 
     @Override
-    public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-        log.debug("<-CONTROLLER-> Executing command ABOUT_US...");
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.debug("<-CONTROLLER-> Executing command SUPPORT...");
         ServletContext servletContext = request.getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/WEB-INF/jsp/about.jsp");
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/WEB-INF/jsp/support.jsp");
         requestDispatcher.forward(request, response);
     }
 }
