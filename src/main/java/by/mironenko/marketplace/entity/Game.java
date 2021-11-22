@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Game extends Entity {
     private Long id;
     private String name;

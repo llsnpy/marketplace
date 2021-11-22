@@ -32,7 +32,7 @@ public class CommandFilter implements Filter {
             int endCommand = uri.lastIndexOf('/');
             String commandName;
             if (endCommand >= 0) {
-                commandName = uri.substring(/*beginCommand, */endCommand+1);
+                commandName = uri.substring(/*beginCommand, */endCommand + 1);
             } else {
                 commandName = uri.substring(beginCommand);
             }
@@ -42,7 +42,10 @@ public class CommandFilter implements Filter {
                filterChain.doFilter(servletRequest, servletResponse);
             } catch (NullPointerException e) {
                 log.error("Impossible to create command handler object", e);
-                httpRequest.setAttribute("error", String.format("The requested address %s could not be called"));
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+                httpRequest.setAttribute("error", String.format("The requested address could not be called"));
                 httpRequest.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(servletRequest, servletResponse);
             }
         } else {
@@ -63,6 +66,7 @@ public class CommandFilter implements Filter {
         commands.put("about_us", "ABOUT_US");
         commands.put("contacts", "CONTACTS");
         commands.put("support", "SUPPORT");
+        commands.put("main", "MAIN");
         return commands;
     }
 }

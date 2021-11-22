@@ -10,6 +10,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ShopList extends Entity {
     private Long id;
     private Long buyerId;

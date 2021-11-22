@@ -9,14 +9,15 @@ import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
 public class PurchaseServiceImpl implements PurchaseService {
-    private static final Logger log = Logger.getLogger(PurchaseServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(PurchaseServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 

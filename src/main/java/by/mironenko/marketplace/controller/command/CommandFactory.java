@@ -40,12 +40,10 @@ public class CommandFactory {
     private Map<CommandName, Command> initCommands() {
         Map<CommandName, Command> map = new HashMap<>();
         map.put(CommandName.CHOOSE_LANGUAGE, new LanguagesCommandImpl());
-        map.put(CommandName.ENTER_INFO_ABOUT_BUYER, new AssignValuesBuyerCommandImpl());
-        map.put(CommandName.REGISTER, new RegisterUserCommandImpl());
-        map.put(CommandName.LOGIN, new LoginCommandImpl());
         map.put(CommandName.ABOUT_US, new AboutUsCommandImpl());
         map.put(CommandName.CONTACTS, new ContactsCommandImpl());
         map.put(CommandName.SUPPORT, new SupportCommandImpl());
+        map.put(CommandName.MAIN, new MainPageCommandImpl());
         return map;
     }
 }

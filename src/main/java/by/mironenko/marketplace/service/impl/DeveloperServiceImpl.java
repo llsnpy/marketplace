@@ -8,13 +8,14 @@ import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
-    private static final Logger log = Logger.getLogger(DeveloperServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(DeveloperServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 

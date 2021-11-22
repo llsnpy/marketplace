@@ -2,6 +2,7 @@ package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerDao;
 import by.mironenko.marketplace.dao.Transaction;
+import by.mironenko.marketplace.dao.connection.ConnectionCreator;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.dao.transaction.TransactionFactoryImpl;
 import by.mironenko.marketplace.entity.Buyer;
@@ -56,8 +57,9 @@ public class BuyerDaoImpl implements BuyerDao {
         log.debug("<-DAO-> Finding buyer by surname...");
         Buyer buyer = null;
         //todo add transaction
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)
+        ) {
             preparedStatement.setString(1, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -78,8 +80,8 @@ public class BuyerDaoImpl implements BuyerDao {
     public List<Buyer> findAll() {
         log.debug("<-DAO-> Finding all buyers...");
         List<Buyer> buyers = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Buyer buyer = this.convertToBuyer(resultSet);
@@ -101,8 +103,8 @@ public class BuyerDaoImpl implements BuyerDao {
     public Buyer findById(final Long id) {
         log.debug("<-DAO-> Finding buyer by ID...");
         Buyer buyer = null;
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -122,8 +124,8 @@ public class BuyerDaoImpl implements BuyerDao {
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting buyer by surname...");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BUYER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -139,8 +141,8 @@ public class BuyerDaoImpl implements BuyerDao {
     @Override
     public void create(final Buyer buyer) {
         log.debug("<-DAO-> Creating buyer...");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
             convertFromBuyer(preparedStatement, buyer);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -156,8 +158,8 @@ public class BuyerDaoImpl implements BuyerDao {
     @Override
     public void update(final Buyer buyer) {
         log.debug("<-DAO-> Updating buyer...");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
+        try (Connection connection = ConnectionCreator.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
             this.convertFromBuyer(preparedStatement, buyer);
             preparedStatement.setLong(1, buyer.getId());
             preparedStatement.executeUpdate();
@@ -168,11 +170,11 @@ public class BuyerDaoImpl implements BuyerDao {
 
     private Buyer convertToBuyer(final ResultSet resultSet) throws SQLException {
         return Buyer.builder()
-                .id(resultSet.getLong("buyer.id"))
-                .name(resultSet.getString("buyer.name"))
-                .surname(resultSet.getString("buyer.surname"))
-                .money(resultSet.getDouble("buyer.money"))
-                .age(resultSet.getInt("buyer.age"))
+                .id(resultSet.getLong("id"))
+                .name(resultSet.getString("name"))
+                .surname(resultSet.getString("surname"))
+                .money(resultSet.getDouble("money"))
+                .age(resultSet.getInt("age"))
                 .build();
     }
 

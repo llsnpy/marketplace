@@ -7,13 +7,17 @@ import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.GameService;
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import java.util.List;
 
+
+
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
-    private static final Logger log = Logger.getLogger(GameServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(GameServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 

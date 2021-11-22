@@ -15,6 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Buyer extends Entity {
     private Long id;
     private String name;
@@ -30,5 +31,4 @@ public class Buyer extends Entity {
         this.money = money;
         this.age = age;
     }
-
 }

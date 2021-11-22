@@ -1,17 +1,17 @@
-<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" %>
-<html>
+<%@page isErrorPage="true" contentType="text/html; charset=UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="c"%>
+<html title="Ошибка" message="${message}">
 <head>
-    <title>Error</title>
     <link rel="errorpage" href="error.css">
 </head>
 <body>
-<h1>HAHA error</h1>
-    <%--Request from ${pageContext.errorData.requestUri} if failed
+<h1>Error during executing request</h1>
+   <%-- Request from ${pageContext.request.getRequestUri} if failed
     <br/>
-    Servlet name or type: ${pageContext.errorData.servletName}
+    Servlet name or type: ${pageContext.getServletContext}
     <br/>
     Status code: ${pageContext.errorData.statusCode}
     <br/>
-    Exception: ${pageContext.errorData.throwable}--%>
+    Exception: ${pageContext.getException}--%>
 </body>
 </html>

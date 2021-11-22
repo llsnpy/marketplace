@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BuyersWithSale extends Entity {
     private Long id;
     private Long buyerId;

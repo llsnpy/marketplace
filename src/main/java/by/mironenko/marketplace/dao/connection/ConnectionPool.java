@@ -26,10 +26,16 @@ final public class ConnectionPool {
     private BlockingQueue<InPoolConnection> freeConnections = new LinkedBlockingQueue<>();
     private Set<InPoolConnection> usedConnections = new ConcurrentSkipListSet<>();
 
+    private static ConnectionPool instance = new ConnectionPool();
+
+    public static ConnectionPool getInstance() {
+        return instance;
+    }
+
     private ConnectionPool() { }
 
     public Connection getConnection() {
-        lock.lock();
+        /*lock.lock();*/
         InPoolConnection connection = null;
         try {
             while (connection == null) {
@@ -55,7 +61,7 @@ final public class ConnectionPool {
             usedConnections.add(connection);
             log.debug(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
         } finally {
-            lock.unlock();
+            /*lock.unlock();*/
         }
         return connection;
     }
@@ -102,12 +108,6 @@ final public class ConnectionPool {
         } finally {
             lock.unlock();
         }
-    }
-
-    private static ConnectionPool instance = new ConnectionPool();
-
-    public static ConnectionPool getInstance() {
-        return instance;
     }
 
     private InPoolConnection createConnection() throws SQLException {

@@ -1,10 +1,11 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="text.properties" scope="session" />
+<%--<fmt:setBundle basename="text.properties" scope="session"/>--%>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>marketplace</title>
+    <title>Main</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,8 +20,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
 </head>
 <body>
+<%--<jsp:useBean id="games" scope="request" type="by.mironenko.marketplace.entity.Game" />--%>
 <nav class="navbar navbar-default" role="navigation" style="background: #F5F5F5">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -40,66 +43,39 @@
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/main">Main</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/about_us">About us</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/contacts">Contacts</a></li>
-                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li> 
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages
                         <strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">Russian</a></li>
-                            </ul>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">German</a></li>
+                        <li><a href="#">Russian</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <h1 align="center">Welcome to the marketplace!</h1>
+<%--соответственно пишем страницу ниже--%>
+
     <div class="row">
-        <div class="col-lg-4" style="color: #ff9999"></div>
+        <%--первый столбик--%>
+        <div class="col-lg-6">
+            <h3 align="center">Games</h3>
 
-        <div class="col-lg-4" style="color: #000000" align="center">
-            <h3>Please, enter or register</h3>
-            </br>
-            <form role="form" class="form-horizontal">
-                <div class="form-group">
-
-                    <div class="col-lg-2"></div>
-                    <form action="${pageContext.request.contextPath}/controller/" method="post"> <%--new row--%>
-                        <div class="col-lg-8">
-                            <label for="login">
-                                <input type="login" class="form-control" id="login" placeholder="Enter login">
-                            </label>
-                        </div>
-
-                        <div class="col-lg-2"></div>
-
-                        <br><br>
-
-                        <div class="col-lg-2"></div>
-
-                        <div class="col-lg-8">
-                            <label for="password">
-                                <input type="password" class="form-control" id="password" placeholder="Enter password">
-                            </label>
-                        </div>
-
-                        <div class="col-lg-2"></div>
-                    </form>
-                </div>
-                <input type="button" class="btn btn-success" value="Log in">
-
-                <input type="button" class="btn btn-info" value="Registration">
-
-            </form>
         </div>
 
-        <div class="col-lg-4" style="color: #00CC99"></div>
+        <%--второй столбик--%>
+        <div class="col-lg-6">
+            <h3 align="center">Developers</h3>
+
+        </div>
     </div>
-</div>
+
+<%--соответственно пишем страницу выше--%>
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">
         <div class="navbar-inner">
