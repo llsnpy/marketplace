@@ -1,9 +1,6 @@
 package by.mironenko.marketplace.controller.command;
 
-import by.mironenko.marketplace.controller.command.impl.AssignValuesBuyerCommandImpl;
-import by.mironenko.marketplace.controller.command.impl.LanguagesCommandImpl;
-import by.mironenko.marketplace.controller.command.impl.LoginCommandImpl;
-import by.mironenko.marketplace.controller.command.impl.RegisterUserCommandImpl;
+import by.mironenko.marketplace.controller.command.impl.*;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -12,14 +9,13 @@ import java.util.Map;
 public class CommandFactory {
     private static final Logger log = Logger.getLogger(CommandFactory.class);
     public static final CommandFactory instance = new CommandFactory();
-    private static final Map<CommandName, Command> commands = new HashMap<>();
+    private final Map<CommandName, Command> commands;
 
-    public CommandFactory() {
-        commands.put(CommandName.CHOOSE_LANGUAGE, new LanguagesCommandImpl());
-        commands.put(CommandName.ENTER_INFO_ABOUT_BUYER, new AssignValuesBuyerCommandImpl());
-        commands.put(CommandName.REGISTER, new RegisterUserCommandImpl());
-        commands.put(CommandName.LOGIN, new LoginCommandImpl());
+    {
+        commands = initCommands();
     }
+
+    public CommandFactory() { }
 
     public Command getCommand(final String name) {
         log.debug("Execute command starting. Name-> " + name);
@@ -39,5 +35,15 @@ public class CommandFactory {
 
     public static CommandFactory getInstance() {
         return instance;
+    }
+
+    private Map<CommandName, Command> initCommands() {
+        Map<CommandName, Command> map = new HashMap<>();
+        map.put(CommandName.CHOOSE_LANGUAGE, new LanguagesCommandImpl());
+        map.put(CommandName.ENTER_INFO_ABOUT_BUYER, new AssignValuesBuyerCommandImpl());
+        map.put(CommandName.REGISTER, new RegisterUserCommandImpl());
+        map.put(CommandName.LOGIN, new LoginCommandImpl());
+        map.put(CommandName.ABOUT_US, new AboutUsCommandImpl());
+        return map;
     }
 }

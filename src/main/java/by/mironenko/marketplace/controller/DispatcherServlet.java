@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-@WebServlet("/command/*")
+@WebServlet("/controller/*")
 public class DispatcherServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(DispatcherServlet.class);
 
@@ -51,11 +51,13 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);
+
     }
 
     @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);
+
     }
 
     @Override
@@ -66,9 +68,9 @@ public class DispatcherServlet extends HttpServlet {
     private void processRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
 
-        final String commandName = request.getParameter("command");
+        String commandName = (String) request.getAttribute("command");
 
-        final Command command = CommandFactory.getInstance().getCommand(commandName);
+        Command command = CommandFactory.getInstance().getCommand(commandName);
         command.execute(request, response);
     }
 }

@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>marketplace</title>
+    <title>About us</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,49 +34,17 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <h1 align="center">Welcome to the marketplace!</h1>
+    <br><br>
     <div class="row">
-        <div class="col-lg-4" style="color: #ff9999"></div>
-
-        <div class="col-lg-4" style="color: #000000" align="center">
-            <h3>Please, enter or register</h3>
-            </br>
-            <form role="form" class="form-horizontal">
-                <div class="form-group">
-
-                    <div class="col-lg-2"></div>
-
-                    <div class="col-lg-8">
-                        <input type="login" class="form-control" id="login" placeholder="Enter login">
-                    </div>
-
-                    <div class="col-lg-2"></div>
-
-                    <br><br>
-
-                    <div class="col-lg-2"></div>
-
-                    <div class="col-lg-8">
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
-                    </div>
-
-                    <div class="col-lg-2"></div>
-
-                </div>
-                <input type="button" class="btn btn-success" value="Log in">
-                <%--<button class="btn btn-success" value="Log in">
-                    <i class="glyphicon glyphicon-ok"></i>
-                    Log in
-                </button>--%>
-                <input type="button" class="btn btn-info" value="Registration">
-                <%--<button class="btn btn-info">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                    Registration
-                </button>--%>
-            </form>
+        <div class="col-lg-t" style="color: #000000"></div>
+        <div class="col-lg-t" style="color: #000000" align="center">
+            <br><br><br>
+            My name is Pavel. I'm 25 years old. <br>
+            This project is the final task for the training "Java web Development by EPAM". <br>
+            I really want to be developer!
+            Have a nice day! <br>
         </div>
-
-        <div class="col-lg-4" style="color: #00CC99"></div>
+        <div class="col-lg-t" style="color: #000000"></div>
     </div>
 </div>
 <footer class="fixed-bottom">
