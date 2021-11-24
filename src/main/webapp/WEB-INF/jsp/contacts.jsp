@@ -27,10 +27,10 @@
 
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Main</a></li>
-                <li class="active"><a href="/marketplace_war_exploded/controller/about_us">About us</a></li>
-                <li class="active"><a href="/contacts">Contacts</a></li>
-                <li class="active"><a href="/support">Support</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/main">Main</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/about_us">About us</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/contacts">Contacts</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li>
             </ul>
         </div>
     </div>
@@ -43,10 +43,10 @@
             <div class="container-fluid">
                 <div class="col-12 social padding">
                     <br>
-                    <a href="https://www.linkedin.com/in/llsnpy/" style="font-size: 30px">LinkedIn</a> <br>
-                    <a href="https://github.com/llsnpy" style="font-size: 30px">GitHub</a> <br>
-                    <a href="https://www.facebook.com/mironenkops/" style="font-size: 30px">Facebook</a> <br>
-                    <a href="https://vk.com/so_excellent" style="font-size: 30px">VK</a> <br>
+                    <a href="https://www.linkedin.com/in/llsnpy/" target="_blank" style="font-size: 30px">LinkedIn</a> <br>
+                    <a href="https://github.com/llsnpy" target="_blank" style="font-size: 30px">GitHub</a> <br>
+                    <a href="https://www.facebook.com/mironenkops/" target="_blank" style="font-size: 30px">Facebook</a> <br>
+                    <a href="https://vk.com/so_excellent" target="_blank" style="font-size: 30px">VK</a> <br>
                 </div>
             </div>
             <br>

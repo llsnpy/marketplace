@@ -1,7 +1,6 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerWithSaleDao;
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.BuyersWithSale;
 import by.mironenko.marketplace.exceptions.DaoException;
@@ -33,7 +32,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     public List<BuyersWithSale> findAll() {
         log.debug("<-DAO-> Finding all buyers with pre sale...");
         List<BuyersWithSale> preSaleList = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -50,7 +49,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     public BuyersWithSale findById(final Long id) {
         log.debug("<-DAO-> Finding buyers with pre sale by ID...");
         BuyersWithSale buyersWithSale = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +65,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     @Override
     public void create(final BuyersWithSale buyersWithSale) {
         log.debug("<-DAO-> Creating buyer with sale...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER_WITH_SALE)) {
             this.converFromBuyersWithSale(preparedStatement, buyersWithSale);
             preparedStatement.executeUpdate();

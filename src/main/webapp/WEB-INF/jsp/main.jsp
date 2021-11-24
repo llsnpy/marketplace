@@ -23,7 +23,6 @@
 
 </head>
 <body>
-<%--<jsp:useBean id="games" scope="request" type="by.mironenko.marketplace.entity.Game" />--%>
 <nav class="navbar navbar-default" role="navigation" style="background: #F5F5F5">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -56,26 +55,69 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav navbar-right">
+                <li class="active"><a href="${pageContext.request.contextPath}">
+                    <input type="button" class="btn btn-success" value="Log in">
+                </a></li>
+            </ul>
         </div>
     </div>
 </nav>
-<%--соответственно пишем страницу ниже--%>
 
-    <div class="row">
-        <%--первый столбик--%>
-        <div class="col-lg-6">
-            <h3 align="center">Games</h3>
+<div class="row">
+    <%--первый столбик--%>
+    <div class="col-lg-6">
+        <h3 align="center">Games</h3>
+        <jsp:useBean id="games" scope="request" type="java.util.List"/>
+        <div class="container-fluid">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="active">
+                        <th>Name</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
 
-        </div>
-
-        <%--второй столбик--%>
-        <div class="col-lg-6">
-            <h3 align="center">Developers</h3>
-
+                <tbody>
+                <c:forEach items="${games}" var="game">
+                    <tr>
+                        <td><c:out value="${game.name}"/></td>
+                        <td><c:out value="${game.genre}"/></td>
+                        <td><c:out value="${game.price}"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 
-<%--соответственно пишем страницу выше--%>
+    <%--второй столбик--%>
+    <div class="col-lg-6">
+        <h3 align="center">Developers</h3>
+        <jsp:useBean id="developers" scope="request" type="java.util.List"/>
+        <div class="container-fluid">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr class="active">
+                    <th>Name</th>
+                    <th>Rating</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${developers}" var="developer">
+                    <tr>
+                        <th><c:out value="${developer.name}"/></th>
+                        <th><c:out value="${developer.rating}"/></th>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">
         <div class="navbar-inner">

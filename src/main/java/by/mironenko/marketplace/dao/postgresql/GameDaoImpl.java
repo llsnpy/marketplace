@@ -1,11 +1,10 @@
 package by.mironenko.marketplace.dao.postgresql;
 
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
-import by.mironenko.marketplace.dao.connection.ConnectionPool;
-import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.dao.GameDao;
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.entity.Genre;
+import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +51,7 @@ public class GameDaoImpl implements GameDao {
     public Game findByName(final String name) {
         log.debug("<-DAO-> Finding game by Name...");
         Game game = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +68,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByDeveloper(final String developerName) {
         log.debug("<-DAO-> Finding game by Developer...");
         List<Game> games = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER)) {
             preparedStatement.setString(1, developerName);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -87,7 +86,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) {
         log.debug("<-DAO-> Finding game by pre sale status...");
         List<Game> games = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRE_SALE_STATUS)) {
             preparedStatement.setBoolean(1, preSaleStatus);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -105,7 +104,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findByPrice(final double price) {
         log.debug("<-DAO-> Finding game by Price...");
         List<Game> games = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -123,7 +122,7 @@ public class GameDaoImpl implements GameDao {
     public Long getDeveloperId(final Long id) {
         log.debug("<-DAO-> Finding developer ID by game ID...");
         long devId = 0L;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DEV_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -140,7 +139,7 @@ public class GameDaoImpl implements GameDao {
     public List<Game> findAll() {
         log.debug("<-DAO-> Finding all games...");
         List<Game> games = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -157,7 +156,7 @@ public class GameDaoImpl implements GameDao {
     public Game findById(final Long id) {
         log.debug("<-DAO-> Finding game by ID...");
         Game game = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -173,7 +172,7 @@ public class GameDaoImpl implements GameDao {
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting game by ID...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_GAME)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -185,7 +184,7 @@ public class GameDaoImpl implements GameDao {
     @Override
     public void create(final Game game) {
         log.debug("<-DAO-> Creating game...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_GAME)) {
             this.mapFromGame(preparedStatement, game);
             preparedStatement.executeUpdate();
@@ -197,7 +196,7 @@ public class GameDaoImpl implements GameDao {
     @Override
     public void update(final Game game) {
         log.debug("<-DAO-> Updating game...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
             this.mapFromGame(preparedStatement, game);
             preparedStatement.setLong(1, game.getId());
@@ -211,7 +210,7 @@ public class GameDaoImpl implements GameDao {
         return Game.builder()
                 .id(resultSet.getLong("id"))
                 .name(resultSet.getString("name"))
-                .genre(Genre.valueOf(resultSet.getString( "genre")))
+                .genre(Genre.valueOf((resultSet.getString( "genre")).toUpperCase()))
                 .date(resultSet.getDate("date"))
                 .price(resultSet.getDouble("price"))
                 .preSale(resultSet.getBoolean("pre_sale"))

@@ -27,10 +27,10 @@
 
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Main</a></li>
-                <li class="active"><a href="/marketplace_war_exploded/controller/about_us">About us</a></li>
-                <li class="active"><a href="/contacts">Contacts</a></li>
-                <li class="active"><a href="/support">Support</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/main">Main</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/about_us">About us</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/contacts">Contacts</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li>
             </ul>
         </div>
     </div>

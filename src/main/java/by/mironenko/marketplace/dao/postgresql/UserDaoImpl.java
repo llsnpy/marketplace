@@ -1,7 +1,6 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.UserDao;
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.DaoException;
@@ -52,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         log.debug("<-DAO-> Finding all users...");
         List<User> users = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -75,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     public User findById(final Long id) {
         log.debug("<-DAO-> Finding user by ID...");
         User user = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,7 +90,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting user by ID...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -103,7 +102,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void create(final User user) {
         log.debug("<-DAO-> Creating user...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_USER)) {
             this.convertFromUser(preparedStatement, user);
             preparedStatement.executeUpdate();
@@ -115,7 +114,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(final User user) {
         log.debug("<-DAO-> Updating user...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
             this.convertFromUser(preparedStatement, user);
             preparedStatement.setLong(1, user.getId());
@@ -129,7 +128,7 @@ public class UserDaoImpl implements UserDao {
     public User findUserByLogin(final String login) {
         log.debug("<-DAO-> Finding user by login...");
         User user = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();

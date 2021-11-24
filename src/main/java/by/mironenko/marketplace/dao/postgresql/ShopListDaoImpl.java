@@ -1,7 +1,6 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.ShopListDao;
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.ShopList;
 import by.mironenko.marketplace.exceptions.DaoException;
@@ -40,7 +39,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public List<ShopList> findByDate(final Date date) {
         log.debug("<-DAO-> Finding shop list by Date...");
         List<ShopList> bills = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DATE)) {
             preparedStatement.setDate(1, (java.sql.Date) date);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,7 +57,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public List<ShopList> findByPrice(final Double price) {
         log.debug("<-DAO-> Finding shop list by Price...");
         List<ShopList> bills = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PRICE)) {
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -76,7 +75,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public List<ShopList> findAll() {
         log.debug("<-DAO-> Finding all shop lists...");
         List<ShopList> bills = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -93,7 +92,7 @@ public class ShopListDaoImpl implements ShopListDao {
     public ShopList findById(final Long id) {
         log.debug("<-DAO-> Finding shop list by ID...");
         ShopList shopList = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -115,7 +114,7 @@ public class ShopListDaoImpl implements ShopListDao {
     @Override
     public void create(final ShopList shopList) {
         log.debug("<-DAO-> Creating shop list...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_SHOP_LIST)) {
             this.mapFromShopList(preparedStatement, shopList);
             preparedStatement.executeUpdate();

@@ -1,10 +1,9 @@
 package by.mironenko.marketplace.dao.postgresql;
 
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
-import by.mironenko.marketplace.dao.connection.ConnectionPool;
-import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.dao.DeveloperDao;
+import by.mironenko.marketplace.dao.connection.ConnectionPool;
 import by.mironenko.marketplace.entity.Developer;
+import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +41,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public Developer findByName(final String name) {
         log.debug("<-DAO-> Finding developer by Name...");
         Developer developer = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_NAME)) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -59,7 +58,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public List<Developer> findAll() {
         log.debug("<-DAO-> Finding all developers...");
         List<Developer> developers = new ArrayList<>();
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -76,7 +75,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     public Developer findById(final Long id) {
         log.debug("<-DAO-> Finding developer by ID...");
         Developer developer = null;
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -92,7 +91,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting developer by ID...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DEVELOPER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -104,7 +103,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     @Override
     public void create(final Developer developer) {
         log.debug("<-DAO-> Creating developer...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
             preparedStatement.executeUpdate();
@@ -116,7 +115,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     @Override
     public void update(final Developer developer) {
         log.debug("<-DAO-> Updating developer...");
-        try (Connection connection = ConnectionCreator.createConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
             this.mapFromDeveloper(preparedStatement, developer);
             preparedStatement.setLong(4, developer.getId());
