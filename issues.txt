@@ -16,4 +16,11 @@
 в. серфисы вызывать через фабрику в командах
 г. соответственно там же и вызывать транзакцию!?!??!?!
 12. getClass().getClassLoader().getResourse разобраться почему не работает
+$2a$10$G/kH0UIzxyvZBCC9cppWSOxpMOt/fP4lCXYXpDUQ1a7mVl2ZNWCEW - pas:admin
+$2a$10$1nIZXneJx.Ix1MG6pXV1QukSj87M7I44pjz4R13Zzw7voXjJT88MK - pas:developer
+$2a$10$PdDj.6OjEqeSsWtjIAeM6.4wEDmyBcKiqmhccimwtZHNpYGOeWwIW - pas:buyer
+$2a$10$ja8H/b14I/AjE88sU3aOb.qHeSA1l8HrRmQEyhz2RHXUboUyoiWLO - pas:user1
+$2a$10$EoidKcYZ6sKyKlWnY60Qd.oZsO8pZEWeHCaVbfpEa5OSPk6xCgFhW - pas:user2
+$2a$10$XzA1vDQE5JntprFxxAaBc.srBVpXjOLO0O3VpW.70MJbIy8p0WFNC - pas:user3
+$2a$10$C.HYOlJZxPL2T7eeQviSruSRcAO8voUkZf7kLbykBbS3GuVuud2z2 - pas:holder
 

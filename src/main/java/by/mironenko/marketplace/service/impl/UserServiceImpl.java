@@ -6,6 +6,7 @@ import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.UserService;
+import by.mironenko.marketplace.service.coding.PasswordCoder;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -101,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isExist(final String login, final String password) {
-        return findByLogin(login).getLogin().equals(login) && findByLogin(login).getPassword().equals(password);
+        PasswordCoder pc = new PasswordCoder();
+        return findByLogin(login).getLogin().equals(login) & pc.isMatch(password, findByLogin(login).getPassword()); /*findByLogin(login).getPassword().equals(password)*/
     }
 }

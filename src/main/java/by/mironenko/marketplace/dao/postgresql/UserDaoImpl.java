@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
             "UPDATE users SET login = ?, password = ?;";
 
     private static final String SQL_FIND_USER_BY_LOGIN =
-            "SELECT login, password FROM users WHERE login = ?;";
+            "SELECT id, login, password, role FROM users WHERE login = ?;";
 
     public UserDaoImpl() { }
 
@@ -147,6 +147,7 @@ public class UserDaoImpl implements UserDao {
                     .id(resultSet.getLong("id"))
                     .login(resultSet.getString("login"))
                     .password(resultSet.getString("password"))
+                    .role(resultSet.getString("role"))
                     .build();
         } catch (SQLException e) {
             throw new RuntimeException(e);

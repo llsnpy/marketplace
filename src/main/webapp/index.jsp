@@ -62,38 +62,15 @@
         <div class="col-lg-4" style="color: #ff9999"></div>
 
         <div class="col-lg-4" style="color: #000000" align="center">
+
             <h3>Please, enter or register</h3>
             </br>
-            <form role="form" class="form-horizontal">
-                <div class="form-group">
-
-                    <div class="col-lg-2"></div>
-                    <form action="${pageContext.request.contextPath}/controller/" method="post"> <%--new row--%>
-                        <div class="col-lg-8">
-                            <label for="login">
-                                <input type="login" class="form-control" id="login" placeholder="Enter login">
-                            </label>
-                        </div>
-
-                        <div class="col-lg-2"></div>
-
-                        <br><br>
-
-                        <div class="col-lg-2"></div>
-
-                        <div class="col-lg-8">
-                            <label for="password">
-                                <input type="password" class="form-control" id="password" placeholder="Enter password">
-                            </label>
-                        </div>
-
-                        <div class="col-lg-2"></div>
-                    </form>
-                </div>
-                <input type="button" class="btn btn-success" value="Log in">
-
-                <input type="button" class="btn btn-info" value="Registration">
-
+            <form action="${pageContext.request.contextPath}/controller/log_in" method="post">
+                <label for="login">login</label>
+                <input type="text" id="login" name="login" value="${param.login}">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <button type="submit">Login</button>
             </form>
         </div>
 
