@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
             "DELETE FROM users WHERE id = ?;";
 
     private static final String SQL_CREATE_USER =
-            "INSERT INTO users(login, password) VALUES(?, ?);";
+            "INSERT INTO users(login, password, role) VALUES(?, ?, ?);";
 
     private static final String SQL_UPDATE_USER =
             "UPDATE users SET login = ?, password = ?;";
@@ -157,5 +157,6 @@ public class UserDaoImpl implements UserDao {
     private void convertFromUser(final PreparedStatement preparedStatement, final User user) throws SQLException {
         preparedStatement.setString(1, user.getLogin());
         preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(3, user.getRole());
     }
 }

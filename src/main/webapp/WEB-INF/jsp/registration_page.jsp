@@ -1,10 +1,8 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="text.properties" scope="session" />
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>marketplace</title>
+    <title>Registration</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,58 +38,63 @@
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/main">Main</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/about_us">About us</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/contacts">Contacts</a></li>
-                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li> 
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages
                         <strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">Russian</a></li>
-                            </ul>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">German</a></li>
+                        <li><a href="#">Russian</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="container-fluid">
-    <h1 align="center">Welcome to the marketplace!</h1>
+    <h1 align="center">Registration is coming...\o/</h1>
+    <br>
     <div class="row">
         <div class="col-lg-4" style="color: #ff9999"></div>
 
         <div class="col-lg-4" style="color: #000000" align="center">
 
-            <h3>Please, enter or register</h3>
+            <h3>Enter login, password and role</h3>
             </br>
-            <form action="${pageContext.request.contextPath}/controller/log_in" method="post">
+            <form action="${pageContext.request.contextPath}/controller/reg" method="post">
                 <div>
+                    <label for="login">Enter login if form</label>
                     <input type="text" id="login" name="login" value="${param.login}"
-                        placeholder="Enter login">
+                           placeholder="Enter login">
                 </div>
-                    <br>
-                 <div>
+                <br>
+                <div>
+                    <label for="password">Enter password in form</label>
                     <input type="password" id="password" name="password"
-                        placeholder="Enter password">
-                 </div>
+                           placeholder="Enter password">
+                </div>
+                <br>
+                <div>
+                    <label for="role">Choose role</label>
+                    <input type="text" id="role" name="role"
+                    placeholder="Dev or buyer">
+                </div>
                 <div>
                     <br class="container-fluid">
                     <button class="btn btn-success">
-                        Log in
+                        Submit
                     </button>
                 </div>
-            </form>
-            <form action="${pageContext.request.contextPath}/controller/registration" method="post">
-                <button class="btn btn-info">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                        Registration
-                </button>
             </form>
         </div>
         <div class="col-lg-4" style="color: #00CC99"></div>
     </div>
 </div>
+
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">
         <div class="navbar-inner">

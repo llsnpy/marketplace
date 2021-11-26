@@ -142,7 +142,7 @@ public class BuyerDaoImpl implements BuyerDao {
     public void create(final Buyer buyer) {
         log.debug("<-DAO-> Creating buyer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER)) {
             convertFromBuyer(preparedStatement, buyer);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

@@ -21,7 +21,8 @@ public class LoginCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(LoginCommandImpl.class);
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        log.debug("<-CONTROLLER-> Executing command LOG_IN...");
         PasswordCoder passwordCoder = new PasswordCoder();
         UserService userService = ServiceFactory.getInstance().getUserService();
         String login = request.getParameter("login");

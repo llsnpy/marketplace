@@ -45,6 +45,8 @@ public class CommandFactory {
         map.put(CommandName.SUPPORT, new SupportCommandImpl());
         map.put(CommandName.MAIN, new MainPageCommandImpl());
         map.put(CommandName.LOG_IN, new LoginCommandImpl());
+        map.put(CommandName.REGISTRATION, new RegisterCommandImpl());
+        map.put(CommandName.REG, new RegCommandImpl());
         return map;
     }
 }
