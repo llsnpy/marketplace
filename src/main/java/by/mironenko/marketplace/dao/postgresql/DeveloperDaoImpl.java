@@ -135,8 +135,9 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     private void mapFromDeveloper(final PreparedStatement preparedStatement, final Developer developer) throws SQLException {
-        preparedStatement.setString(1, developer.getName());
-        preparedStatement.setDouble(2, developer.getMoney());
-        preparedStatement.setInt(3, developer.getRating());
+        preparedStatement.setLong(1, developer.getId());
+        preparedStatement.setString(2, developer.getName());
+        preparedStatement.setDouble(3, developer.getMoney());
+        preparedStatement.setInt(4, developer.getRating());
     }
 }

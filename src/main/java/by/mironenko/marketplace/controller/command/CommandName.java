@@ -9,5 +9,7 @@ public enum CommandName {
     MAIN,
     LOG_IN,
     REGISTRATION,
-    REG
+    REG,
+    DEV_VALUES,
+    BUYER_VALUES
 }

@@ -65,15 +65,15 @@
             <h3>Enter name and start money</h3>
             </br>
             <form action="${pageContext.request.contextPath}/controller/dev_values" method="post">
-                <label for="name">Enter login if form</label>
+                <label for="name">Enter name if form</label>
                 <div>
                     <input type="text" id="name" name="name"
                            placeholder="organisation name">
                 </div>
                 <br>
-                <label for="money">Enter password in form</label>
+                <label for="money">Enter start money in form</label>
                 <div>
-                    <input type="number" id="money" name="money"
+                    <input type="text" id="money" name="money"
                            placeholder="money">
                 </div>
                 <br>

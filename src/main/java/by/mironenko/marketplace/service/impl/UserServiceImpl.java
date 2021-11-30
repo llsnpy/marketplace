@@ -101,6 +101,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long findId(final String login) {
+        log.info("<-SERVICE-> Finding user ID by login...");
+        if (login == null) {
+            throw new ServiceException("Cant define login for finding user ID.");
+        }
+        try {
+            final UserDao userDao = factory.getUserDao();
+            return userDao.getId(login);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public boolean isExist(final String login, final String password) {
         PasswordCoder pc = new PasswordCoder();
         return findByLogin(login).getLogin().equals(login) & pc.isMatch(password, findByLogin(login).getPassword()); /*findByLogin(login).getPassword().equals(password)*/

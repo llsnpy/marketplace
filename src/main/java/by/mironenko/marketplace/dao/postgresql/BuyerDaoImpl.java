@@ -33,7 +33,7 @@ public class BuyerDaoImpl implements BuyerDao {
             "SELECT id, name, surname, money, age FROM buyer WHERE id = ?;";
 
     private static final String SQL_CREATE_BUYER =
-            "INSERT INTO buyer(name, surname, money, age) VALUES(?, ?, ?, ?);";
+            "INSERT INTO buyer(id, name, surname, money, age) VALUES(?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_BUYER =
             "UPDATE buyer SET name = ?, surname = ?, money = ?, age = ?;";
@@ -179,9 +179,10 @@ public class BuyerDaoImpl implements BuyerDao {
     }
 
     private void convertFromBuyer(final PreparedStatement preparedStatement, final Buyer buyer) throws SQLException {
-        preparedStatement.setString(1, buyer.getName());
-        preparedStatement.setString(2, buyer.getSurname());
-        preparedStatement.setDouble(3, buyer.getMoney());
-        preparedStatement.setInt(4, buyer.getAge());
+        preparedStatement.setLong(1, buyer.getId());
+        preparedStatement.setString(2, buyer.getName());
+        preparedStatement.setString(3, buyer.getSurname());
+        preparedStatement.setDouble(4, buyer.getMoney());
+        preparedStatement.setInt(5, buyer.getAge());
     }
 }

@@ -6,4 +6,5 @@ public interface UserService extends Service<User> {
 
     User findByLogin(String login);
     boolean isExist(String login,String password);
+    Long findId(final String login);
 }

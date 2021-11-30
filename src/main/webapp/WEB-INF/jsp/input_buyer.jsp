@@ -55,7 +55,6 @@
     </div>
 </nav>
 
-<h1>Здесь форма для ввода данных для покупателя</h1>
 <div class="container-fluid">
     <br>
     <div class="row">
@@ -80,7 +79,7 @@
                 <br>
                 <label for="money">Enter start money</label>
                 <div>
-                    <input type="number" id="money" name="money"
+                    <input type="text" id="money" name="money"
                            placeholder="money">
                 </div>
                 <br>

@@ -2,9 +2,6 @@ package by.mironenko.marketplace.entity;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Pavel Mironenko
  * Role - Developer (1/3). Developer has name, wallet, 2 lists (developing and released)
@@ -24,18 +21,11 @@ public class Developer extends Entity {
     private String name;
     private double money;
     private int rating;
-    private List<Game> developingGames;
-    private List<Game> releasedGames;
 
-    private Developer(final String name, final Double money) {
+    public Developer(final Long id, final String name, final Double money) {
+        this.id = id;
         this.name = name;
         this.money = money;
         rating = 0;
-        developingGames = new ArrayList<>(); //todo work with lists, mb not necessary there
-        releasedGames = new ArrayList<>();
     }
-
-    //todo отдельные конструктор с играми, рейтингом
-    //todo методы для добавления и перемещения игр
-
 }

@@ -6,10 +6,7 @@ import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,9 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDao {
     private static final Logger log = Logger.getLogger(UserDaoImpl.class);
+
+    private static final String SQL_SELECT_ID_BY_LOGIN =
+            "SELECT id FROM users WHERE login = ?;";
 
     private static final String SQL_SELECT_ALL =
             "SELECT id, login, password FROM users;";
@@ -139,6 +139,23 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Exception during finding user by login: ", e);
         }
         return user;
+    }
+
+    @Override
+    public Long getId(final String login) {
+        log.debug("<-DAO-> Finding user ID by login...");
+        Long id = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ID_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during selecting ID by login: ", e);
+        }
+        return id;
     }
 
     private User convertToUser(final ResultSet resultSet) {

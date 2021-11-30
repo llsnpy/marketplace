@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegCommandImpl implements Command {
@@ -29,6 +30,11 @@ public class RegCommandImpl implements Command {
             if (userService.findByLogin(login) == null) {
                 User user = new User(login, password, role);
                 userService.create(user);
+
+                long id = userService.findId(login);
+                HttpSession session = request.getSession();
+                session.setAttribute("id", id);
+
                 switch (user.getRole()) {
                     case "buyer":
                         request.getRequestDispatcher("/WEB-INF/jsp/input_buyer.jsp").forward(request, response);
@@ -37,15 +43,14 @@ public class RegCommandImpl implements Command {
                         request.getRequestDispatcher("/WEB-INF/jsp/input_dev.jsp").forward(request, response);
                         break;
                     default:
-                        request.getRequestDispatcher("/WEB-INF/index.jsp");
+                        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
                 }
             } else {
                 request.setAttribute("error_msg_login", "Login is not available. Try again.");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
             log.error(e);
         }
-
     }
 }

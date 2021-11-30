@@ -68,6 +68,8 @@ public class CommandFilter implements Filter {
         commands.put("log_in", "LOG_IN");
         commands.put("registration", "REGISTRATION");
         commands.put("reg", "REG");
+        commands.put("dev_values", "DEV_VALUES");
+        commands.put("buyer_values", "BUYER_VALUES");
         return commands;
     }
 }
