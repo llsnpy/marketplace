@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
@@ -25,12 +27,28 @@
             <div class="navbar-brand">marketplace</div>
         </div>
 
-        <div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/main">Main</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/about_us">About us</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/contacts">Contacts</a></li>
                 <li class="active"><a href="${pageContext.request.contextPath}/controller/support">Support</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages
+                        <strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">German</a></li>
+                        <li><a href="#">Russian</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-right">
+                <li class="active"><a href="${pageContext.request.contextPath}">
+                    <input type="button" class="btn btn-success" value="Log in">
+                </a></li>
             </ul>
         </div>
     </div>

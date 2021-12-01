@@ -67,7 +67,7 @@ final public class ConnectionPool {
     }
 
      void freeConnection(InPoolConnection connection) throws DaoException {
-        lock.lock();
+       /* lock.lock();*/
         try {
             if(connection.isValid(checkConnectionTimeout)) {
                 connection.clearWarnings();
@@ -85,13 +85,13 @@ final public class ConnectionPool {
                 throw new DaoException(e2.getCause());
             }
         } finally {
-            lock.unlock();
+            /*lock.unlock();*/
         }
     }
 
     public void init(String driverClass, String url, String user, String password,
                                   int startSize, int maxSize, int checkConnectionTimeout) {
-        lock.lock();
+        /*lock.lock();*/
         try {
             destroy();
             Class.forName(driverClass);
@@ -106,7 +106,7 @@ final public class ConnectionPool {
         } catch(ClassNotFoundException | SQLException | InterruptedException e) {
             log.fatal("It is impossible to initialize connection pool", e);
         } finally {
-            lock.unlock();
+           /* lock.unlock();*/
         }
     }
 
@@ -126,7 +126,7 @@ final public class ConnectionPool {
             }
         } finally {
             usedConnections.clear();
-            lock.unlock();
+           /* lock.unlock();*/
         }
     }
 

@@ -133,6 +133,9 @@
             </div>
         </div>
 </div>
+<div class="container-fluid">
+    <h1>Новые значения</h1>
+</div>
 
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">
