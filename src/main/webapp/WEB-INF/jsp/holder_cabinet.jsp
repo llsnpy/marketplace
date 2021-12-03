@@ -22,11 +22,11 @@
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation" style="background: #F5F5F5">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
 
             <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+                    data-target=".navbar-collapse">
                 <span class="sr-only">Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -57,17 +57,24 @@
     </div>
 </nav>
 
-<div class="row">
-    <%--первый столбик--%>
-        <div class="col-lg-4">
-            <h3 align="center">Buyers</h3>
+<div class="container-fluid">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#buyers" role="tab" data-toggle="tab">Buyers</a></li>
+        <li><a href="#developers" role="tab" data-toggle="tab">Developers</a></li>
+        <li><a href="#games" role="tab" data-toggle="tab">Games</a></li>
+        <li><a href="#finds" role="tab" data-toggle="tab">Find</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="buyers">
             <jsp:useBean id="buyers" scope="request" type="java.util.List"/>
-            <div class="container-fluid">
+            <div class="col-lg-5 container-fluid">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr class="active">
                         <th>Name</th>
                         <th>Surname</th>
+                        <th>Age</th>
+                        <th>Money</th>
                     </tr>
                     </thead>
 
@@ -76,21 +83,23 @@
                         <tr>
                             <td><c:out value="${buyer.name}"/></td>
                             <td><c:out value="${buyer.surname}"/></td>
+                            <td><c:out value="${buyer.age}"/></td>
+                            <td><c:out value="${buyer.money}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
-        <%--Второй столбик--%>
-        <div class="col-lg-4">
-            <h3 align="center">Developers</h3>
+
+        <div role="tabpanel" class="tab-pane" id="developers">
             <jsp:useBean id="developers" scope="request" type="java.util.List"/>
-            <div class="container-fluid">
+            <div class="col-lg-5 container-fluid">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr class="active">
                         <th>Name</th>
+                        <th>Money</th>
                         <th>Rating</th>
                     </tr>
                     </thead>
@@ -99,6 +108,7 @@
                     <c:forEach items="${developers}" var="dev">
                         <tr>
                             <td><c:out value="${dev.name}"/></td>
+                            <td><c:out value="${dev.money}"/></td>
                             <td><c:out value="${dev.rating}"/></td>
                         </tr>
                     </c:forEach>
@@ -106,16 +116,16 @@
                 </table>
             </div>
         </div>
-        <%--Третий столбик--%>
-        <div class="col-lg-4">
-            <h3 align="center">Games</h3>
+
+        <div role="tabpanel" class="tab-pane" id="games">
             <jsp:useBean id="games" scope="request" type="java.util.List"/>
-            <div class="container-fluid">
+            <div class="col-lg-6 container-fluid">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr class="active">
                         <th>Name</th>
                         <th>Genre</th>
+                        <th>Date</th>
                         <th>Price</th>
                     </tr>
                     </thead>
@@ -125,6 +135,7 @@
                         <tr>
                             <td><c:out value="${game.name}"/></td>
                             <td><c:out value="${game.genre}"/></td>
+                            <td><c:out value="${game.date}"/></td>
                             <td><c:out value="${game.price}"/></td>
                         </tr>
                     </c:forEach>
@@ -132,9 +143,54 @@
                 </table>
             </div>
         </div>
-</div>
-<div class="container-fluid">
-    <h1>Новые значения</h1>
+        <div role="tabpanel" class="tab-pane" id="finds">
+            <form action="${pageContext.request.contextPath}/controller/find_holder_action_res" method="get">
+                <br>
+                <div>
+                    <label for="searchB">Find buyer by surname</label>
+                </div>
+                <div>
+                    <input type="text" id="searchB" name="buyer_surname"
+                           placeholder="buyer surname">
+                    <button class="btn btn-info btn-sm">Find</button>
+                </div>
+                <br>
+                <div>
+                    <label for="searchD">Find dev by name</label></div>
+                <div>
+                    <input type="text" id="searchD" name="dev_name"
+                           placeholder="dev name">
+                    <button class="btn btn-info btn-sm">Find</button>
+                </div>
+                <br>
+                <div>
+                    <label for="searchG">Find game by name</label></div>
+                <div>
+                <input type="text" id="searchG" name="game_name"
+                           placeholder="game name">
+                    <button class="btn btn-info btn-sm">Find</button>
+                </div>
+            </form>
+                <br>
+
+            <form action="${pageContext.request.contextPath}/controller/holder_sorts" method="get"> //todo add to commands
+                <div>
+                    <label>Sort game by price</label>
+                    <button class="btn btn-info btn-sm" name="sort_by_price">Sort</button>
+                </div>
+                <br>
+                <div>
+                    <label>Sort developers by rating</label>
+                    <button class="btn btn-info btn-sm" name="sort_by_rating">Sort</button>
+                </div>
+                <br>
+                <div>
+                    <label>Sort buyers by money</label>
+                    <button class="btn btn-info btn-sm" name="sort_by_money">Sort</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <footer class="fixed-bottom">

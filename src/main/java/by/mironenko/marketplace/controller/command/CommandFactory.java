@@ -49,6 +49,8 @@ public class CommandFactory {
         map.put(CommandName.REG, new RegCommandImpl());
         map.put(CommandName.DEV_VALUES, new CreateCurrentDevCommandImpl());
         map.put(CommandName.BUYER_VALUES, new CreateCurrentBuyerCommandImpl());
+        map.put(CommandName.FIND_HOLDER_ACTION_RES, new FindHolderActionsCommandImpl());
+        map.put(CommandName.SORT_HOLDER_ACTION, new SortsHolderCommandImpl());
         return map;
     }
 }

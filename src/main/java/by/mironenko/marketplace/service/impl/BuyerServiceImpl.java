@@ -45,6 +45,17 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
+    public List<Buyer> sortByMoney() {
+        log.info("<-SERVICE-> Sort buyers by money...");
+        try {
+            final BuyerDao buyerDao = factory.getBuyerDao();
+            return buyerDao.sortByMoney();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public Buyer findById(final Long id) {
         log.info("<-SERVICE-> Finding buyer by ID...");
         if (id < 1) {

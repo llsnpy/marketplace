@@ -45,6 +45,9 @@ public class GameDaoImpl implements GameDao {
     private static final String SQL_FIND_DEV_ID =
             "SELECT developer_id FROM game WHERE id = ?;";
 
+    private static final String SQL_SORT_GAME_BY_PRICE =
+            "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game ORDER BY price;";
+
     public GameDaoImpl() { }
 
     @Override
@@ -204,6 +207,23 @@ public class GameDaoImpl implements GameDao {
         } catch (SQLException e) {
             throw new DaoException("Exception during updating game: ", e);
         }
+    }
+
+    @Override
+    public List<Game> sortByPrice() {
+        log.debug("<-DAO-> Sort game by price...");
+        List<Game> games = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_SORT_GAME_BY_PRICE)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Game game = this.mapToGame(resultSet);
+                games.add(game);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during sorting games by price: ", e);
+        }
+        return games;
     }
 
     private Game mapToGame(final ResultSet resultSet) throws SQLException {

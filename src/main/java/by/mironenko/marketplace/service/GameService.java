@@ -10,4 +10,5 @@ public interface GameService extends Service<Game> {
     List<Game> findByDeveloperName(String developerName);
     List<Game> findByPreSaleStatus(Boolean status);
     List<Game> findByPrice(Double price);
+    List<Game> sortByPrice();
 }

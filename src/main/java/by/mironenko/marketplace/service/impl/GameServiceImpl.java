@@ -140,4 +140,15 @@ public class GameServiceImpl implements GameService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
+    @Override
+    public List<Game> sortByPrice() {
+        log.info("<-SERVICE-> Sort games by price...");
+        try {
+            final GameDao gameDao = factory.getGameDao();
+            return gameDao.sortByPrice();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
 }

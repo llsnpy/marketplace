@@ -35,6 +35,9 @@ public class DeveloperDaoImpl implements DeveloperDao {
     private static final String SQL_FIND_BY_NAME =
             "SELECT id, name, money, rating FROM developer WHERE name = ?;";
 
+    private static final String SQL_SORT_DEVELOPER_BY_RATING =
+            "SELECT id, name, money, rating FROM developer ORDER BY rating;";
+
     public DeveloperDaoImpl() { }
 
     @Override
@@ -67,6 +70,23 @@ public class DeveloperDaoImpl implements DeveloperDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding developers: ", e);
+        }
+        return developers;
+    }
+
+    @Override
+    public List<Developer> sortByRating() {
+        log.debug("<-DAO-> Sort developer by rating...");
+        List<Developer> developers = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SORT_DEVELOPER_BY_RATING)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Developer developer = this.mapToDeveloper(resultSet);
+                developers.add(developer);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during sort developers by rating: ", e);
         }
         return developers;
     }

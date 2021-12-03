@@ -101,6 +101,17 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public List<Developer> sortByRating() {
+        log.info("<-SERVICE-> Finding developer by name...");
+        try {
+            final DeveloperDao developerDao = factory.getDeveloperDao();
+            return developerDao.sortByRating();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public void createNewGame(final Game game) throws ServiceException {
         //todo create this method
     }

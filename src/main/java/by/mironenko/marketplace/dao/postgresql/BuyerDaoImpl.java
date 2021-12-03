@@ -29,6 +29,9 @@ public class BuyerDaoImpl implements BuyerDao {
     private static final String SQL_SELECT_ALL =
             "SELECT id, name, surname, money, age FROM buyer;";
 
+    private static final String SQL_SORT_BUYER_BY_MONEY =
+            "SELECT id, name, surname, money, age FROM buyer ORDER BY money;";
+
     private static final String SQL_SELECT_BY_ID =
             "SELECT id, name, surname, money, age FROM buyer WHERE id = ?;";
 
@@ -56,7 +59,6 @@ public class BuyerDaoImpl implements BuyerDao {
     public Buyer findBySurname(final String surname) {
         log.debug("<-DAO-> Finding buyer by surname...");
         Buyer buyer = null;
-        //todo add transaction
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_SURNAME)
         ) {
@@ -82,6 +84,23 @@ public class BuyerDaoImpl implements BuyerDao {
         List<Buyer> buyers = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Buyer buyer = this.convertToBuyer(resultSet);
+                buyers.add(buyer);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during finding buyers: ", e);
+        }
+        return buyers;
+    }
+
+    @Override
+    public List<Buyer> sortByMoney() {
+        log.debug("<-DAO-> Sort buyers by name...");
+        List<Buyer> buyers = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SORT_BUYER_BY_MONEY)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Buyer buyer = this.convertToBuyer(resultSet);

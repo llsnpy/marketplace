@@ -11,5 +11,7 @@ public enum CommandName {
     REGISTRATION,
     REG,
     DEV_VALUES,
-    BUYER_VALUES
+    BUYER_VALUES,
+    FIND_HOLDER_ACTION_RES,
+    SORT_HOLDER_ACTION
 }

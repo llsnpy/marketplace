@@ -11,4 +11,5 @@ public interface GameDao extends BaseDao<Game> {
     List<Game> findGameByPreSaleStatus(boolean preSaleStatus);
     List<Game> findByPrice(double price);
     Long getDeveloperId(Long id);
+    List<Game> sortByPrice();
 }

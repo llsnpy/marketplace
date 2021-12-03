@@ -70,6 +70,8 @@ public class CommandFilter implements Filter {
         commands.put("reg", "REG");
         commands.put("dev_values", "DEV_VALUES");
         commands.put("buyer_values", "BUYER_VALUES");
+        commands.put("find_holder_action_res", "FIND_HOLDER_ACTION_RES");
+        commands.put("holder_sorts", "SORT_HOLDER_ACTION");
         return commands;
     }
 }
