@@ -143,9 +143,11 @@
                 </table>
             </div>
         </div>
+
         <div role="tabpanel" class="tab-pane" id="finds">
             <form action="${pageContext.request.contextPath}/controller/find_holder_action_res" method="get">
                 <br>
+
                 <div>
                     <label for="searchB">Find buyer by surname</label>
                 </div>
@@ -154,17 +156,21 @@
                            placeholder="buyer surname">
                     <button class="btn btn-info btn-sm">Find</button>
                 </div>
+
                 <br>
                 <div>
-                    <label for="searchD">Find dev by name</label></div>
+                    <label for="searchD">Find dev by name</label>
+                </div>
                 <div>
                     <input type="text" id="searchD" name="dev_name"
                            placeholder="dev name">
                     <button class="btn btn-info btn-sm">Find</button>
                 </div>
+
                 <br>
                 <div>
-                    <label for="searchG">Find game by name</label></div>
+                    <label for="searchG">Find game by name</label>
+                </div>
                 <div>
                 <input type="text" id="searchG" name="game_name"
                            placeholder="game name">
@@ -173,7 +179,7 @@
             </form>
                 <br>
 
-            <form action="${pageContext.request.contextPath}/controller/holder_sorts" method="get"> //todo add to commands
+            <form action="${pageContext.request.contextPath}/controller/holder_sorts" method="get">
                 <div>
                     <label>Sort game by price</label>
                     <button class="btn btn-info btn-sm" name="sort_by_price">Sort</button>
