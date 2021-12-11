@@ -53,9 +53,125 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav navbar-right">
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/logout">
+                    <input type="button" class="btn btn-info" value="Log out">
+                </a></li>
+            </ul>
         </div>
     </div>
 </nav>
+
+<div class="container-fluid">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#info" role="tab" data-toggle="tab">Info</a></li>
+        <li><a href="#current_buyer_library" role="tab" data-toggle="tab">My library</a></li>
+        <li><a href="#store" role="tab" data-toggle="tab">Store</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="info">
+            <jsp:useBean id="buyer" scope="request" type="by.mironenko.marketplace.entity.Buyer"/>
+            <div class="col-lg-6 container-fluid">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="active">
+                            <td>Name</td>
+                            <td>Surname</td>
+                            <td>Money</td>
+                            <td>Age</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><c:out value="${buyer.name}"/></td>
+                            <td><c:out value="${buyer.surname}"/></td>
+                            <td><c:out value="${buyer.money}"/></td>
+                            <td><c:out value="${buyer.age}"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div>
+                <form action="${pageContext.request.contextPath}/controller/buyer_add_money">
+                    <div>
+                        <label for="addMoney">Add money</label>
+                        <input type="text" id="addMoney" name="sum"
+                               placeholder="Sum">
+                        <button class="btn btn-success btn-sm">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="current_buyer_library">
+            <jsp:useBean id="current_buyer_games" scope="request" type="java.util.List" />
+            <div class="col-lg-6 container-fluid">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="active">
+                        <td>Name</td>
+                        <td>Genre</td>
+                        <td>Date</td>
+                        <td>Price</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${current_buyer_games}" var="game">
+                        <tr>
+                            <td><c:out value="${game.name}"/></td>
+                            <td><c:out value="${game.genre}"/></td>
+                            <td><c:out value="${game.date}"/></td>
+                            <td><c:out value="${game.price}"/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="store">
+            <jsp:useBean id="all_games" scope="request" type="java.util.List"/>
+            <div class="col-lg-8 container-fluid">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="active">
+                            <td>Name</td>
+                            <td>Developer</td>
+                            <td>Genre</td>
+                            <td>Date</td>
+                            <td>Prise</td>
+                            <td>Sale status</td>
+                            <td>Sale price</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="all_games" var="game">
+                            <tr>
+                                <td><c:out value="${game.name}"/></td>
+                                <td><c:out value="${game.developer}"/></td>
+                                <td><c:out value="${game.genre}"/></td>
+                                <td><c:out value="${game.date}"/></td>
+                                <td><c:out value="${game.price}"/></td>
+                                <td><c:out value="${game.preSale}"/></td>
+                                <td><c:out value="${game.salePrice}"/></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <form action="${pageContext.request.contextPath}/controller/buy_game">
+                <div>
+                    <label for="buyGame">Buy game</label>
+                    <input type="text" id="buyGame" name="desiredGame"
+                           placeholder="Game name">
+                    <button class="btn btn-success btn-sm">Buy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">

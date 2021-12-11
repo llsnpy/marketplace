@@ -51,6 +51,8 @@ public class CommandFactory {
         map.put(CommandName.BUYER_VALUES, new CreateCurrentBuyerCommandImpl());
         map.put(CommandName.FIND_HOLDER_ACTION_RES, new FindHolderActionsCommandImpl());
         map.put(CommandName.SORT_HOLDER_ACTION, new SortsHolderCommandImpl());
+        map.put(CommandName.HOLDER_ACTIONS, new HolderActionsCommandImpl());
+        map.put(CommandName.LOG_OUT, new LogoutCommandImpl());
         return map;
     }
 }

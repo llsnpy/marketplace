@@ -53,9 +53,134 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav navbar-right">
+                <li class="active"><a href="${pageContext.request.contextPath}/controller/logout">
+                    <input type="button" class="btn btn-info" value="Log out">
+                </a></li>
+            </ul>
         </div>
     </div>
 </nav>
+
+<div class="container-fluid">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#info" role="tab" data-toggle="tab">Info</a></li>
+        <li><a href="#current_dev_library" role="tab" data-toggle="tab">My library</a></li>
+        <li><a href="#developing" role="tab" data-toggle="tab">Developing</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="info">
+            <jsp:useBean id="dev" scope="request" type="by.mironenko.marketplace.entity.Developer"/>
+            <div class="col-lg-6 container-fluid">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="active">
+                            <th>Name</th>
+                            <th>Money</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><c:out value="${dev.name}"/></td>
+                            <td><c:out value="${dev.money}"/></td>
+                            <td><c:out value="${dev.rating}"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="current_dev_library">
+            <jsp:useBean id="current_dev_games" scope="request" type="java.util.List" />
+            <div class="col-lg-6 container-fluid">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="active">
+                            <td>Name</td>
+                            <td>Genre</td>
+                            <td>Date</td>
+                            <td>Price</td>
+                            <td>Pre sale</td>
+                            <td>Sale price</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${current_dev_games}" var="game">
+                        <tr>
+                            <td><c:out value="${game.name}"/></td>
+                            <td><c:out value="${game.genre}"/></td>
+                            <td><c:out value="${game.date}"/></td>
+                            <td><c:out value="${game.price}"/></td>
+                            <td><c:out value="${game.preSale}"/></td>
+                            <td><c:out value="${game.salePrice}"/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="developing">
+                <br>
+                <form action="${pageContext.request.contextPath}/controller/dev_create_new_game" method="post">
+                    <br>
+                    <div>
+                        <label for="name">Game name</label>
+                        <input type="text" id="name" name="gameName"
+                               placeholder="Game name">
+                    </div>
+                    <div>
+                        <label for="genre">Game genre</label>
+                        <input type="text" id="genre" name="genre"
+                               placeholder="Game genre">
+                    </div>
+                    <div>
+                        <label for="date">Release date</label>
+                        <input type="text" id="date" name="releaseDate"
+                               placeholder="Release">
+                    </div>
+                    <div>
+                        <label for="price">Game price</label>
+                        <input type="text" id="price" name="price"
+                               placeholder="Game price">
+                    </div>
+                    <div>
+                        <label for="sale">Sale status</label>
+                        <input type="text" id="sale" name="saleStatus"
+                               placeholder="Sale status">
+                    </div>
+                    <div>
+                        <label for="salePrice">Sale price</label>
+                        <input type="text" id="salePrice" name="salePrice"
+                               placeholder="Sale price">
+                    </div>
+                    <button class="btn btn-success btn-sm">Create game</button>
+                </form>
+
+                <br>
+
+                <form action="${pageContext.request.contextPath}/controller/dev_release_game">
+                    <div>
+                        <label for="releaseGame">Game for release</label>
+                        <input type="text" id="releaseGame" name="releaseGameName"
+                               placeholder="Game name">
+                        <button class="btn btn-success btn-sm">Release game</button>
+                    </div>
+                </form>
+
+                <form action="${pageContext.request.contextPath}/controller/dev_update_game">
+                    <div>
+                        <label for="updateGame">Game for update</label>
+                        <input type="text" id="updateGame" name="updateGameName"
+                               placeholder="Game name">
+                        <button class="btn btn-success btn-sm">Update game</button>
+                    </div>
+                </form>
+        </div>
+
+    </div>
+</div>
 
 <footer class="fixed-bottom">
     <div class="navbar-fixed-bottom row-fluid">

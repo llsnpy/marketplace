@@ -34,8 +34,8 @@ public class LoginCommandImpl implements Command {
             }
             if (userService.isExist(login, password)) {
 
-                BuyerService service = ServiceFactory.getInstance().getBuyerService();
-                List<Buyer> buyers = service.findAll();
+                BuyerService buyerService = ServiceFactory.getInstance().getBuyerService();
+                List<Buyer> buyers = buyerService.findAll();
 
                 DeveloperService developerService = ServiceFactory.getInstance().getDeveloperService();
                 List<Developer> developers = developerService.findAll();
@@ -48,12 +48,18 @@ public class LoginCommandImpl implements Command {
                 request.setAttribute("games", games);
                 switch (user.getRole()) {
                     case "holder":
+                        //todo взять холдера и сделать LogOut
+                        request.getSession().setAttribute("currentUser", user);
                         request.getRequestDispatcher("/WEB-INF/jsp/holder_cabinet.jsp").forward(request, response);
                         break;
                     case "buyer":
+                        //todo взять конкретного байера, вытянуть его инфу и его игры, по вкладкам как в холдере
+                        request.getSession().setAttribute("currentUser", buyerService.findById(user.getId()));
                         request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
                         break;
                     case "dev":
+                        //todo взять конкретного девелопера, вытянуть его инфу и игры, по вкладкам как в холдере
+                        request.getSession().setAttribute("currentUser", developerService.findById(user.getId()));
                         request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
                         break;
                     default:

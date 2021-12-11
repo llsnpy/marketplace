@@ -72,6 +72,8 @@ public class CommandFilter implements Filter {
         commands.put("buyer_values", "BUYER_VALUES");
         commands.put("find_holder_action_res", "FIND_HOLDER_ACTION_RES");
         commands.put("holder_sorts", "SORT_HOLDER_ACTION");
+        commands.put("holder_actions", "HOLDER_ACTIONS");
+        commands.put("logout", "LOG_OUT");
         return commands;
     }
 }
