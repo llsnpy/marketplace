@@ -35,19 +35,14 @@ public class LoginCommandImpl implements Command {
             if (userService.isExist(login, password)) {
 
                 BuyerService buyerService = ServiceFactory.getInstance().getBuyerService();
-                List<Buyer> buyers = buyerService.findAll();
-
                 DeveloperService developerService = ServiceFactory.getInstance().getDeveloperService();
-                List<Developer> developers = developerService.findAll();
-
                 GameService gameService = ServiceFactory.getInstance().getGameService();
-                List<Game> games = gameService.findAll();
 
-                request.setAttribute("buyers", buyers);
-                request.setAttribute("developers", developers);
-                request.setAttribute("games", games);
                 switch (user.getRole()) {
                     case "holder":
+                        request.setAttribute("buyers", buyerService.findAll());
+                        request.setAttribute("developers", developerService.findAll());
+                        request.setAttribute("games", gameService.findAll());
                         request.getSession().setAttribute("currentUser", user);
                         request.getRequestDispatcher("/WEB-INF/jsp/holder_cabinet.jsp").forward(request, response);
                         break;
@@ -58,7 +53,7 @@ public class LoginCommandImpl implements Command {
                         request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
                         break;
                     case "dev":
-                        request.setAttribute("current_dev_games", gameService.findByDeveloperName(developerService.findById(user.getId()).getName()));
+                        request.setAttribute("current_dev_games", gameService.findByDeveloperId(user.getId()));
                         request.setAttribute("dev", developerService.findById(user.getId()));
                         request.getSession().setAttribute("currentUser", developerService.findById(user.getId()));
                         request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);

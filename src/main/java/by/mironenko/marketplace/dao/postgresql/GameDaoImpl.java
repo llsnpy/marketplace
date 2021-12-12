@@ -51,6 +51,9 @@ public class GameDaoImpl implements GameDao {
     private static final String SQL_FIND_BY_BUYER_ID =
             "SELECT game.id, game.name, game.genre, game.date, game.price, game.pre_sale, game.sale_price FROM game RIGHT JOIN shop_list ON game.id = shop_list.game_id JOIN buyer ON shop_list.buyer_id = buyer.id WHERE buyer_id = ?;";
 
+    private static final String SQL_FIND_BY_DEVELOPER_ID =
+            "SELECT game.id, game.name, game.genre, game.date, game.price, game.pre_sale, game.sale_price FROM game WHERE developer_id = ?;";
+
     public GameDaoImpl() { }
 
     @Override
@@ -189,6 +192,24 @@ public class GameDaoImpl implements GameDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during selecting games from shop list by buyer ID: ", e);
+        }
+        return games;
+    }
+
+    @Override
+    public List<Game> findByDeveloperId(final Long id) {
+        log.debug("<-DAO-> Select all games by developer ID...");
+        List<Game> games = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_DEVELOPER_ID)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Game game = mapToGame(resultSet);
+                games.add(game);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during selecting games by developer ID: ", e);
         }
         return games;
     }

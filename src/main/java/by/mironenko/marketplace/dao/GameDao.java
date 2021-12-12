@@ -13,4 +13,5 @@ public interface GameDao extends BaseDao<Game> {
     Long getDeveloperId(Long id);
     List<Game> sortByPrice();
     List<Game> findByBuyerId(Long id);
+    List<Game> findByDeveloperId(Long id);
 }
