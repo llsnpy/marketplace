@@ -25,7 +25,7 @@ public class DispatcherServlet extends HttpServlet {
     public static final String DB_URL = "jdbc:postgresql://localhost:5432/marketplace";
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "LlsnpyMiro123";
-    public static final int DB_POOL_START_SIZE = 10;
+    public static final int DB_POOL_START_SIZE = 15;
     public static final int DB_POOL_MAX_SIZE = 100;
     public static final int DB_POOL_CHECK_CONNECTION_TIMEOUT = 0;
 

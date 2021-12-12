@@ -1,7 +1,7 @@
 package by.mironenko.marketplace.controller.command;
 
 public enum CommandName {
-    WRONG_REQUEST, //todo
+    WRONG_REQUEST, //todo - error page по факту
     CHOOSE_LANGUAGE,
     ABOUT_US,
     CONTACTS,

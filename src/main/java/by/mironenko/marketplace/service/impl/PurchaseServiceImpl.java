@@ -61,6 +61,20 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    public List<ShopList> findByBiuerId(final Long buyerId) {
+        log.info("<-SERVICE-> Finding bill by buyer ID...");
+        if (buyerId <= 0) {
+            throw new ServiceException("Incorrect ID for finding bill by ID.");
+        }
+        try {
+            final ShopListDao shopListDao = factory.getShopListDao();
+            return shopListDao.selectByBuyerId(buyerId);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public void update(final ShopList shopList) {
         log.info("<-SERVICE-> Finding bill by ID...");
         throw new UnsupportedOperationException("Cant update the bill.");

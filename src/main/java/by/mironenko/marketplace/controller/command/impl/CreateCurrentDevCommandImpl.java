@@ -2,7 +2,6 @@ package by.mironenko.marketplace.controller.command.impl;
 
 import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.entity.Developer;
-import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.DeveloperService;
 import by.mironenko.marketplace.service.ServiceFactory;

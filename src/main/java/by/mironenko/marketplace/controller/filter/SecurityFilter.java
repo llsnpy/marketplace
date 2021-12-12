@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+//todo доделать и его
 public class SecurityFilter implements Filter {
     private static Logger log = Logger.getLogger(SecurityFilter.class);
 

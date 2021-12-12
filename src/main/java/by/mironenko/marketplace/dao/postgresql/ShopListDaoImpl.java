@@ -33,6 +33,9 @@ public class ShopListDaoImpl implements ShopListDao {
     private static final String SQL_FIND_BY_PRICE =
             "SELECT id, buyer_id, game_id, date, price FROM shop_list WHERE price = ?;";
 
+    private static final String SQL_SELECT_BY_BUYER_ID =
+            "SELECT id, buyer_id, game_id, date, price FROM shop_list WHERE buyer_id = ?;";
+
     public ShopListDaoImpl() { }
 
     @Override
@@ -49,6 +52,24 @@ public class ShopListDaoImpl implements ShopListDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding bills by date", e);
+        }
+        return bills;
+    }
+
+    @Override
+    public List<ShopList> selectByBuyerId(final Long id) {
+        log.debug("<-DAO-> Select shop list by buyer ID...");
+        List<ShopList> bills = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_BY_BUYER_ID)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ShopList shopList = mapToShopList(resultSet);
+                bills.add(shopList);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during finding bills by buyer ID", e);
         }
         return bills;
     }

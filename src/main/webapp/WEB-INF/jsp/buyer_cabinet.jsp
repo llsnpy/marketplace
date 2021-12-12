@@ -65,7 +65,7 @@
 <div class="container-fluid">
     <ul class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#info" role="tab" data-toggle="tab">Info</a></li>
-        <li><a href="#current_buyer_library" role="tab" data-toggle="tab">My library</a></li>
+        <li><a href="#current_buyer_library" role="tab" data-toggle="tab">My purchases</a></li>
         <li><a href="#store" role="tab" data-toggle="tab">Store</a></li>
     </ul>
     <div class="tab-content">
@@ -131,13 +131,12 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="store">
-            <jsp:useBean id="all_games" scope="request" type="java.util.List"/>
+            <jsp:useBean id="games" scope="request" type="java.util.List"/>
             <div class="col-lg-8 container-fluid">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr class="active">
                             <td>Name</td>
-                            <td>Developer</td>
                             <td>Genre</td>
                             <td>Date</td>
                             <td>Prise</td>
@@ -146,10 +145,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="all_games" var="game">
+                        <c:forEach items="${games}" var="game">
                             <tr>
                                 <td><c:out value="${game.name}"/></td>
-                                <td><c:out value="${game.developer}"/></td>
                                 <td><c:out value="${game.genre}"/></td>
                                 <td><c:out value="${game.date}"/></td>
                                 <td><c:out value="${game.price}"/></td>

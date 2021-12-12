@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import java.util.List;
-
-
 
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -122,6 +119,20 @@ public class GameServiceImpl implements GameService {
         try {
             final GameDao gameDao = factory.getGameDao();
             return gameDao.findGameByPreSaleStatus(status);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<Game> findByBuyerID(final Long id) {
+        log.info("<-SERVICE-> Finding games by buyer ID...");
+        if (id <= 0) {
+            throw new ServiceException("Incorrect ID for finding games.");
+        }
+        try {
+            final GameDao gameDao = factory.getGameDao();
+            return gameDao.findByBuyerId(id);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
