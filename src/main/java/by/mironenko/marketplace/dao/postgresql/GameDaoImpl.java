@@ -22,7 +22,7 @@ public class GameDaoImpl implements GameDao {
             "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE id = ?;";
 
     private static final String SQL_CREATE_GAME =
-            "INSERT INTO game(id, name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            "INSERT INTO game(developer_id, name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_GAME =
             "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ? WHERE id = ?;";
@@ -245,7 +245,7 @@ public class GameDaoImpl implements GameDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
             preparedStatement.setString(1, game.getName());
             preparedStatement.setString(2, game.getGenre().toString());
-            preparedStatement.setDate(3, (Date) game.getDate());
+            preparedStatement.setDate(3, game.getDate());
             preparedStatement.setDouble(4, game.getPrice());
             preparedStatement.setBoolean(5, game.isPreSale());
             preparedStatement.setDouble(6, game.getSalePrice());
@@ -273,6 +273,8 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+
+    //todo добавить developerId
     private Game mapToGame(final ResultSet resultSet) throws SQLException {
         return Game.builder()
                 .id(resultSet.getLong("id"))
@@ -286,10 +288,10 @@ public class GameDaoImpl implements GameDao {
     }
 
     private void mapFromGame(final PreparedStatement preparedStatement, final Game game) throws SQLException {
-        preparedStatement.setLong(1, game.getId());
+        preparedStatement.setLong(1, game.getDeveloperId());
         preparedStatement.setString(2, game.getName());
         preparedStatement.setString(3, game.getGenre().toString());
-        preparedStatement.setDate(4, (Date) game.getDate());
+        preparedStatement.setDate(4, game.getDate());
         preparedStatement.setDouble(5, game.getPrice());
         preparedStatement.setBoolean(6, game.isPreSale());
         preparedStatement.setDouble(7, game.getSalePrice());

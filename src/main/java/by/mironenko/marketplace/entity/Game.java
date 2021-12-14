@@ -2,7 +2,7 @@ package by.mironenko.marketplace.entity;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @author Pavel Mironenko
@@ -18,6 +18,7 @@ import java.util.Date;
 @ToString
 public class Game extends Entity {
     private Long id;
+    private Long developerId;
     private String name;
     private Genre genre;
     private Date date;
@@ -25,8 +26,9 @@ public class Game extends Entity {
     private boolean preSale;
     private double salePrice;
 
-    public Game(final String name, final Genre genre, final Date date,
+    public Game(final Long developerId, final String name, final Genre genre, final Date date,
                 final double price, final boolean preSale, final double salePrice) {
+        this.developerId = developerId;
         this.name = name;
         this.genre = genre;
         this.date = date;

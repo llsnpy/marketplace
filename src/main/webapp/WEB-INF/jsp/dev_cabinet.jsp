@@ -137,8 +137,8 @@
                     </div>
                     <div>
                         <label for="date">Release date</label>
-                        <input type="text" id="date" name="releaseDate"
-                               placeholder="Release">
+                        <input type="date" id="date" name="releaseDate"
+                               placeholder="Release date">
                     </div>
                     <div>
                         <label for="price">Game price</label>
@@ -160,16 +160,16 @@
 
                 <br>
 
-                <form action="${pageContext.request.contextPath}/controller/dev_get_sale">
+                <form action="${pageContext.request.contextPath}/controller/dev_get_sale">  <%--перенаправить на страничку с окошком имени игры и цены со скидкой--%>
                     <div>
-                        <label for="releaseGame">Game for release</label>
-                        <input type="text" id="releaseGame" name="releaseGameName"
+                        <label for="saleGame">Get sale</label>
+                        <input type="text" id="saleGame" name="saleGameName"
                                placeholder="Game name">
-                        <button class="btn btn-success btn-sm">Release game</button>
+                        <button class="btn btn-success btn-sm">Get sale</button>
                     </div>
                 </form>
 
-                <form action="${pageContext.request.contextPath}/controller/dev_update_game">
+                <form action="${pageContext.request.contextPath}/controller/dev_update_game"> <%--перенаправить на страничку с окошком для новых сведений для игры--%>
                     <div>
                         <label for="updateGame">Game for update</label>
                         <input type="text" id="updateGame" name="updateGameName"

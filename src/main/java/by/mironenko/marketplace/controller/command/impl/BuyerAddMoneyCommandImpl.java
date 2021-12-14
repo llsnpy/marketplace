@@ -25,19 +25,22 @@ public class BuyerAddMoneyCommandImpl implements Command {
         GameService gameService = ServiceFactory.getInstance().getGameService();
         BuyerService buyerService = ServiceFactory.getInstance().getBuyerService();
 
-        //todo сделать здесь проверку на положительное число через if
         try {
-            Buyer buyer = (Buyer) request.getSession().getAttribute("currentUser");
+            if (Double.parseDouble(request.getParameter("sum")) <= 0) {
+                throw new ServletException("Incorrect sum to add.");
+            } else {
+                Buyer buyer = (Buyer) request.getSession().getAttribute("currentUser");
 
-            buyer.setMoney(buyer.getMoney() + Double.parseDouble(request.getParameter("sum")));
+                buyer.setMoney(buyer.getMoney() + Double.parseDouble(request.getParameter("sum")));
 
-            buyerService.update(buyer);
+                buyerService.update(buyer);
 
-            request.setAttribute("games", gameService.findAll());
-            request.setAttribute("current_buyer_games", gameService.findByBuyerID(buyer.getId()));
-            request.setAttribute("buyer", buyerService.findById(buyer.getId()));
-            request.getSession().setAttribute("currentUser", buyerService.findById(buyer.getId()));
-            request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
+                request.setAttribute("games", gameService.findAll());
+                request.setAttribute("current_buyer_games", gameService.findByBuyerID(buyer.getId()));
+                request.setAttribute("buyer", buyerService.findById(buyer.getId()));
+                request.getSession().setAttribute("currentUser", buyerService.findById(buyer.getId()));
+                request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
+            }
         } catch (ServiceException e) {
             log.error(e);
         }
