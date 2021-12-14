@@ -46,6 +46,9 @@ public class DevCreateNewGameCommandImpl implements Command {
                 request.setAttribute("dev", developerService.findById(devId));
                 request.getSession().setAttribute("currentUser", developerService.findById(devId));
                 request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error_msg_login", "Wrong input parameters for game creating.");
+                request.getRequestDispatcher("login").forward(request, response);
             }
         } catch (ServiceException e) {
             log.error(e);
