@@ -22,10 +22,10 @@ public class GameDaoImpl implements GameDao {
             "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE id = ?;";
 
     private static final String SQL_CREATE_GAME =
-            "INSERT INTO game(name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?);";
+            "INSERT INTO game(id, name, genre, date, price, pre_sale, sale_price) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_GAME =
-            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ?;";
+            "UPDATE game SET name = ?, genre = ?, date = ?, price = ?, pre_sale = ?, sale_price = ? WHERE id = ?;";
 
     private static final String SQL_DELETE_GAME =
             "DELETE FROM game WHERE id = ?;";
@@ -243,8 +243,13 @@ public class GameDaoImpl implements GameDao {
         log.debug("<-DAO-> Updating game...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_GAME)) {
-            this.mapFromGame(preparedStatement, game);
-            preparedStatement.setLong(1, game.getId());
+            preparedStatement.setString(1, game.getName());
+            preparedStatement.setString(2, game.getGenre().toString());
+            preparedStatement.setDate(3, (Date) game.getDate());
+            preparedStatement.setDouble(4, game.getPrice());
+            preparedStatement.setBoolean(5, game.isPreSale());
+            preparedStatement.setDouble(6, game.getSalePrice());
+            preparedStatement.setLong(7, game.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during updating game: ", e);
@@ -281,11 +286,12 @@ public class GameDaoImpl implements GameDao {
     }
 
     private void mapFromGame(final PreparedStatement preparedStatement, final Game game) throws SQLException {
-        preparedStatement.setString(1, game.getName());
-        preparedStatement.setString(2, game.getGenre().toString());
-        preparedStatement.setDate(3, (Date) game.getDate());
-        preparedStatement.setDouble(4, game.getPrice());
-        preparedStatement.setBoolean(5, game.isPreSale());
-        preparedStatement.setDouble(6, game.getSalePrice());
+        preparedStatement.setLong(1, game.getId());
+        preparedStatement.setString(2, game.getName());
+        preparedStatement.setString(3, game.getGenre().toString());
+        preparedStatement.setDate(4, (Date) game.getDate());
+        preparedStatement.setDouble(5, game.getPrice());
+        preparedStatement.setBoolean(6, game.isPreSale());
+        preparedStatement.setDouble(7, game.getSalePrice());
     }
 }

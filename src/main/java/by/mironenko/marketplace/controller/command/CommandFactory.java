@@ -53,6 +53,11 @@ public class CommandFactory {
         map.put(CommandName.SORT_HOLDER_ACTION, new SortsHolderCommandImpl());
         map.put(CommandName.HOLDER_ACTIONS, new HolderActionsCommandImpl());
         map.put(CommandName.LOG_OUT, new LogoutCommandImpl());
+        map.put(CommandName.DEV_CREATE_NEW_GAME, new DevCreateNewGameCommandImpl());
+        map.put(CommandName.DEV_UPDATE_GAME, new DevUpdateGameCommandImpl());
+        map.put(CommandName.DEV_GET_SALE, new DevGetSaleCommandImpl());
+        map.put(CommandName.BUYER_ADD_MONEY, new BuyerAddMoneyCommandImpl());
+        map.put(CommandName.BUYER_BUY_GAME, new BuyerBuyGameCommandImpl());
         return map;
     }
 }

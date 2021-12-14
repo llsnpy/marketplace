@@ -1,9 +1,6 @@
 package by.mironenko.marketplace.controller.command.impl;
 
 import by.mironenko.marketplace.controller.command.Command;
-import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.entity.Developer;
-import by.mironenko.marketplace.entity.Game;
 import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.*;
@@ -15,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class LoginCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(LoginCommandImpl.class);
@@ -38,11 +34,12 @@ public class LoginCommandImpl implements Command {
                 DeveloperService developerService = ServiceFactory.getInstance().getDeveloperService();
                 GameService gameService = ServiceFactory.getInstance().getGameService();
 
+                request.setAttribute("buyers", buyerService.findAll());
+                request.setAttribute("developers", developerService.findAll());
+                request.setAttribute("games", gameService.findAll());
+
                 switch (user.getRole()) {
                     case "holder":
-                        request.setAttribute("buyers", buyerService.findAll());
-                        request.setAttribute("developers", developerService.findAll());
-                        request.setAttribute("games", gameService.findAll());
                         request.getSession().setAttribute("currentUser", user);
                         request.getRequestDispatcher("/WEB-INF/jsp/holder_cabinet.jsp").forward(request, response);
                         break;

@@ -74,6 +74,11 @@ public class CommandFilter implements Filter {
         commands.put("holder_sorts", "SORT_HOLDER_ACTION");
         commands.put("holder_actions", "HOLDER_ACTIONS");
         commands.put("logout", "LOG_OUT");
+        commands.put("buyer_add_money", "BUYER_ADD_MONEY");
+        commands.put("buyer_buy_game", "BUYER_BUY_GAME");
+        commands.put("dev_get_sale", "DEV_GET_SALE");
+        commands.put("dev_create_new_game", "DEV_CREATE_NEW_GAME");
+        commands.put("dev_update_game", "DEV_UPDATE_GAME");
         return commands;
     }
 }

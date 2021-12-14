@@ -137,7 +137,9 @@ public class DeveloperDaoImpl implements DeveloperDao {
         log.debug("<-DAO-> Updating developer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DEVELOPER)) {
-            this.mapFromDeveloper(preparedStatement, developer);
+            preparedStatement.setString(1, developer.getName());
+            preparedStatement.setDouble(2, developer.getMoney());
+            preparedStatement.setInt(3, developer.getRating());
             preparedStatement.setLong(4, developer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

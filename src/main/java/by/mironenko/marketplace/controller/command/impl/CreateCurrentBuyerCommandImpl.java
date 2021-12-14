@@ -4,6 +4,7 @@ import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.entity.Buyer;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.BuyerService;
+import by.mironenko.marketplace.service.GameService;
 import by.mironenko.marketplace.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ public class CreateCurrentBuyerCommandImpl implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("<-CONTROLLER-> Executing command BUYER_VALUES...");
 
+        GameService gameService = ServiceFactory.getInstance().getGameService();
         BuyerService buyerService = ServiceFactory.getInstance().getBuyerService();
         Long id = (Long) request.getSession().getAttribute("id");
         String name = request.getParameter("name");
@@ -30,6 +32,12 @@ public class CreateCurrentBuyerCommandImpl implements Command {
         try {
             Buyer newBuyer = new Buyer(id, name, surname, money, age);
             buyerService.create(newBuyer);
+
+            request.setAttribute("games", gameService.findAll());
+            request.setAttribute("current_buyer_games", gameService.findByBuyerID(id));
+            request.setAttribute("buyer", buyerService.findById(id));
+            request.getSession().setAttribute("currentUser", buyerService.findById(id));
+
             request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
         } catch (ServiceException e) {
             request.setAttribute("error_msg_login", "Login is not available. Try again.");

@@ -160,7 +160,7 @@
 
                 <br>
 
-                <form action="${pageContext.request.contextPath}/controller/dev_release_game">
+                <form action="${pageContext.request.contextPath}/controller/dev_get_sale">
                     <div>
                         <label for="releaseGame">Game for release</label>
                         <input type="text" id="releaseGame" name="releaseGameName"

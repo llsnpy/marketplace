@@ -1,10 +1,7 @@
 package by.mironenko.marketplace.dao.postgresql;
 
 import by.mironenko.marketplace.dao.BuyerDao;
-import by.mironenko.marketplace.dao.Transaction;
-import by.mironenko.marketplace.dao.connection.ConnectionCreator;
 import by.mironenko.marketplace.dao.connection.ConnectionPool;
-import by.mironenko.marketplace.dao.transaction.TransactionFactoryImpl;
 import by.mironenko.marketplace.entity.Buyer;
 import by.mironenko.marketplace.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +36,7 @@ public class BuyerDaoImpl implements BuyerDao {
             "INSERT INTO buyer(id, name, surname, money, age) VALUES(?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_BUYER =
-            "UPDATE buyer SET name = ?, surname = ?, money = ?, age = ?;";
+            "UPDATE buyer SET name = ?, surname = ?, money = ?, age = ? WHERE id = ?;";
 
     private static final String SQL_DELETE_BUYER =
             "DELETE FROM buyer WHERE id = ?;";
@@ -179,8 +176,11 @@ public class BuyerDaoImpl implements BuyerDao {
         log.debug("<-DAO-> Updating buyer...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BUYER)) {
-            this.convertFromBuyer(preparedStatement, buyer);
-            preparedStatement.setLong(1, buyer.getId());
+            preparedStatement.setString(1, buyer.getName());
+            preparedStatement.setString(2, buyer.getSurname());
+            preparedStatement.setDouble(3, buyer.getMoney());
+            preparedStatement.setInt(4, buyer.getAge());
+            preparedStatement.setLong(5, buyer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during updating buyer: ", e);

@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
             "INSERT INTO users(login, password, role) VALUES(?, ?, ?);";
 
     private static final String SQL_UPDATE_USER =
-            "UPDATE users SET login = ?, password = ?;";
+            "UPDATE users SET login = ?, password = ?, role =? WHERE id = ?;";
 
     private static final String SQL_FIND_USER_BY_LOGIN =
             "SELECT id, login, password, role FROM users WHERE login = ?;";
@@ -116,8 +116,10 @@ public class UserDaoImpl implements UserDao {
         log.debug("<-DAO-> Updating user...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
-            this.convertFromUser(preparedStatement, user);
-            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getRole());
+            preparedStatement.setLong(4, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during updating user: ", e);

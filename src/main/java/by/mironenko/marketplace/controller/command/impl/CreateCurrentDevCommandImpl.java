@@ -4,6 +4,7 @@ import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.entity.Developer;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.DeveloperService;
+import by.mironenko.marketplace.service.GameService;
 import by.mironenko.marketplace.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,8 @@ public class CreateCurrentDevCommandImpl implements Command {
     @Override
     public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         log.debug("<-CONTROLLER-> Executing command DEV_VALUES...");
+
+        GameService gameService = ServiceFactory.getInstance().getGameService();
         DeveloperService developerService = ServiceFactory.getInstance().getDeveloperService();
         Long id = (Long) request.getSession().getAttribute("id");
         String name = request.getParameter("name");
@@ -28,6 +31,9 @@ public class CreateCurrentDevCommandImpl implements Command {
             if (developerService.findByName(name) == null) {
                 Developer developer = new Developer(id, name, money);
                 developerService.create(developer);
+                request.setAttribute("current_dev_games", gameService.findByDeveloperId(id));
+                request.setAttribute("dev", developerService.findById(id));
+                request.getSession().setAttribute("currentUser", developerService.findById(id));
                 request.setAttribute("developer", developer);
                 request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
             } else {

@@ -159,7 +159,7 @@
                 </table>
             </div>
             <br>
-            <form action="${pageContext.request.contextPath}/controller/buy_game">
+            <form action="${pageContext.request.contextPath}/controller/buyer_buy_game">
                 <div>
                     <label for="buyGame">Buy game</label>
                     <input type="text" id="buyGame" name="desiredGame"
