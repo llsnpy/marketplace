@@ -176,4 +176,15 @@ public class GameServiceImpl implements GameService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
+    @Override
+    public Long getDeveloperId(final Long id) {
+        log.info("<-SERVICE-> Get developer_id by game_id...");
+        try {
+            final GameDao gameDao = factory.getGameDao();
+            return gameDao.getDeveloperId(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
 }

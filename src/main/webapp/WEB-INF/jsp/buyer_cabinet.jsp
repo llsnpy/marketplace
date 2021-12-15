@@ -162,7 +162,7 @@
             <form action="${pageContext.request.contextPath}/controller/buyer_buy_game">
                 <div>
                     <label for="buyGame">Buy game</label>
-                    <input type="text" id="buyGame" name="desiredGame"
+                    <input type="text" id="buyGame" name="gameForBuying"
                            placeholder="Game name">
                     <button class="btn btn-success btn-sm">Buy</button>
                 </div>

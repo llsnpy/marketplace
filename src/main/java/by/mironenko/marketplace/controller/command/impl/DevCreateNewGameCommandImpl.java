@@ -32,9 +32,9 @@ public class DevCreateNewGameCommandImpl implements Command {
         double price = Double.parseDouble(request.getParameter("price"));
         boolean saleStatus = Boolean.parseBoolean(request.getParameter("saleStatus"));
         double salePrice = Double.parseDouble(request.getParameter("salePrice"));
-
-
+        
         //todo проверку на жаннр, в случае неправильных данных перенаправлять на страницу с ошибкой и с кнопкой назад
+        //todo и вообще все ошибки перенаправлять на страницу с ошибкой и делать там кнопку назад
         try {
             if (gameName != null || price > 0.0) {
                 GameService gameService = ServiceFactory.getInstance().getGameService();
@@ -47,6 +47,8 @@ public class DevCreateNewGameCommandImpl implements Command {
                 request.getSession().setAttribute("currentUser", developerService.findById(devId));
                 request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
             } else {
+
+                //todo на другую страницу перенаправлять
                 request.setAttribute("error_msg_login", "Wrong input parameters for game creating.");
                 request.getRequestDispatcher("login").forward(request, response);
             }

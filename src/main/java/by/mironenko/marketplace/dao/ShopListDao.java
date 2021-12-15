@@ -10,4 +10,5 @@ public interface ShopListDao extends BaseDao<ShopList> {
     List<ShopList> findByDate(Date date);
     List<ShopList> findByPrice(Double price);
     List<ShopList> selectByBuyerId(Long id);
+    Long findLastId();
 }

@@ -31,7 +31,7 @@ public class GameDaoImpl implements GameDao {
             "DELETE FROM game WHERE id = ?;";
 
     private static final String SQL_FIND_BY_NAME =
-            "SELECT id, name, genre, date, price, pre_sale, sale_price FROM game WHERE name = ?;";
+            "SELECT id, developer_id, name, genre, date, price, pre_sale, sale_price FROM game WHERE name = ?;";
 
     private static final String SQL_FIND_BY_DEVELOPER =
             "SELECT game.id, game.name, genre, date, price, pre_sale, sale_price, developer.name FROM game RIGHT JOIN developer ON game.developer_id = developer.id WHERE developer.name = ?";
@@ -65,7 +65,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                game = this.mapToGame(resultSet);
+                game = convertToGame(resultSet);
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding game by name: ", e);
@@ -82,7 +82,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setString(1, developerName);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setBoolean(1, preSaleStatus);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -118,7 +118,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -152,7 +152,7 @@ public class GameDaoImpl implements GameDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -170,7 +170,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                game = this.mapToGame(resultSet);
+                game = this.convertToGame(resultSet);
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding game by id: ", e);
@@ -187,7 +187,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -205,7 +205,7 @@ public class GameDaoImpl implements GameDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = mapToGame(resultSet);
+                Game game = convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -231,7 +231,7 @@ public class GameDaoImpl implements GameDao {
         log.debug("<-DAO-> Creating game...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_GAME)) {
-            this.mapFromGame(preparedStatement, game);
+            this.convertFromGame(preparedStatement, game);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during creating game: ", e);
@@ -264,7 +264,7 @@ public class GameDaoImpl implements GameDao {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_SORT_GAME_BY_PRICE)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Game game = this.mapToGame(resultSet);
+                Game game = this.convertToGame(resultSet);
                 games.add(game);
             }
         } catch (SQLException e) {
@@ -273,9 +273,7 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
-
-    //todo добавить developerId
-    private Game mapToGame(final ResultSet resultSet) throws SQLException {
+    private Game convertToGame(final ResultSet resultSet) throws SQLException {
         return Game.builder()
                 .id(resultSet.getLong("id"))
                 .name(resultSet.getString("name"))
@@ -287,7 +285,7 @@ public class GameDaoImpl implements GameDao {
                 .build();
     }
 
-    private void mapFromGame(final PreparedStatement preparedStatement, final Game game) throws SQLException {
+    private void convertFromGame(final PreparedStatement preparedStatement, final Game game) throws SQLException {
         preparedStatement.setLong(1, game.getDeveloperId());
         preparedStatement.setString(2, game.getName());
         preparedStatement.setString(3, game.getGenre().toString());

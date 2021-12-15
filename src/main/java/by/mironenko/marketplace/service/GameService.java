@@ -13,4 +13,5 @@ public interface GameService extends Service<Game> {
     List<Game> sortByPrice();
     List<Game> findByBuyerID(Long id);
     List<Game> findByDeveloperId(Long id);
+    Long getDeveloperId(Long id);
 }

@@ -61,7 +61,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<ShopList> findByBiuerId(final Long buyerId) {
+    public List<ShopList> findByBuyerId(final Long buyerId) {
         log.info("<-SERVICE-> Finding bill by buyer ID...");
         if (buyerId <= 0) {
             throw new ServiceException("Incorrect ID for finding bill by ID.");
@@ -115,32 +115,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public void buyGame(final Long buyerId, final Long gameId) {
-        log.info("<-SERVICE-> The buyer buy the game...");
+    public Long findMaxId() {
+        log.info("<-SERVICE-> Finding max ID...");
         try {
-            BuyerDao buyerDao = factory.getBuyerDao();
-            GameDao gameDao = factory.getGameDao();
-            ShopListDao shopListDao = factory.getShopListDao();
-            DeveloperDao developerDao = factory.getDeveloperDao();
-            BuyerWithSaleDao buyerWithSaleDao = factory.getBuyerWithSaleDao();
-
-            ShopList shopList = new ShopList();
-            Buyer buyer = buyerDao.findById(buyerId);
-            Game game = gameDao.findById(gameId);
-            if (buyer.getMoney() > game.getPrice()) {
-                shopList.setBuyerId(buyer.getId());
-                shopList.setGameId(game.getId());
-                java.util.Date date = new java.util.Date();
-                shopList.setDate(date);
-                //todo проверка на предзаказ и возраст
-                shopList.setPrice(game.getPrice());
-                shopListDao.create(shopList);
-                Developer developer = developerDao.findById(gameDao.getDeveloperId(gameId));
-                developer.setRating(developer.getRating() + 1);
-                developerDao.update(developer);
-            } else {
-                throw new ServiceException("Buyer with ID " + buyer.getId() + " haven't money for buying game " + game.getId());
-            }
+            final ShopListDao shopListDao = factory.getShopListDao();
+            return shopListDao.findLastId();
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }

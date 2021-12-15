@@ -36,6 +36,9 @@ public class ShopListDaoImpl implements ShopListDao {
     private static final String SQL_SELECT_BY_BUYER_ID =
             "SELECT id, buyer_id, game_id, date, price FROM shop_list WHERE buyer_id = ?;";
 
+    private static final String SQL_LAST_ID =
+            "SELECT id FROM shop_list ORDER BY id DESC LIMIT 1;";
+
     public ShopListDaoImpl() { }
 
     @Override
@@ -47,7 +50,7 @@ public class ShopListDaoImpl implements ShopListDao {
             preparedStatement.setDate(1, (java.sql.Date) date);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ShopList shopList = this.mapToShopList(resultSet);
+                ShopList shopList = this.convertToShopList(resultSet);
                 bills.add(shopList);
             }
         } catch (SQLException e) {
@@ -65,7 +68,7 @@ public class ShopListDaoImpl implements ShopListDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ShopList shopList = mapToShopList(resultSet);
+                ShopList shopList = convertToShopList(resultSet);
                 bills.add(shopList);
             }
         } catch (SQLException e) {
@@ -83,7 +86,7 @@ public class ShopListDaoImpl implements ShopListDao {
             preparedStatement.setDouble(1, price);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ShopList shopList = this.mapToShopList(resultSet);
+                ShopList shopList = this.convertToShopList(resultSet);
                 bills.add(shopList);
             }
         } catch (SQLException e) {
@@ -100,13 +103,29 @@ public class ShopListDaoImpl implements ShopListDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ShopList shopList = this.mapToShopList(resultSet);
+                ShopList shopList = this.convertToShopList(resultSet);
                 bills.add(shopList);
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding all bills: ", e);
         }
         return bills;
+    }
+
+    @Override
+    public Long findLastId() {
+        log.debug("<-DAO-> Find last ID...");
+        Long maxId = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_LAST_ID)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                maxId = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception during finding Max ID: ", e);
+        }
+        return maxId;
     }
 
     @Override
@@ -118,7 +137,7 @@ public class ShopListDaoImpl implements ShopListDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                shopList = this.mapToShopList(resultSet);
+                shopList = this.convertToShopList(resultSet);
             }
         } catch (SQLException e) {
             throw new DaoException("Exception during finding bills by id", e);
@@ -137,7 +156,7 @@ public class ShopListDaoImpl implements ShopListDao {
         log.debug("<-DAO-> Creating shop list...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_SHOP_LIST)) {
-            this.mapFromShopList(preparedStatement, shopList);
+            this.convertFromShopList(preparedStatement, shopList);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during creating bill: ", e);
@@ -150,7 +169,7 @@ public class ShopListDaoImpl implements ShopListDao {
         throw new UnsupportedOperationException();
     }
 
-    private ShopList mapToShopList(final ResultSet resultSet) throws SQLException {
+    private ShopList convertToShopList(final ResultSet resultSet) throws SQLException {
         return ShopList.builder()
                 .id(resultSet.getLong("id"))
                 .buyerId(resultSet.getLong("buyer_id"))
@@ -160,11 +179,11 @@ public class ShopListDaoImpl implements ShopListDao {
                 .build();
     }
 
-    private void mapFromShopList(final PreparedStatement preparedStatement, final ShopList shopList) throws SQLException {
+    private void convertFromShopList(final PreparedStatement preparedStatement, final ShopList shopList) throws SQLException {
         preparedStatement.setLong(1, shopList.getId());
-        preparedStatement.setLong(2, shopList.getBuyerId());
-        preparedStatement.setLong(3, shopList.getGameId());
-        preparedStatement.setDate(4, (java.sql.Date) shopList.getDate());
-        preparedStatement.setDouble(5, shopList.getPrice());
+        preparedStatement.setLong(1, shopList.getBuyerId());
+        preparedStatement.setLong(2, shopList.getGameId());
+        preparedStatement.setDate(3, shopList.getDate());
+        preparedStatement.setDouble(4, shopList.getPrice());
     }
 }

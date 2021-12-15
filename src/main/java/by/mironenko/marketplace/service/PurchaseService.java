@@ -9,6 +9,6 @@ public interface PurchaseService extends Service<ShopList> {
 
     List<ShopList> findBillsByDate(Date date);
     List<ShopList> findBillsByPrice(Double price);
-    void buyGame(Long buyerId, Long gameId);
-    List<ShopList> findByBiuerId(Long buyerId);
+    List<ShopList> findByBuyerId(Long buyerId);
+    Long findMaxId();
 }
