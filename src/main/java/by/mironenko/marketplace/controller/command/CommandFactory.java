@@ -55,10 +55,11 @@ public class CommandFactory {
         map.put(CommandName.LOG_OUT, new LogoutCommandImpl());
         map.put(CommandName.DEV_CREATE_NEW_GAME, new DevCreateNewGameCommandImpl());
         map.put(CommandName.DEV_UPDATE_GAME, new DevUpdateGameCommandImpl());
-        map.put(CommandName.DEV_GET_SALE, new DevGetSaleCommandImpl());
+        map.put(CommandName.DEV_SET_SALE, new DevSetSaleCommandImpl());
         map.put(CommandName.BUYER_ADD_MONEY, new BuyerAddMoneyCommandImpl());
         map.put(CommandName.BUYER_BUY_GAME, new BuyerBuyGameCommandImpl());
         map.put(CommandName.DEV_UPDATE_CURRENT_GAME, new DevUpdateCurrentGameCommandImpl());
+        map.put(CommandName.DEV_SET_SALE_FOR_CURRENT_GAME, new DevSetSaleForCurrentGameCommandImpl());
         return map;
     }
 }

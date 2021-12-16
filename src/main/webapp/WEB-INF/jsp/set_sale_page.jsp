@@ -1,0 +1,74 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>D.Set sale</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <h3>Current game</h3>
+    <jsp:useBean id="updatedGame" scope="request" type="by.mironenko.marketplace.entity.Game" />
+    <div class="col-lg-6 container-fluid">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="active">
+                <th>Name</th>
+                <th>Price</th>
+                <th>Sale</th>
+                <th>Sale price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><c:out value="${updatedGame.name}"/></td>
+                <td><c:out value="${updatedGame.price}"/></td>
+                <td><c:out value="${updatedGame.preSale}"/></td>
+                <td><c:out value="${updatedGame.salePrice}"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form action="${pageContext.request.contextPath}/controller/dev_set_sale_for_current_game" method="post">
+            <div>
+                <label for="sale">New sale status</label>
+                <input type="text" id="sale" name="saleStatus"
+                       placeholder="Sale status">
+            </div>
+            <div>
+                <label for="salePrice">New sale price</label>
+                <input type="text" id="salePrice" name="salePrice"
+                       placeholder="Sale price">
+            </div>
+            <button class="btn btn-success btn-sm">Set</button>
+        </form>
+    </div>
+</div>
+<footer class="fixed-bottom">
+    <div class="navbar-fixed-bottom row-fluid">
+        <div class="navbar-inner">
+            <div class="container-fluid padding">
+                <div class="row alter text-center">
+                    <h5>©2021. Powered by Pavel Mironenko (llsnpy).</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

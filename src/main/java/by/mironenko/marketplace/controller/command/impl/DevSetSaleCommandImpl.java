@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DevUpdateGameCommandImpl implements Command {
-    private static final Logger log = LogManager.getLogger(DevUpdateGameCommandImpl.class);
+public class DevSetSaleCommandImpl implements Command {
+    private static final Logger log = LogManager.getLogger(DevSetSaleCommandImpl.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("<-CONTROLLER-> Executing command DEV_UPDATE_GAME...");
+        log.debug("<-CONTROLLER-> Executing command DEV_GET_SALE...");
 
         GameService gameService = ServiceFactory.getInstance().getGameService();
-        Game updatedGame = gameService.findByGameName(request.getParameter("updatedGameName"));
+        Game updatedGame = gameService.findByGameName(request.getParameter("saleGameName"));
 
         request.getSession().setAttribute("updatedGame", updatedGame);
         request.setAttribute("updatedGame", updatedGame);
-        request.getRequestDispatcher("/WEB-INF/jsp/updatedGamePage.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/set_sale_page.jsp").forward(request, response);
     }
 }

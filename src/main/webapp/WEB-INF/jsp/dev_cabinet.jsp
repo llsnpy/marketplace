@@ -160,12 +160,12 @@
 
                 <br>
 
-                <form action="${pageContext.request.contextPath}/controller/dev_get_sale">  <%--перенаправить на страничку с окошком имени игры и цены со скидкой--%>
+                <form action="${pageContext.request.contextPath}/controller/dev_set_sale">
                     <div>
-                        <label for="saleGame">Get sale</label>
+                        <label for="saleGame">Set sale</label>
                         <input type="text" id="saleGame" name="saleGameName"
                                placeholder="Game name">
-                        <button class="btn btn-success btn-sm">Get sale</button>
+                        <button class="btn btn-success btn-sm">Set sale</button>
                     </div>
                 </form>
 

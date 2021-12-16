@@ -76,10 +76,11 @@ public class CommandFilter implements Filter {
         commands.put("logout", "LOG_OUT");
         commands.put("buyer_add_money", "BUYER_ADD_MONEY");
         commands.put("buyer_buy_game", "BUYER_BUY_GAME");
-        commands.put("dev_get_sale", "DEV_GET_SALE");
+        commands.put("dev_set_sale", "DEV_SET_SALE");
         commands.put("dev_create_new_game", "DEV_CREATE_NEW_GAME");
         commands.put("dev_update_game", "DEV_UPDATE_GAME");
         commands.put("dev_update_current_game", "DEV_UPDATE_CURRENT_GAME");
+        commands.put("dev_set_sale_for_current_game", "DEV_SET_SALE_FOR_CURRENT_GAME");
         return commands;
     }
 }
