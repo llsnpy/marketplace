@@ -169,10 +169,10 @@
                     </div>
                 </form>
 
-                <form action="${pageContext.request.contextPath}/controller/dev_update_game"> <%--перенаправить на страничку с окошком для новых сведений для игры--%>
+                <form action="${pageContext.request.contextPath}/controller/dev_update_game">
                     <div>
                         <label for="updateGame">Game for update</label>
-                        <input type="text" id="updateGame" name="updateGameName"
+                        <input type="text" id="updateGame" name="updatedGameName"
                                placeholder="Game name">
                         <button class="btn btn-success btn-sm">Update game</button>
                     </div>

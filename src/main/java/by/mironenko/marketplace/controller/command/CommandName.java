@@ -20,5 +20,6 @@ public enum CommandName {
     DEV_UPDATE_GAME,
     DEV_GET_SALE,
     BUYER_ADD_MONEY,
-    BUYER_BUY_GAME
+    BUYER_BUY_GAME,
+    DEV_UPDATE_CURRENT_GAME
 }

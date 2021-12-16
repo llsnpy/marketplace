@@ -58,6 +58,7 @@ public class CommandFactory {
         map.put(CommandName.DEV_GET_SALE, new DevGetSaleCommandImpl());
         map.put(CommandName.BUYER_ADD_MONEY, new BuyerAddMoneyCommandImpl());
         map.put(CommandName.BUYER_BUY_GAME, new BuyerBuyGameCommandImpl());
+        map.put(CommandName.DEV_UPDATE_CURRENT_GAME, new DevUpdateCurrentGameCommandImpl());
         return map;
     }
 }
