@@ -21,9 +21,14 @@ public class DevUpdateGameCommandImpl implements Command {
 
         GameService gameService = ServiceFactory.getInstance().getGameService();
         Game updatedGame = gameService.findByGameName(request.getParameter("updatedGameName"));
-
-        request.getSession().setAttribute("updatedGame", updatedGame);
-        request.setAttribute("updatedGame", updatedGame);
-        request.getRequestDispatcher("/WEB-INF/jsp/updatedGamePage.jsp").forward(request, response);
+        try {
+            request.getSession().setAttribute("updatedGame", updatedGame);
+            request.setAttribute("updatedGame", updatedGame);
+            request.getRequestDispatcher("/WEB-INF/jsp/updatedGamePage.jsp").forward(request, response);
+        } catch (ServletException e) {
+            log.error("Exception during updating game: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        }
     }
 }

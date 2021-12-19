@@ -33,8 +33,6 @@ public class DevUpdateCurrentGameCommandImpl implements Command {
         boolean saleStatus = Boolean.parseBoolean(request.getParameter("saleStatus"));
         double salePrice = Double.parseDouble(request.getParameter("salePrice"));
 
-        //todo проверку на жаннр, в случае неправильных данных перенаправлять на страницу с ошибкой и с кнопкой назад
-        //todo и вообще все ошибки перенаправлять на страницу с ошибкой и делать там кнопку назад
         try {
             if (gameName != null || price > 0.0) {
                 GameService gameService = ServiceFactory.getInstance().getGameService();
@@ -53,13 +51,13 @@ public class DevUpdateCurrentGameCommandImpl implements Command {
                 request.getSession().setAttribute("currentUser", developerService.findById(devId));
                 request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
             } else {
-
-                //todo на другую страницу перенаправлять
-                request.setAttribute("error_msg_login", "Wrong input parameters for game creating.");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.setAttribute("error_message", "Wrong input parameters for updating current game.");
+                request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during updating game: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

@@ -1,7 +1,6 @@
 package by.mironenko.marketplace.controller.command;
 
 public enum CommandName {
-    WRONG_REQUEST, //todo - error page по факту
     CHOOSE_LANGUAGE,
     ABOUT_US,
     CONTACTS,
@@ -22,5 +21,7 @@ public enum CommandName {
     BUYER_ADD_MONEY,
     BUYER_BUY_GAME,
     DEV_UPDATE_CURRENT_GAME,
-    DEV_SET_SALE_FOR_CURRENT_GAME
+    DEV_SET_SALE_FOR_CURRENT_GAME,
+    WRONG_REQUEST,
+    LANGUAGE
 }

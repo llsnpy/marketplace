@@ -37,11 +37,13 @@ public class CreateCurrentDevCommandImpl implements Command {
                 request.setAttribute("developer", developer);
                 request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
             } else {
-                request.setAttribute("error_msg_login", "Login is not available. Try again.");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.setAttribute("error_message", "Wrong input parameters for creating developer. Try again.");
+                request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during creating developer: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

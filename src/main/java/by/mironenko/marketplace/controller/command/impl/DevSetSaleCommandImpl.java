@@ -2,6 +2,7 @@ package by.mironenko.marketplace.controller.command.impl;
 
 import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.entity.Game;
+import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.GameService;
 import by.mironenko.marketplace.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -21,9 +22,14 @@ public class DevSetSaleCommandImpl implements Command {
 
         GameService gameService = ServiceFactory.getInstance().getGameService();
         Game updatedGame = gameService.findByGameName(request.getParameter("saleGameName"));
-
-        request.getSession().setAttribute("updatedGame", updatedGame);
-        request.setAttribute("updatedGame", updatedGame);
-        request.getRequestDispatcher("/WEB-INF/jsp/set_sale_page.jsp").forward(request, response);
+        try {
+            request.getSession().setAttribute("updatedGame", updatedGame);
+            request.setAttribute("updatedGame", updatedGame);
+            request.getRequestDispatcher("/WEB-INF/jsp/set_sale_page.jsp").forward(request, response);
+        } catch (ServiceException e) {
+            log.error("Exception during setting sale: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        }
     }
 }

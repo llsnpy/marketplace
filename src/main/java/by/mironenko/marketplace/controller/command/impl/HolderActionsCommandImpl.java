@@ -36,7 +36,9 @@ public class HolderActionsCommandImpl implements Command {
                 request.getRequestDispatcher("login").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during deleting game: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

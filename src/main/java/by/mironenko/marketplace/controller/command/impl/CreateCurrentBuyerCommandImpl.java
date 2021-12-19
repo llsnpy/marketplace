@@ -40,9 +40,9 @@ public class CreateCurrentBuyerCommandImpl implements Command {
 
             request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
         } catch (ServiceException e) {
-            request.setAttribute("error_msg_login", "Login is not available. Try again.");
-            request.getRequestDispatcher("login").forward(request, response);
             log.error("Exception during creating new buyer: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

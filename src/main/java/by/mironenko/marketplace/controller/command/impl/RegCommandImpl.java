@@ -50,7 +50,9 @@ public class RegCommandImpl implements Command {
                 request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during registration new user: ", e);
+            request.setAttribute("error_msg_login", "Login is not available. Try again.");
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

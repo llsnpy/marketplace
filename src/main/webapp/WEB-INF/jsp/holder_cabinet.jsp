@@ -147,6 +147,15 @@
                     </tbody>
                 </table>
 
+                <%--пагинация--%>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#" class="page-link">Back</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+
                 <form action="${pageContext.request.contextPath}/controller/holder_actions" method="post">
                     <div>
                         <label for="deleteGame">Delete game</label>

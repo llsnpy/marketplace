@@ -1,7 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="text.properties" scope="session" />
+<%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${empty sessionScope.text}"><ftm:setLocale value="ru-RU"/></c:if>
+<fmt:setBundle basename="text.properties" scope="session" var="bundle"/>
 <head>
     <meta charset="utf-8">
     <title>marketplace</title>
@@ -44,13 +46,34 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages
-                        <strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">Russian</a></li>
-                            </ul>
+                    <a href="#" class="dropdown=toggle" data-toggle="dropdown">Languages
+                    <strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="${pageContext.request.contextPath}/controller/choose_language" method="post">
+                                <label class="btn btn-outline-success">
+                                    <input type="hidden" name="lc" value="ru_RU">
+                                    <input type="submit" class="btn" value="Russian">
+                                </label>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="${pageContext.request.contextPath}/controller/choose_language" method="post">
+                                <label class="btn btn-outline-success">
+                                    <input type="hidden" name="lc" value="en_US">
+                                    <input type="submit" class="btn" value="English">
+                                </label>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="${pageContext.request.contextPath}/controller/choose_language" method="post">
+                                <label class="btn btn-outline-success">
+                                    <input type="hidden" name="lc" value="de_DE">
+                                    <input type="submit" class="btn" value="German">
+                                </label>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -78,7 +101,7 @@
                 <div>
                     <br class="container-fluid">
                     <button class="btn btn-success">
-                        Log in
+                        Log in <%--<fmt:message key="login" />--%>
                     </button>
                 </div>
             </form>

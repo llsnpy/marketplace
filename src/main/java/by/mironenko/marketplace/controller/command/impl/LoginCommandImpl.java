@@ -59,11 +59,13 @@ public class LoginCommandImpl implements Command {
                         request.getRequestDispatcher("/WEB-INF/index.jsp");
                 }
             } else {
-                request.setAttribute("error_msg_login", "User not found, reenter input data.");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.setAttribute("error_message", "User not found, reenter input data.");
+                request.getRequestDispatcher("error").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during log in: ", e);
+            request.setAttribute("error_message", "User not found, reenter input data.");
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

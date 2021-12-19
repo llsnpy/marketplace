@@ -60,6 +60,7 @@ public class CommandFactory {
         map.put(CommandName.BUYER_BUY_GAME, new BuyerBuyGameCommandImpl());
         map.put(CommandName.DEV_UPDATE_CURRENT_GAME, new DevUpdateCurrentGameCommandImpl());
         map.put(CommandName.DEV_SET_SALE_FOR_CURRENT_GAME, new DevSetSaleForCurrentGameCommandImpl());
+        map.put(CommandName.LANGUAGE, new LanguagesCommandImpl());
         return map;
     }
 }

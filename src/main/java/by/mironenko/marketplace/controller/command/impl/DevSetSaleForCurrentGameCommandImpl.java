@@ -38,10 +38,9 @@ public class DevSetSaleForCurrentGameCommandImpl implements Command {
             request.getSession().setAttribute("currentUser", developerService.findById(devId));
             request.getRequestDispatcher("/WEB-INF/jsp/dev_cabinet.jsp").forward(request, response);
         } catch (ServiceException e) {
-            request.setAttribute("error_msg_login", "Wrong input parameters for game creating.");
-            request.getRequestDispatcher("login").forward(request, response);
-            log.error(e);
+            log.error("Exception during setting sale for game: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
-
     }
 }

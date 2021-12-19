@@ -42,6 +42,8 @@ public class FindHolderActionsCommandImpl implements Command {
             }
         } catch (ServiceException e) {
             log.error("Exception during finding values: ", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

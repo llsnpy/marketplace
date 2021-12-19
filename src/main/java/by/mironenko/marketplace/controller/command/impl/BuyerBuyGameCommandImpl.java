@@ -61,11 +61,13 @@ public class BuyerBuyGameCommandImpl implements Command {
                 request.getSession().setAttribute("currentUser", buyer);
                 request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
             } else {
-                request.setAttribute("error_msg_login", "Wrong input parameters for game creating.");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.setAttribute("error_message", "Wrong input parameters for game creating.");
+                request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during buy game", e);
+            request.setAttribute("error_message", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }

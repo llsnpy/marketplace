@@ -42,7 +42,9 @@ public class BuyerAddMoneyCommandImpl implements Command {
                 request.getRequestDispatcher("/WEB-INF/jsp/buyer_cabinet.jsp").forward(request, response);
             }
         } catch (ServiceException e) {
-            log.error(e);
+            log.error("Exception during adding money", e);
+            request.setAttribute("error_message", "Error during add money to buyer account.");
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 }
