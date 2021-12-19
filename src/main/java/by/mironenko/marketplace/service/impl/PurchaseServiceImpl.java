@@ -83,7 +83,15 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting bill by ID...");
-        throw new UnsupportedOperationException("Can't delete the bill.");
+        if (id == null) {
+            throw new ServiceException("Incorrect id for deleting bill.");
+        }
+        try {
+            final ShopListDao shopListDao = factory.getShopListDao();
+            shopListDao.delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     @Override

@@ -80,7 +80,6 @@
                         <th>Surname</th>
                         <th>Age</th>
                         <th>Money</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
 
@@ -91,10 +90,6 @@
                             <td><c:out value="${buyer.surname}"/></td>
                             <td><c:out value="${buyer.age}"/></td>
                             <td><c:out value="${buyer.money}"/></td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}controller/holder_actions" class="btn btn-danger" <%--name="updated_row_id" value="${buyer.id}"--%>>update</a>
-                                <a href="${pageContext.request.contextPath}controller/holder_actions" class="btn btn-danger" <%--name="deleted_row_id" value="${buyer.id}"--%>>delete</a>
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -111,7 +106,6 @@
                         <th>Name</th>
                         <th>Money</th>
                         <th>Rating</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
 
@@ -121,10 +115,6 @@
                             <td><c:out value="${dev.name}"/></td>
                             <td><c:out value="${dev.money}"/></td>
                             <td><c:out value="${dev.rating}"/></td>
-                            <td>
-                                Update <br>
-                                Delete
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -142,7 +132,6 @@
                         <th>Genre</th>
                         <th>Date</th>
                         <th>Price</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
 
@@ -153,14 +142,22 @@
                             <td><c:out value="${game.genre}"/></td>
                             <td><c:out value="${game.date}"/></td>
                             <td><c:out value="${game.price}"/></td>
-                            <td>
-                                Update <br>
-                                Delete
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
+
+                <form action="${pageContext.request.contextPath}/controller/holder_actions" method="post">
+                    <div>
+                        <label for="deleteGame">Delete game</label>
+                    </div>
+                    <div>
+                        <input type="text" id="deleteGame" name="gameName"
+                        placeholder="Game name">
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+
             </div>
         </div>
 

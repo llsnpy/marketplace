@@ -39,6 +39,9 @@ public class ShopListDaoImpl implements ShopListDao {
     private static final String SQL_LAST_ID =
             "SELECT id FROM shop_list ORDER BY id DESC LIMIT 1;";
 
+    private static final String SQL_DELETE_SHOP_LIST_BY_GAME_ID =
+            "DELETE FROM shop_list WHERE game_id = ?;";
+
     public ShopListDaoImpl() { }
 
     @Override
@@ -147,8 +150,14 @@ public class ShopListDaoImpl implements ShopListDao {
 
     @Override
     public void delete(final Long id) {
-        log.error("Unsupported operation exception");
-        throw new UnsupportedOperationException();
+        log.error("<-DAO-> Deleting bill by game ID...");
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_SHOP_LIST_BY_GAME_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Exception during deleting bill: ", e);
+        }
     }
 
     @Override
