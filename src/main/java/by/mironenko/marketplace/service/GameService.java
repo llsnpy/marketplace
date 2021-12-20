@@ -4,6 +4,11 @@ import by.mironenko.marketplace.entity.Game;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see by.mironenko.marketplace.service.impl.GameServiceImpl
+ * The interface describes methods for forking with data from table "game"
+ */
 public interface GameService extends Service<Game> {
 
     Game findByGameName(String gameName);

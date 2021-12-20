@@ -13,12 +13,21 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see DeveloperService
+ * Invoke method for working with DeveloperDao
+ */
 @RequiredArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
     private static final Logger log = LogManager.getLogger(DeveloperServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 
+    /**
+     * @param developer input parameter from controller (entity Developer)
+     * Invoke method from DAO to creating new node in database
+     */
     @Override
     public void create(final Developer developer) {
         log.info("<-SERVICE-> Creating new developer...");
@@ -33,6 +42,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @return list of developers from database
+     * Invoke method from DAO to finding all developers
+     */
     @Override
     public List<Developer> findAll() {
         log.info("<-SERVICE-> Finding all developers...");
@@ -44,6 +57,11 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @param id input parameter developerId
+     * @return sought developer (by ID)
+     * Invoke method from DAO to finding developer by ID
+     */
     @Override
     public Developer findById(final Long id) {
         log.info("<-SERVICE-> Finding developer by ID...");
@@ -58,6 +76,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @param developer input parameter from controller (entity Developer)
+     * Invoke method from DAO to updating the node in database
+     */
     @Override
     public void update(final Developer developer) {
         log.info("<-SERVICE-> Updating developer...");
@@ -72,6 +94,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @param id input parameter developerId
+     * Invoke method from DAO to deleting the node from database by ID
+     */
     @Override
     public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting developer by ID...");
@@ -86,6 +112,11 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @param developerName input parameter developerName
+     * @return sought developer by name
+     * Invoke method from DAO to finding developer by name
+     */
     @Override
     public Developer findByName(final String developerName) {
         log.info("<-SERVICE-> Finding developer by name...");
@@ -100,6 +131,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    /**
+     * @return sorted by rating list of developers
+     * Invoke method from DAO to sorting developers by rating
+     */
     @Override
     public List<Developer> sortByRating() {
         log.info("<-SERVICE-> Finding developer by name...");
@@ -109,10 +144,5 @@ public class DeveloperServiceImpl implements DeveloperService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-    }
-
-    @Override
-    public void createNewGame(final Game game) throws ServiceException {
-        //todo create this method
     }
 }

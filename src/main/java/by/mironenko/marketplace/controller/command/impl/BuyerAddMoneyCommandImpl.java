@@ -2,7 +2,6 @@ package by.mironenko.marketplace.controller.command.impl;
 
 import by.mironenko.marketplace.controller.command.Command;
 import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.entity.User;
 import by.mironenko.marketplace.exceptions.ServiceException;
 import by.mironenko.marketplace.service.BuyerService;
 import by.mironenko.marketplace.service.GameService;
@@ -15,6 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for processing a request for replenishment of the
+ * buyer's balance
+ */
 public class BuyerAddMoneyCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(BuyerAddMoneyCommandImpl.class);
 

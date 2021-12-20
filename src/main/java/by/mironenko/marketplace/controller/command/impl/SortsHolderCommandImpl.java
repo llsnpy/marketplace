@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for getting the result of sorting operatins
+ */
 public class SortsHolderCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(SortsHolderCommandImpl.class);
     private static final String HOLDER_PAGE = "/WEB-INF/jsp/holder_cabinet.jsp";

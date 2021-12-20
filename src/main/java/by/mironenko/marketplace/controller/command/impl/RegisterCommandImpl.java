@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * This controller redirect user for next registration step
+ * (reistration current buyer or developer)
+ */
 public class RegisterCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(RegisterCommandImpl.class);
 

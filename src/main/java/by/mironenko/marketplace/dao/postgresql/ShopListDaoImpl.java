@@ -15,6 +15,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see ShopListDao
+ * Describes how to access the database and work with the
+ * shop list table
+ */
 public class ShopListDaoImpl implements ShopListDao {
     private static final Logger log = LogManager.getLogger(ShopListDaoImpl.class);
 
@@ -44,6 +50,10 @@ public class ShopListDaoImpl implements ShopListDao {
 
     public ShopListDaoImpl() { }
 
+    /**
+     * @param date input parameter date
+     * @return sorted by date shopping list
+     */
     @Override
     public List<ShopList> findByDate(final Date date) {
         log.debug("<-DAO-> Finding shop list by Date...");
@@ -62,6 +72,11 @@ public class ShopListDaoImpl implements ShopListDao {
         return bills;
     }
 
+    /**
+     * @param id input parameter buyer ID
+     * @return a specific buyers's shopping list
+     * Method for finding purchases of a specific buyer
+     */
     @Override
     public List<ShopList> selectByBuyerId(final Long id) {
         log.debug("<-DAO-> Select shop list by buyer ID...");
@@ -80,6 +95,11 @@ public class ShopListDaoImpl implements ShopListDao {
         return bills;
     }
 
+    /**
+     * @param price input parameter price
+     * @return list of purchases made on the specific date
+     * Method for finding purchases by price
+     */
     @Override
     public List<ShopList> findByPrice(final Double price) {
         log.debug("<-DAO-> Finding shop list by Price...");
@@ -98,6 +118,10 @@ public class ShopListDaoImpl implements ShopListDao {
         return bills;
     }
 
+    /**
+     * @return all list of all purchases
+     * Method for finding all purchases
+     */
     @Override
     public List<ShopList> findAll() {
         log.debug("<-DAO-> Finding all shop lists...");
@@ -115,6 +139,10 @@ public class ShopListDaoImpl implements ShopListDao {
         return bills;
     }
 
+    /**
+     * @return last id in the table "shop list"
+     * Method for finding last ID in the table "shop list"
+     */
     @Override
     public Long findLastId() {
         log.debug("<-DAO-> Find last ID...");
@@ -131,6 +159,11 @@ public class ShopListDaoImpl implements ShopListDao {
         return maxId;
     }
 
+    /**
+     * @param id input parameter shopList ID
+     * @return sought shop list
+     * Method for finding shop list by ID
+     */
     @Override
     public ShopList findById(final Long id) {
         log.debug("<-DAO-> Finding shop list by ID...");
@@ -148,6 +181,10 @@ public class ShopListDaoImpl implements ShopListDao {
         return shopList;
     }
 
+    /**
+     * @param id input shop list ID
+     * Method for deleting shop list by ID
+     */
     @Override
     public void delete(final Long id) {
         log.error("<-DAO-> Deleting bill by game ID...");
@@ -160,6 +197,10 @@ public class ShopListDaoImpl implements ShopListDao {
         }
     }
 
+    /**
+     * @param shopList input entity
+     * Method for creating new node in table "shop list"
+     */
     @Override
     public void create(final ShopList shopList) {
         log.debug("<-DAO-> Creating shop list...");

@@ -12,6 +12,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see BuyerTakeSale
+ * Invoke method for working with BuyerTakeSaleDao
+ * Not used in this realixation of application
+ */
 @RequiredArgsConstructor
 public class BuyerTakeSaleImpl implements BuyerTakeSale {
     private static final Logger log = LogManager.getLogger(BuyerTakeSaleImpl.class);

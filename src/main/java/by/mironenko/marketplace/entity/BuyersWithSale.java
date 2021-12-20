@@ -2,6 +2,11 @@ package by.mironenko.marketplace.entity;
 
 import lombok.*;
 
+/**
+ * @author Pavel Mironenko
+ * Entity. Table - buyers_with_sale.
+ * Not used in this realisation of application
+ */
 @Getter
 @Setter
 @Builder

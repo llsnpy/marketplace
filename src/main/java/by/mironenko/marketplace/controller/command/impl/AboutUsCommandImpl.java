@@ -11,9 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for going to the "About us" tab
+ */
 public class AboutUsCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(AboutUsCommandImpl.class);
 
+    /**
+     * @param request  incoming request
+     * @param response incoming request
+     * @throws ServletException exception throwing on error
+     * @throws IOException exception throwing on error
+     */
     @Override
     public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         log.debug("<-CONTROLLER-> Executing command ABOUT_US...");

@@ -13,6 +13,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * @author Pavel Mironenko
+ * Class for creating / providing connection
+ */
 final public class ConnectionPool {
     private static Logger log = LogManager.getLogger(ConnectionPool.class);
 

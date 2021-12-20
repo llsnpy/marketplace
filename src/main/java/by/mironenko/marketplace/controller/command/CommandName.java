@@ -1,5 +1,12 @@
 package by.mironenko.marketplace.controller.command;
 
+/**
+ * @author Pavel Mironenko
+ * @see CommandFactory
+ * @see by.mironenko.marketplace.controller.filter.CommandFilter
+ * Enum witn all command. Eqch command corresponds to
+ * its own URL coming from the filter
+ */
 public enum CommandName {
     CHOOSE_LANGUAGE,
     ABOUT_US,

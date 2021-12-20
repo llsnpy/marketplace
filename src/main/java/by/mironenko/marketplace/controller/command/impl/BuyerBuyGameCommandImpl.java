@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for buying a game
+ */
 public class BuyerBuyGameCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(BuyerBuyGameCommandImpl.class);
 

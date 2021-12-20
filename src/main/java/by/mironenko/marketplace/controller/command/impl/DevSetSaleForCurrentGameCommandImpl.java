@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for setting a discount and a discount price for
+ * specific game
+ */
 public class DevSetSaleForCurrentGameCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(DevSetSaleForCurrentGameCommandImpl.class);
 

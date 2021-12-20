@@ -1,9 +1,7 @@
 package by.mironenko.marketplace.service.impl;
 
-import by.mironenko.marketplace.dao.*;
-import by.mironenko.marketplace.entity.Buyer;
-import by.mironenko.marketplace.entity.Developer;
-import by.mironenko.marketplace.entity.Game;
+import by.mironenko.marketplace.dao.DaoFactory;
+import by.mironenko.marketplace.dao.ShopListDao;
 import by.mironenko.marketplace.entity.ShopList;
 import by.mironenko.marketplace.exceptions.DaoException;
 import by.mironenko.marketplace.exceptions.ServiceException;
@@ -15,12 +13,21 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see PurchaseService
+ * Invoke method for working with PurchaseDao
+ */
 @RequiredArgsConstructor
 public class PurchaseServiceImpl implements PurchaseService {
     private static final Logger log = LogManager.getLogger(PurchaseServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 
+    /**
+     * @param shopList input parameter from controller (entity ShopList)
+     * Invoke method from DAO to creating new node in database
+     */
     @Override
     public void create(final ShopList shopList) {
         log.info("<-SERVICE-> Creating new bill...");
@@ -35,6 +42,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * @return list of bills from database
+     * Invoke method from DAO to finding all bills
+     */
     @Override
     public List<ShopList> findAll() {
         log.info("<-SERVICE-> Finding all bills...");
@@ -46,6 +57,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * @param id input parameter shopListId
+     * @return sought shopList (by ID)
+     * Invoke method from DAO to finding shopList by ID
+     */
     @Override
     public ShopList findById(final Long id) {
         log.info("<-SERVICE-> Finding bill by ID...");
@@ -60,6 +76,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * @param buyerId input parameter buyerId
+     * @return list of bills by buyer ID
+     * Invoke method from DAO to finding bill by buyer ID
+     */
     @Override
     public List<ShopList> findByBuyerId(final Long buyerId) {
         log.info("<-SERVICE-> Finding bill by buyer ID...");
@@ -80,6 +101,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         throw new UnsupportedOperationException("Cant update the bill.");
     }
 
+    /**
+     * @param id input parameter shopListId
+     * Invoke method from DAO to deleting bill by ID
+     */
     @Override
     public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting bill by ID...");
@@ -94,6 +119,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * @param date input parameter
+     * @return list of bills by date
+     * Invoke method from DAO to finding bill by date
+     */
     @Override
     public List<ShopList> findBillsByDate(final Date date) {
         log.info("<-SERVICE-> Finding bills by date...");
@@ -108,6 +138,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
+    /**
+     * @param price input parameter price
+     * @return list of bills by price
+     * Invoke method from DAO to finding bills by price
+     */
     @Override
     public List<ShopList> findBillsByPrice(final Double price) {
         log.info("<-SERVICE-> Finding bills by price...");

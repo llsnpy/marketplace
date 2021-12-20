@@ -14,6 +14,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see BuyerWithSaleDao
+ * Describes how to access the database and work with the
+ * buyers with sale table.
+ * Not used.
+ */
 public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
     private static final Logger log = LogManager.getLogger(BuyerWithSaleDaoImpl.class);
 
@@ -28,6 +35,10 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
 
     public BuyerWithSaleDaoImpl() { }
 
+    /**
+     * @return adl buyers with sale.
+     * Method for finding all buyers with sale.
+     */
     @Override
     public List<BuyersWithSale> findAll() {
         log.debug("<-DAO-> Finding all buyers with pre sale...");
@@ -45,6 +56,11 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
         return preSaleList;
     }
 
+    /**
+     * @param id input parameter for finding
+     * @return requested buyer with sale
+     * Method for finding buyer with sale by ID
+     */
     @Override
     public BuyersWithSale findById(final Long id) {
         log.debug("<-DAO-> Finding buyers with pre sale by ID...");
@@ -62,12 +78,16 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
         return buyersWithSale;
     }
 
+    /**
+     * @param buyersWithSale input entity
+     * Method for creating new note in database
+     */
     @Override
     public void create(final BuyersWithSale buyersWithSale) {
         log.debug("<-DAO-> Creating buyer with sale...");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_BUYER_WITH_SALE)) {
-            this.converFromBuyersWithSale(preparedStatement, buyersWithSale);
+            this.convertFromBuyersWithSale(preparedStatement, buyersWithSale);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Exception during creating new note of buyer with sale: ", e);
@@ -94,7 +114,7 @@ public class BuyerWithSaleDaoImpl implements BuyerWithSaleDao {
                 .build();
     }
 
-    private void converFromBuyersWithSale(final PreparedStatement preparedStatement, final BuyersWithSale buyersWithSale) throws SQLException {
+    private void convertFromBuyersWithSale(final PreparedStatement preparedStatement, final BuyersWithSale buyersWithSale) throws SQLException {
         preparedStatement.setLong(1, buyersWithSale.getId());
         preparedStatement.setLong(2, buyersWithSale.getBuyerId());
         preparedStatement.setLong(3, buyersWithSale.getGameId());

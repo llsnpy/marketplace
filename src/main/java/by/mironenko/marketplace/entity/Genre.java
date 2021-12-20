@@ -2,7 +2,7 @@ package by.mironenko.marketplace.entity;
 
 /**
  * @author Pavel Mironenko
- * Game genre. Inportant for setting age limits.
+ * Game genre
  */
 public enum Genre {
     QUEST, HORROR, ACTION, RACE, ARCADE, SPORT, SHOOTER, SIMULATOR

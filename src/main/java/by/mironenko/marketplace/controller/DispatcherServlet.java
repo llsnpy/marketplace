@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * @author Pavel Mironenko
+ * The class manages the application. Main servlet.
+ */
 @WebServlet("/controller/*")
 public class DispatcherServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(DispatcherServlet.class);
@@ -65,6 +69,14 @@ public class DispatcherServlet extends HttpServlet {
         super.destroy();
     }
 
+    /**
+     * @param request request
+     * @param response response
+     * @throws ServletException ex
+     * @throws IOException ex
+     * @see Command
+     * Method for executing corresponding command
+     */
     private void processRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
 

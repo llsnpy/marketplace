@@ -12,12 +12,21 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see BuyerService
+ * Invoke method for working with BuyerDao
+ */
 @RequiredArgsConstructor
 public class BuyerServiceImpl implements BuyerService {
     private static final Logger log = LogManager.getLogger(BuyerServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 
+    /**
+     * @param buyer input parameter from controller (entity Buyer)
+     * Invoke method from DAO to creating new node in database
+     */
     @Override
     public void create(final Buyer buyer) {
         log.info("<-SERVICE-> Creating new buyer...");
@@ -32,6 +41,10 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @return list of buyers from database
+     * Invoke method from DAO to finding all buyers
+     */
     @Override
     public List<Buyer> findAll() {
         log.info("<-SERVICE-> Finding all buyers...");
@@ -43,6 +56,10 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @return sorted by money list of buyers from database
+     * Invoke method from DAO to finding all buyers sorted by money
+     */
     @Override
     public List<Buyer> sortByMoney() {
         log.info("<-SERVICE-> Sort buyers by money...");
@@ -54,6 +71,11 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @param id input parameter buyerId
+     * @return sought buyer (by ID)
+     * Invoke method from DAO to finding buyer by ID
+     */
     @Override
     public Buyer findById(final Long id) {
         log.info("<-SERVICE-> Finding buyer by ID...");
@@ -68,6 +90,10 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @param buyer input parameter from controller (entity Buyer)
+     * Invoke method from DAO to updating the node in database
+     */
     @Override
     public void update(final Buyer buyer) {
         log.info("<-SERVICE-> Updating buyer...");
@@ -82,6 +108,10 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @param id input parameter buyerId
+     * Invoke method from DAO to deleting the node from database by ID
+     */
     @Override
     public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting buyer by ID...");
@@ -96,6 +126,11 @@ public class BuyerServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * @param surname input parameter surname
+     * @return sought buyer (by surname)
+     * Invoke method from DAO to finding buyer by surname
+     */
     @Override
     public Buyer findBySurname(final String surname) {
         log.info("<-SERVICE-> Finding buyer by surname...");

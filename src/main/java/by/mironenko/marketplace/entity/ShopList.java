@@ -4,6 +4,10 @@ import lombok.*;
 
 import java.sql.Date;
 
+/**
+ * @author Pavel Mironenko
+ * Entity. Table - shop_list
+ */
 @Getter
 @Setter
 @Builder

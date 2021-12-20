@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for going to the "Support" tab
+ */
 public class SupportCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(SupportCommandImpl.class);
 

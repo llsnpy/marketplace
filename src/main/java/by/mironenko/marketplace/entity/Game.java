@@ -7,7 +7,7 @@ import java.sql.Date;
 /**
  * @author Pavel Mironenko
  * Game. The main entity that users interact with.
- * You can view, buy and create game.
+ * Entity. Table - game.
  */
 @Getter
 @Setter

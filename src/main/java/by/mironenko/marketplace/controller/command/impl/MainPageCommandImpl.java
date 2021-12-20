@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * This controller is not used in the application
+ */
 public class MainPageCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(MainPageCommandImpl.class);
 

@@ -18,7 +18,7 @@ import java.util.List;
  * @author Pavel Mironenko
  * @see BuyerDao
  * Describes how to access the database and work with the
- * buyer table.
+ * buyer table
  */
 public class BuyerDaoImpl implements BuyerDao {
     private static final Logger log = LogManager.getLogger(BuyerDaoImpl.class);
@@ -92,6 +92,9 @@ public class BuyerDaoImpl implements BuyerDao {
         return buyers;
     }
 
+    /**
+     * @return sorted by money list of buyers
+     */
     @Override
     public List<Buyer> sortByMoney() {
         log.debug("<-DAO-> Sort buyers by name...");

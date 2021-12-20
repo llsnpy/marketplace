@@ -2,6 +2,11 @@ package by.mironenko.marketplace.dao;
 
 import by.mironenko.marketplace.dao.postgresql.*;
 
+/**
+ * @author Pavel Mironenko
+ * Factory class for working with DAO.
+ * Singleton.
+ */
 public class DaoFactory {
     private static final DaoFactory instance = new DaoFactory();
 

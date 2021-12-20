@@ -2,6 +2,11 @@ package by.mironenko.marketplace.service;
 
 import by.mironenko.marketplace.service.impl.*;
 
+/**
+ * @author Pavel Mironenko
+ * Factory class for working with SERVICE.
+ * Singleton.
+ */
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
 

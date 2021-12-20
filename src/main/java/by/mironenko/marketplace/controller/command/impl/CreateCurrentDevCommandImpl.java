@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for creating current developer
+ * (after creating "User")
+ */
 public class CreateCurrentDevCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(CreateCurrentDevCommandImpl.class);
 

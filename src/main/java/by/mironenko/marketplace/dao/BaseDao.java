@@ -4,6 +4,10 @@ import by.mironenko.marketplace.entity.Entity;
 
 import java.util.List;
 
+/**
+ * @param <T> specific entity class
+ * The interface describe common methods for forking with entity in database
+ */
 public interface BaseDao <T extends Entity> {
 
     List<T> findAll();

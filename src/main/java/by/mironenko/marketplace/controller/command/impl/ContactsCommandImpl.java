@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for going to the "Contacts" tab
+ */
 public class ContactsCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(ContactsCommandImpl.class);
 

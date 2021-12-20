@@ -14,6 +14,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see DeveloperDao
+ * Describes how to access the database and work with the
+ * developer table
+ */
 public class DeveloperDaoImpl implements DeveloperDao {
     private static final Logger log = LogManager.getLogger(DeveloperDaoImpl.class);
 
@@ -40,6 +46,11 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     public DeveloperDaoImpl() { }
 
+    /**
+     * @param name input developer name
+     * @return finding developer
+     * Method for finding developer by developer name
+     */
     @Override
     public Developer findByName(final String name) {
         log.debug("<-DAO-> Finding developer by Name...");
@@ -57,6 +68,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
         return developer;
     }
 
+    /**
+     * @return list of all developers
+     * Method for finding all developers
+     */
     @Override
     public List<Developer> findAll() {
         log.debug("<-DAO-> Finding all developers...");
@@ -74,6 +89,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
         return developers;
     }
 
+    /**
+     * @return sorted developers list
+     * Method for sorting all developers by rating
+     */
     @Override
     public List<Developer> sortByRating() {
         log.debug("<-DAO-> Sort developer by rating...");
@@ -91,6 +110,11 @@ public class DeveloperDaoImpl implements DeveloperDao {
         return developers;
     }
 
+    /**
+     * @param id input parameter
+     * @return finding developer
+     * Method for finding developer by developer ID
+     */
     @Override
     public Developer findById(final Long id) {
         log.debug("<-DAO-> Finding developer by ID...");
@@ -108,6 +132,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
         return developer;
     }
 
+    /**
+     * @param id input parameter
+     * Method for deleting developer by ID
+     */
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting developer by ID...");
@@ -120,6 +148,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
         }
     }
 
+    /**
+     * @param developer input entity
+     * Method for creating new node in table "developer"
+     */
     @Override
     public void create(final Developer developer) {
         log.debug("<-DAO-> Creating developer...");
@@ -132,6 +164,10 @@ public class DeveloperDaoImpl implements DeveloperDao {
         }
     }
 
+    /**
+     * @param developer input entity
+     * Method for updating selected developer
+     */
     @Override
     public void update(final Developer developer) {
         log.debug("<-DAO-> Updating developer...");

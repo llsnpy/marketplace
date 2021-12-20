@@ -12,6 +12,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see GameDao
+ * Describes how to access the database and work with the
+ * game table
+ */
 public class GameDaoImpl implements GameDao {
     private static final Logger log = LogManager.getLogger(GameDaoImpl.class);
 
@@ -56,6 +62,11 @@ public class GameDaoImpl implements GameDao {
 
     public GameDaoImpl() { }
 
+    /**
+     * @param name input game name
+     * @return finding game
+     * Method for finding game by game name
+     */
     @Override
     public Game findByName(final String name) {
         log.debug("<-DAO-> Finding game by Name...");
@@ -73,6 +84,11 @@ public class GameDaoImpl implements GameDao {
         return game;
     }
 
+    /**
+     * @param developerName input developer name
+     * @return list of selected developer's games
+     * Method for finding games by developer name
+     */
     @Override
     public List<Game> findByDeveloper(final String developerName) {
         log.debug("<-DAO-> Finding game by Developer...");
@@ -91,6 +107,11 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param preSaleStatus input sale status
+     * @return list of games with sale (true / false)
+     * Method for finding games by sale status
+     */
     @Override
     public List<Game> findGameByPreSaleStatus(final boolean preSaleStatus) {
         log.debug("<-DAO-> Finding game by pre sale status...");
@@ -109,6 +130,11 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param price input parameter
+     * @return list of games with input price
+     * Method for finding game by price
+     */
     @Override
     public List<Game> findByPrice(final double price) {
         log.debug("<-DAO-> Finding game by Price...");
@@ -127,6 +153,11 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param id input game ID
+     * @return developer ID
+     * Method for finding developer ID by game ID
+     */
     @Override
     public Long getDeveloperId(final Long id) {
         log.debug("<-DAO-> Finding developer ID by game ID...");
@@ -144,6 +175,10 @@ public class GameDaoImpl implements GameDao {
         return devId;
     }
 
+    /**
+     * @return list of all games
+     * Method for finding all games
+     */
     @Override
     public List<Game> findAll() {
         log.debug("<-DAO-> Finding all games...");
@@ -161,6 +196,11 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param id input parameter
+     * @return finding game
+     * Method for finding game by ID
+     */
     @Override
     public Game findById(final Long id) {
         log.debug("<-DAO-> Finding game by ID...");
@@ -178,6 +218,11 @@ public class GameDaoImpl implements GameDao {
         return game;
     }
 
+    /**
+     * @param id input buyer ID
+     * @return list of games for a specific buyer
+     * Method for finding games by buyer ID
+     */
     @Override
     public List<Game> findByBuyerId(final Long id) {
         log.debug("<-DAO-> Select all games by buyer ID...");
@@ -196,6 +241,11 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param id input parameter
+     * @return list of games for specific developer
+     * Method for finding games by developer ID
+     */
     @Override
     public List<Game> findByDeveloperId(final Long id) {
         log.debug("<-DAO-> Select all games by developer ID...");
@@ -214,6 +264,10 @@ public class GameDaoImpl implements GameDao {
         return games;
     }
 
+    /**
+     * @param id input parameter game ID
+     * Method for deleting game by game ID
+     */
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting game by ID...");
@@ -226,6 +280,10 @@ public class GameDaoImpl implements GameDao {
         }
     }
 
+    /**
+     * @param game input parameter entity
+     * Method for creating new node in table "game"
+     */
     @Override
     public void create(final Game game) {
         log.debug("<-DAO-> Creating game...");
@@ -238,6 +296,10 @@ public class GameDaoImpl implements GameDao {
         }
     }
 
+    /**
+     * @param game input entity game
+     * Method for updating node in database
+     */
     @Override
     public void update(final Game game) {
         log.debug("<-DAO-> Updating game...");
@@ -256,6 +318,10 @@ public class GameDaoImpl implements GameDao {
         }
     }
 
+    /**
+     * @return sorted by price list of games
+     * Method for sorting games by price
+     */
     @Override
     public List<Game> sortByPrice() {
         log.debug("<-DAO-> Sort game by price...");

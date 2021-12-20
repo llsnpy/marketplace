@@ -2,6 +2,10 @@ package by.mironenko.marketplace.entity;
 
 import lombok.*;
 
+/**
+ * @author Pavel Mironenko.
+ * Entity. Table - users.
+ */
 @Getter
 @Setter
 @Builder

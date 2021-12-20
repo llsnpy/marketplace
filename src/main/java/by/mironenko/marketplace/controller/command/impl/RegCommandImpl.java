@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for registrating "user" based on input parameters
+ */
 public class RegCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(RegCommandImpl.class);
 

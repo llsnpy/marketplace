@@ -87,6 +87,10 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * @param id input parameter
+     * Method for deleting user by ID
+     */
     @Override
     public void delete(final Long id) {
         log.debug("<-DAO-> Deleting user by ID...");
@@ -99,6 +103,10 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    /**
+     * @param user input entity
+     * Method for creating new node in table "user"
+     */
     @Override
     public void create(final User user) {
         log.debug("<-DAO-> Creating user...");
@@ -111,6 +119,10 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    /**
+     * @param user input entity
+     * Method for updating current user
+     */
     @Override
     public void update(final User user) {
         log.debug("<-DAO-> Updating user...");
@@ -126,6 +138,11 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    /**
+     * @param login input parameter "login"
+     * @return sought user
+     * Method for finding user by login
+     */
     @Override
     public User findUserByLogin(final String login) {
         log.debug("<-DAO-> Finding user by login...");
@@ -143,6 +160,11 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * @param login input parameter login
+     * @return user ID
+     * Method for finding user ID by user login
+     */
     @Override
     public Long getId(final String login) {
         log.debug("<-DAO-> Finding user ID by login...");

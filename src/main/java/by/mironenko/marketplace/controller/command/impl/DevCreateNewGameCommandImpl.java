@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for creating new game based on input data
+ */
 public class DevCreateNewGameCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(DevCreateNewGameCommandImpl.class);
 

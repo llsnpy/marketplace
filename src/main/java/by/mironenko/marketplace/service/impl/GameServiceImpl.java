@@ -12,12 +12,21 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see GameService
+ * Invoke method for working with GameDao
+ */
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
     private static final Logger log = LogManager.getLogger(GameServiceImpl.class);
 
     private final DaoFactory factory = DaoFactory.getInstance();
 
+    /**
+     * @param game input parameter from controller (entity Game)
+     * Invoke method from DAO to creating new node in database
+     */
     @Override
     public void create(final Game game) {
         log.debug("<-SERVICE-> Creating new game...");
@@ -32,6 +41,10 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @return list of games from database
+     * Invoke method from DAO to finding all games
+     */
     @Override
     public List<Game> findAll() {
         log.debug("<-SERVICE-> Finding all games...");
@@ -43,6 +56,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param id input parameter gameId
+     * @return sought game (by ID)
+     * Invoke method from DAO to finding game by ID
+     */
     @Override
     public Game findById(final Long id) {
         log.debug("<-SERVICE-> Finding game by ID...");
@@ -57,6 +75,10 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param game input parameter from controller (entity Game)
+     * Invoke method from DAO to updating the node in database
+     */
     @Override
     public void update(final Game game) {
         log.info("<-SERVICE-> Updating the game...");
@@ -71,6 +93,10 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param id input parameter gameId
+     * Invoke method from DAO to deleting the node from database by ID
+     */
     @Override
     public void delete(final Long id) {
         log.info("<-SERVICE-> Deleting the game...");
@@ -85,6 +111,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param gameName input parameter gameName
+     * @return sought game by gameName
+     * Invoke method from DAO to finding game by name
+     */
     @Override
     public Game findByGameName(final String gameName) {
         log.info("<-SERVICE-> Finding game by name...");
@@ -99,6 +130,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param developerName input parameter developerName
+     * @return list of games by specific developer
+     * Invoke method from DAO to finding game by DeveloperName
+     */
     @Override
     public List<Game> findByDeveloperName(final String developerName) {
         log.info("<-SERVICE-> Finding games by developer name...");
@@ -113,6 +149,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param status input parameter saleStatus
+     * @return list of games by specific status
+     * Invoke method from DAO to finding game by sale status
+     */
     @Override
     public List<Game> findByPreSaleStatus(final Boolean status) {
         log.info("<-SERVICE-> Finding games by genre...");
@@ -124,6 +165,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param id input parameter buyerID
+     * @return list of games by specific buyer
+     * Invoke method from DAO to finding game by buyer ID
+     */
     @Override
     public List<Game> findByBuyerID(final Long id) {
         log.info("<-SERVICE-> Finding games by buyer ID...");
@@ -138,6 +184,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param id input parameter developerID
+     * @return list of games by specific developer
+     * Invoke method from DAO to finding game by developer ID
+     */
     @Override
     public List<Game> findByDeveloperId(final Long id) {
         log.info("<-SERVICE-> Finding games by buyer ID...");
@@ -152,6 +203,11 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param price input parameter price
+     * @return list of games by specific price
+     * Invoke method from DAO to finding games by price
+     */
     @Override
     public List<Game> findByPrice(final Double price) {
         log.info("<-SERVICE-> Finding games by price...");
@@ -166,6 +222,10 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @return sorted by price list of games
+     * Invoke method from DAO to sorting game by price
+     */
     @Override
     public List<Game> sortByPrice() {
         log.info("<-SERVICE-> Sort games by price...");
@@ -177,6 +237,10 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    /**
+     * @param id input parameter gameID
+     * @return sought developer ID by game ID
+     */
     @Override
     public Long getDeveloperId(final Long id) {
         log.info("<-SERVICE-> Get developer_id by game_id...");

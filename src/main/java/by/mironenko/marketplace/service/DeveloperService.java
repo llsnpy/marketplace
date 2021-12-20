@@ -1,13 +1,16 @@
 package by.mironenko.marketplace.service;
 
 import by.mironenko.marketplace.entity.Developer;
-import by.mironenko.marketplace.entity.Game;
 
 import java.util.List;
 
+/**
+ * @author Pavel Mironenko
+ * @see by.mironenko.marketplace.service.impl.DeveloperServiceImpl
+ * The interface describes methods for forking with data from table "developer"
+ */
 public interface DeveloperService extends Service<Developer> {
 
     Developer findByName(String developerName);
-    void createNewGame(Game game);
     List<Developer> sortByRating();
 }

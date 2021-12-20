@@ -6,6 +6,12 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Factory class for calling the corresponding controller based
+ * on the received action name
+ */
 public class CommandFactory {
     private static final Logger log = Logger.getLogger(CommandFactory.class);
     public static final CommandFactory instance = new CommandFactory();

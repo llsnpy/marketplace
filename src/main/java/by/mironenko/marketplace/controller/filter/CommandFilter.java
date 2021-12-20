@@ -1,8 +1,5 @@
 package by.mironenko.marketplace.controller.filter;
 
-import by.mironenko.marketplace.controller.command.Command;
-import by.mironenko.marketplace.controller.command.impl.AboutUsCommandImpl;
-import by.mironenko.marketplace.controller.command.impl.LanguagesCommandImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -11,6 +8,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Pavel Mironenko
+ * @see by.mironenko.marketplace.controller.command.CommandFactory
+ * This filter processes the incoming request, determining the name
+ * of the command that should be called. The command name is then
+ * passed to the CommandFactory.
+ */
 public class CommandFilter implements Filter {
     private static final Logger log = Logger.getLogger(CommandFilter.class);
 
@@ -20,6 +24,14 @@ public class CommandFilter implements Filter {
         commands = initCommandsList();
     }
 
+    /**
+     * @param servletRequest request
+     * @param servletResponse response
+     * @param filterChain filter (for next filtratino)
+     * @throws IOException exception
+     * @throws ServletException exception
+     * The method based oon the request, gives the appropriate command to be executed.
+     */
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
                          final FilterChain filterChain) throws IOException, ServletException {
@@ -43,7 +55,7 @@ public class CommandFilter implements Filter {
             } catch (NullPointerException e) {
                 log.error("Impossible to create command handler object", e);
                 e.printStackTrace();
-                httpRequest.setAttribute("error", String.format("The requested address could not be called"));
+                httpRequest.setAttribute("error", "The requested address could not be called");
                 httpRequest.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(servletRequest, servletResponse);
             }
         } else {
@@ -58,6 +70,9 @@ public class CommandFilter implements Filter {
     @Override
     public void destroy() { }
 
+    /**
+     * @return map of all commands
+     */
     private static Map<String, String> initCommandsList() {
         Map<String, String> commands = new HashMap<>();
         commands.put("choose_language", "LANGUAGE");

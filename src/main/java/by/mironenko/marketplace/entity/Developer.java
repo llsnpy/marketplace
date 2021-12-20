@@ -4,10 +4,7 @@ import lombok.*;
 
 /**
  * @author Pavel Mironenko
- * Role - Developer (1/3). Developer has name, wallet, 2 lists (developing and released)
- * of games. Developer can 1) develop new game and upload it to marketplace. 2) View the
- * list of products placed on the market. 3) announce a pre-order and in the future to
- * provide a discount.
+ * Entity. Table - developer
  */
 @Setter
 @Getter

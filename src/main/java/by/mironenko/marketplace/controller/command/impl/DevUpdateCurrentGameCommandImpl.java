@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
+/**
+ * @author Pavel Mironenko
+ * @see Command
+ * Controller for updating a specific game based
+ * on input parameters
+ */
 public class DevUpdateCurrentGameCommandImpl implements Command {
     private static final Logger log = LogManager.getLogger(DevUpdateCurrentGameCommandImpl.class);
 

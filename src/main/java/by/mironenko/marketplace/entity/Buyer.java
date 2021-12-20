@@ -4,8 +4,7 @@ import lombok.*;
 
 /**
  * @author Pavel Mironenko
- * Role - buyer (2/3). Classical user. He can 1) view games. 2) Buy the game.
- * 3) He can participate in the pre-order.
+ * Entity. Table - "buyer"
  */
 @Getter
 @Setter
