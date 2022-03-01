@@ -1,36 +1,29 @@
 # marketplace
 
-  Приложение представляет из себя торговую площадку (like steam). 
+  The application is a trading platform (like steam).
 
-  Приложение имеет 3 роли пользователей.
+  The application has 3 user roles.
   
-  Явные роли:
-  1) Holder (владелец площадки, login - holder, password - holder). Может быть только один.
-Может просматривать все GAME, BUYER, DEVELOPER. Может удалять GAME. Сортиро-
-вать все списки. Имеет возможность производить сортировки по количеству денег, по рейтингу,
-по стоимости. (В планах: может выбирать продажи конкретного разработчика, покупки
-конкретного покупателя, продажи игр).
+  1) Holder (site owner, login - holder, password - holder). There can be only one. Can view all GAME, BUYER, DEVELOPER. Can remove GAME. Sort all lists. It has the ability to sort by the amount of money, by rating, by cost. (In plans: can choose sales of a specific developer, purchases of a specific buyer, sales of games).
   
-  2) Developer (разработчик, login - easports, password - admin). Может разрабатывать и
-обновлять игры. Устанавливать цену, менять цену. Объявлять скидки и скидочную цены. 
-(В планах: может сортировать свои игры и удалять их).
+  2) Developer (developer, login - easports, password - admin). Can develop and update games. Set the price, change the price. Announce discounts and discount prices. (In plans: can sort his games and delete them).
 
-  3) Buyer (покупатель, login - buyer, password - buyer). Может покупать игры, просматривать 
-информацию об игре. Имеет возможность пополнения баланса. (В планах: сортировать список игр 
-по алфавиту либо цене. Может просматривать список разработчиков и сортировать его по алфавиту 
-либо рейтингу).
+  3) Buyer (buyer, login - buyer, password - buyer). Can buy games, view
+information about the game. It has the ability to replenish the balance. (In plans: sort the list of games
+alphabetically or by price. Can view the list of developers and sort it alphabetically
+or rating).
 
-  Непосредственно сами игры (GAME), имеют свой жанр и цену. Цена игры при покупке зависит от 
-  того, установлена ли на нее скидка в настоящий момент.
+  The games themselves (GAME) have their own genre and price. The purchase price of the game depends on 
+whether a discount is currently set for it.
     
-  У каждого Developer'а есть свой рейтинг (стартовая разная), в дальнейшем может только уве-
-личиваться. Увеличение репутации на 1 пункт происходит за счет покупки игры разработчика.
+  Each Developer has its own rating (starting different), in the future it can only increase
+personalize. An increase in reputation by 1 point is due to the purchase of the developer's game.
   
-## База данных
+## database
   postgreSQL
   ![db](https://user-images.githubusercontent.com/74912074/146962556-09fa3f53-3aad-4e06-ac38-63aa9d5cd1ba.png)
 
-## Технологии, библиотеги и паттерны проектирования:
+## Technologies, libraries and design patterns:
   а) Command
   б) DAO
   в) Singleton
@@ -45,5 +38,5 @@
   л) TestNG
   м) Log4J2
   
-## Аналоги:
+## Analogues:
   Steam, Epic games store, Origin
